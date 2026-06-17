@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+
   "headers": [
     {
       "source": "/(.*)",
@@ -11,15 +12,39 @@
       ]
     }
   ],
+
+  "redirects": [
+    {
+      "source": "/script.js",
+      "destination": "https://discord.gg/2ntPVF28bF",
+      "permanent": false
+    },
+    {
+      "source": "/style.css",
+      "destination": "https://discord.gg/2ntPVF28bF",
+      "permanent": false
+    },
+    {
+      "source": "/server.js",
+      "destination": "https://discord.gg/2ntPVF28bF",
+      "permanent": false
+    },
+    {
+      "source": "/config.js",
+      "destination": "https://discord.gg/2ntPVF28bF",
+      "permanent": false
+    }
+  ],
+
   "rewrites": [
-    { "source": "index",         "destination": "/index.html" },
+    { "source": "/index", "destination": "/index.html" },
     { "source": "/commands", "destination": "/commands.html" },
-    { "source": "/premium",  "destination": "/premium.html" },
-    { "source": "/privacy",  "destination": "/privacy.html" },
-    { "source": "/terms",    "destination": "/terms.html" },
-    { "source": "/updates",  "destination": "/updates.html" },
-    { "source": "/discord",  "destination": "/discord.html" },
-    { "source": "/invite",   "destination": "/invite.html" },
-    { "source": "/vote",     "destination": "/vote.html" }
+    { "source": "/premium", "destination": "/premium.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/updates", "destination": "/updates.html" },
+    { "source": "/discord", "destination": "/discord.html" },
+    { "source": "/invite", "destination": "/invite.html" },
+    { "source": "/vote", "destination": "/vote.html" }
   ]
 }
