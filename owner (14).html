@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Owner Panel — AIMO Music</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <link rel="icon" type="image/webp" href="/logo.webp"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div class="owner-lock" id="ownerLock">
+  <div class="owner-lock-card">
+    <div class="lock-icon"><i class="fas fa-shield-halved"></i></div>
+    <h2>Owner <span class="gradient-text">Panel</span></h2>
+    <p>Restricted to the bot owner. Enter your access code to continue.</p>
+    <form id="ownerForm">
+      <input type="password" class="pin-input" id="pinInput" maxlength="10"
+        placeholder="Enter code" autocomplete="off" autofocus/>
+      <p class="pin-error" id="pinError"></p>
+      <button type="submit" class="pin-btn">
+        <i class="fas fa-unlock"></i> Unlock Panel
+      </button>
+    </form>
+    <p style="margin-top:18px;font-size:.78rem;color:var(--text-light)">
+      <a href="/" style="color:var(--purple)"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="owner-dashboard" id="ownerDash">
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="/"><img src="/logo.webp" alt="AIMO" loading="eager" onerror="this.style.display='none'"/><span>AIMO</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="/commands">Commands</a>
+        <a href="/premium">Premium</a>
+        <a href="/updates"><i class="fas fa-bullhorn"></i> Updates</a>
+        <a href="/discord"><i class="fab fa-discord"></i> Discord</a>
+      </div>
+      <button id="ownerLogout" class="btn btn-outline" style="font-size:.8rem;padding:8px 16px;border-radius:100px;margin-left:8px;color:#ef4444;border-color:#fecaca">
+        <i class="fas fa-right-from-bracket"></i> Logout
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="owner-header">
+    <div style="width:60px;height:60px;border-radius:18px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 14px;box-shadow:0 4px 18px rgba(0,0,0,.15)">
+      <i class="fas fa-shield-halved"></i>
+    </div>
+    <h1>Owner Panel</h1>
+    <p>Welcome back. Full control at your fingertips.</p>
+  </div>
+
+  <div class="owner-body">
+
+    <!-- Quick stats -->
+    <div class="owner-grid">
+      <div class="owner-stat-card">
+        <div style="font-size:1.4rem;margin-bottom:10px;color:var(--purple)"><i class="fas fa-terminal"></i></div>
+        <div class="num">59</div>
+        <div class="lbl">Total Commands</div>
+      </div>
+      <div class="owner-stat-card">
+        <div style="font-size:1.4rem;margin-bottom:10px;color:var(--purple)"><i class="fas fa-layer-group"></i></div>
+        <div class="num">8</div>
+        <div class="lbl">Categories</div>
+      </div>
+      <div class="owner-stat-card">
+        <div style="font-size:1.4rem;margin-bottom:10px;color:var(--purple)"><i class="fas fa-tag"></i></div>
+        <div class="num">v2.1</div>
+        <div class="lbl">Current Version</div>
+      </div>
+    </div>
+
+    <!-- Bot info -->
+    <div class="owner-section">
+      <h3><i class="fas fa-robot" style="color:var(--purple)"></i> Bot Information</h3>
+      <ul class="info-list">
+        <li><strong>Bot Name</strong><span>AIMO Music</span></li>
+        <li><strong>Current Version</strong><span>v2.1 · 5 June 2026</span></li>
+        <li><strong>Client ID</strong><span>1466757680311042060</span></li>
+        <li><strong>Top.gg ID</strong><span>1483826024520089710</span></li>
+        <li><strong>Support Server</strong><span>discord.gg/6jS5xDEZd</span></li>
+        <li><strong>Contact Email</strong><span>aimo-bot@protone.me</span></li>
+        <li><strong>Total Commands</strong><span>59 slash commands</span></li>
+        <li><strong>AI Engine</strong><span>GPT-4o via OpenRouter</span></li>
+        <li><strong>Music Engine</strong><span>LavaLink</span></li>
+        <li><strong>Lyrics API</strong><span>Genius API</span></li>
+      </ul>
+    </div>
+
+    <!-- Website Pages -->
+    <div class="owner-section">
+      <h3><i class="fas fa-globe" style="color:var(--purple)"></i> Website Pages</h3>
+      <div class="owner-links">
+        <a class="owner-link-btn" href="/"><i class="fas fa-house"></i> Home</a>
+        <a class="owner-link-btn" href="/commands"><i class="fas fa-terminal"></i> Commands</a>
+        <a class="owner-link-btn" href="/premium"><i class="fas fa-crown"></i> Premium</a>
+        <a class="owner-link-btn" href="/updates"><i class="fas fa-bullhorn"></i> Updates</a>
+        <a class="owner-link-btn" href="/discord"><i class="fab fa-discord"></i> Discord</a>
+        <a class="owner-link-btn" href="/privacy"><i class="fas fa-lock"></i> Privacy</a>
+        <a class="owner-link-btn" href="/terms"><i class="fas fa-file-lines"></i> Terms</a>
+        <a class="owner-link-btn" href="/owner"><i class="fas fa-shield-halved"></i> Owner</a>
+        <a class="owner-link-btn" href="/invite" target="_blank" rel="noopener"><i class="fas fa-plus"></i> Invite</a>
+        <a class="owner-link-btn" href="/vote" target="_blank" rel="noopener"><i class="fas fa-star"></i> Vote</a>
+      </div>
+    </div>
+
+    <!-- Website Files — with download buttons -->
+    <div class="owner-section">
+      <h3><i class="fas fa-folder-open" style="color:var(--purple)"></i> Website Files — Download</h3>
+      <ul class="info-list">
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> index.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Main landing page</span>
+            <a class="owner-dl-btn" href="/index.html" download="index.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> commands.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">All 59 slash commands</span>
+            <a class="owner-dl-btn" href="/commands.html" download="commands.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> premium.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Premium plans &amp; features</span>
+            <a class="owner-dl-btn" href="/premium.html" download="premium.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> updates.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Bot changelog &amp; history</span>
+            <a class="owner-dl-btn" href="/updates.html" download="updates.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> discord.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Discord redirect page</span>
+            <a class="owner-dl-btn" href="/discord.html" download="discord.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> owner.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">This panel (protected)</span>
+            <a class="owner-dl-btn" href="/owner.html" download="owner.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> privacy.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Privacy policy</span>
+            <a class="owner-dl-btn" href="/privacy.html" download="privacy.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:var(--purple)"></i> terms.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Terms of service</span>
+            <a class="owner-dl-btn" href="/terms.html" download="terms.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:#3b82f6"></i> style.css</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Global stylesheet</span>
+            <a class="owner-dl-btn" href="/style.css" download="style.css">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:#f59e0b"></i> script.js</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Global scripts</span>
+            <a class="owner-dl-btn" href="/script.js" download="script.js">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fab fa-node-js" style="color:#22c55e"></i> server.js</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Express web server</span>
+            <a class="owner-dl-btn" href="/server.js" download="server.js">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:#5865f2"></i> invite.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Bot invite redirect page</span>
+            <a class="owner-dl-btn" href="/invite.html" download="invite.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-file-code" style="color:#f59e0b"></i> vote.html</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Top.gg vote redirect page</span>
+            <a class="owner-dl-btn" href="/vote.html" download="vote.html">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fab fa-js" style="color:#f0db4f"></i> cookie.js</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Cookie consent banner</span>
+            <a class="owner-dl-btn" href="/cookie.js" download="cookie.js">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+        <li>
+          <strong><i class="fas fa-image" style="color:var(--pink)"></i> logo.webp</strong>
+          <span style="display:flex;align-items:center;gap:10px">
+            <span style="color:var(--text-muted)">Bot logo image</span>
+            <a class="owner-dl-btn" href="/logo.webp" download="logo.webp">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Backup / Copy Files -->
+    <div class="owner-section">
+      <h3><i class="fas fa-copy" style="color:#94a3b8"></i> Backup Files (Auto-saved copies)</h3>
+      <div class="owner-links" style="flex-wrap:wrap;">
+        <a class="owner-link-btn" href="/commands%20(15).html" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> commands (15).html
+        </a>
+        <a class="owner-link-btn" href="/Copy%20of%20index%20(20).html" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> Copy of index (20).html
+        </a>
+        <a class="owner-link-btn" href="/Copy%20of%20script%20(10).js" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> Copy of script (10).js
+        </a>
+        <a class="owner-link-btn" href="/Copy%20of%20style%20(12).css" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> Copy of style (12).css
+        </a>
+        <a class="owner-link-btn" href="/Copy%20of%20terms%20(1).html" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> Copy of terms (1).html
+        </a>
+        <a class="owner-link-btn" href="/discord%20(1).html" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> discord (1).html
+        </a>
+        <a class="owner-link-btn" href="/owner%20(13).html" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> owner (13).html
+        </a>
+        <a class="owner-link-btn" href="/premium%20(5).html" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> premium (5).html
+        </a>
+        <a class="owner-link-btn" href="/privacy%20(31).html" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> privacy (31).html
+        </a>
+        <a class="owner-link-btn" href="/server%20(24).js" download style="font-size:.78rem;opacity:.75;">
+          <i class="fas fa-file-code"></i> server (24).js
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="owner-section">
+      <h3><i class="fas fa-link" style="color:var(--purple)"></i> Quick Links</h3>
+      <div class="owner-links">
+        <a class="owner-link-btn" href="https://discord.com/developers/applications/1466757680311042060" target="_blank" rel="noopener">
+          <i class="fab fa-discord"></i> Dev Portal
+        </a>
+        <a class="owner-link-btn" href="https://top.gg/bot/1483826024520089710/edit" target="_blank" rel="noopener">
+          <i class="fas fa-star"></i> Top.gg Dashboard
+        </a>
+        <a class="owner-link-btn" href="https://discord.gg/6jS5xDEZd" target="_blank" rel="noopener">
+          <i class="fab fa-discord"></i> Support Server
+        </a>
+        <a class="owner-link-btn" href="mailto:aimo-bot@protone.me">
+          <i class="fas fa-envelope"></i> Email
+        </a>
+        <a class="owner-link-btn" href="https://openrouter.ai" target="_blank" rel="noopener">
+          <i class="fas fa-robot"></i> OpenRouter
+        </a>
+        <a class="owner-link-btn" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+          <i class="fa fa-plus"></i> Invite Link
+        </a>
+      </div>
+    </div>
+
+    <!-- Command summary -->
+    <div class="owner-section">
+      <h3><i class="fas fa-terminal" style="color:var(--purple)"></i> Command Summary</h3>
+      <ul class="info-list">
+        <li><strong><i class="fas fa-music" style="color:var(--purple)"></i> Music Playback</strong><span class="owner-badge">13 commands</span></li>
+        <li><strong><i class="fas fa-wrench" style="color:#3b82f6"></i> Utility</strong><span class="owner-badge">12 commands</span></li>
+        <li><strong><i class="fas fa-list" style="color:#f59e0b"></i> Queue Management</strong><span class="owner-badge">5 commands</span></li>
+        <li><strong><i class="fas fa-heart" style="color:#ec4899"></i> Favourites</strong><span class="owner-badge">4 commands</span></li>
+        <li><strong><i class="fas fa-compact-disc" style="color:#22c55e"></i> Playlists</strong><span class="owner-badge">12 commands</span></li>
+        <li><strong><i class="fas fa-sliders" style="color:#8b5cf6"></i> Settings &amp; Filters</strong><span class="owner-badge">10 commands</span></li>
+        <li><strong><i class="fas fa-circle-info" style="color:#06b6d4"></i> Information</strong><span class="owner-badge">6 commands</span></li>
+        <li><strong><i class="fas fa-gamepad" style="color:#f59e0b"></i> Games</strong><span class="owner-badge">6 commands</span></li>
+        <li style="border-top:2px solid var(--border);margin-top:4px;padding-top:12px">
+          <strong style="font-size:1rem">TOTAL</strong>
+          <span style="font-weight:800;color:var(--purple);font-family:'Poppins',sans-serif;font-size:1rem">59 Commands</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Features status -->
+    <div class="owner-section">
+      <h3><i class="fas fa-circle-check" style="color:var(--purple)"></i> Features Status</h3>
+      <ul class="info-list">
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Music System</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Queue System</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Playlist System</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Favourites System</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> AI Chat (/ask)</strong><span style="color:#16a34a;font-weight:600">Active — GPT-4o</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Lyrics Support</strong><span style="color:#16a34a;font-weight:600">Active — Genius API</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Weather &amp; Wikipedia</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Audio Filters</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> 24/7 Mode</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Mini Games (6)</strong><span style="color:#16a34a;font-weight:600">Active</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> Premium Effects</strong><span style="color:#16a34a;font-weight:600">Active — Manual Grant</span></li>
+        <li><strong><i class="fas fa-circle" style="color:#22c55e;font-size:.5rem"></i> /updates Command</strong><span style="color:#16a34a;font-weight:600">Active — v2.1</span></li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;padding:20px 0 48px">
+      <button onclick="document.getElementById('ownerLogout').click()" class="btn btn-outline" style="color:#ef4444;border-color:#fecaca">
+        <i class="fas fa-right-from-bracket"></i> Logout of Owner Panel
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="/script.js"></script>
+<script src="/cookie.js"></script>
+<script src="https://replit-cdn.com/replit-pill/replit-pill.global.js" data-repl-id="53ff92d1-32a6-4356-bb82-da2f1f7f24bb"></script></body>
+</html>
