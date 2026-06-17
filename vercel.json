@@ -15,12 +15,12 @@
 
   "redirects": [
     {
-      "source": "/server.js",
+      "source": "/:file*.js",
       "destination": "https://discord.gg/2ntPVF28bF",
       "permanent": false
     },
     {
-      "source": "/config.js",
+      "source": "/:file*.css",
       "destination": "https://discord.gg/2ntPVF28bF",
       "permanent": false
     }
