@@ -1,1 +1,25 @@
-
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/",         "destination": "/index.html" },
+    { "source": "/commands", "destination": "/commands.html" },
+    { "source": "/premium",  "destination": "/premium.html" },
+    { "source": "/privacy",  "destination": "/privacy.html" },
+    { "source": "/terms",    "destination": "/terms.html" },
+    { "source": "/updates",  "destination": "/updates.html" },
+    { "source": "/discord",  "destination": "/discord.html" },
+    { "source": "/invite",   "destination": "/invite.html" },
+    { "source": "/vote",     "destination": "/vote.html" }
+  ]
+}
