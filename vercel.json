@@ -15,16 +15,6 @@
 
   "redirects": [
     {
-      "source": "/script.js",
-      "destination": "https://discord.gg/2ntPVF28bF",
-      "permanent": false
-    },
-    {
-      "source": "/style.css",
-      "destination": "https://discord.gg/2ntPVF28bF",
-      "permanent": false
-    },
-    {
       "source": "/server.js",
       "destination": "https://discord.gg/2ntPVF28bF",
       "permanent": false
