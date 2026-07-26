@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Commands — AIMO Music Bot</title>
+  <meta name="description" content="Browse all slash commands available in AIMO Music Bot. Music, playlists, AI chat, filters, utility and more."/>
+  <link rel="icon" type="image/webp" href="/logo.webp"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+    /* ── Extra badges ── */
+    .cmd-badge.badge-admin {
+      background: linear-gradient(135deg,#6366f1,#8b5cf6);
+      color:#fff; font-size:.6rem; font-weight:700;
+      padding:2px 8px; border-radius:100px;
+      font-family:'Poppins',sans-serif; margin-left:5px;
+    }
+    .cmd-badge.badge-new {
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      color:#fff; font-size:.6rem; font-weight:700;
+      padding:2px 8px; border-radius:100px;
+      font-family:'Poppins',sans-serif; margin-left:5px;
+    }
+    /* Category count badge update */
+    .cmd-category-header { position: relative; }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/"><img src="/logo.webp" alt="AIMO" loading="eager" onerror="this.style.display='none'"/><span>AIMO</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/features">Features</a>
+      <a href="/commands" class="active">Commands</a>
+      <a href="/premium">Premium</a>
+      <a href="/status"><i class="fas fa-signal"></i> Status</a>
+      <a class="nav-cta-mobile" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">+ Invite AIMO</a>
+    </div>
+    <a class="nav-cta ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Invite AIMO
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div style="width:72px;height:72px;border-radius:22px;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.8rem;margin:0 auto 20px;box-shadow:0 8px 32px rgba(124,58,237,.3);">
+      <i class="fas fa-terminal"></i>
+    </div>
+    <h1>AIMO <span class="gradient-text">Commands</span></h1>
+    <p>55 slash commands across 7 categories — music, playlists, filters, AI, utility and more.</p>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px;">
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,.08);color:var(--purple);border:1px solid rgba(124,58,237,.18);border-radius:100px;padding:6px 16px;font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:700;"><i class="fas fa-music"></i> Music</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(236,72,153,.08);color:#db2777;border:1px solid rgba(236,72,153,.2);border-radius:100px;padding:6px 16px;font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:700;"><i class="fas fa-compact-disc"></i> Playlists</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.08);color:#2563eb;border:1px solid rgba(59,130,246,.2);border-radius:100px;padding:6px 16px;font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:700;"><i class="fas fa-robot"></i> AI</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.08);color:#d97706;border:1px solid rgba(245,158,11,.2);border-radius:100px;padding:6px 16px;font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:700;"><i class="fas fa-star"></i> Premium</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Search -->
+    <div class="cmd-search-wrap">
+      <i class="fas fa-search cmd-search-icon"></i>
+      <input id="cmdSearch" class="cmd-search" type="text" placeholder="Search commands…" autocomplete="off"/>
+    </div>
+    <!-- Filters -->
+    <div class="cmd-filters">
+      <button class="cmd-filter active" data-filter="all"><i class="fas fa-border-all"></i> All (55)</button>
+      <button class="cmd-filter" data-filter="music"><i class="fas fa-music"></i> Music</button>
+      <button class="cmd-filter" data-filter="filter"><i class="fas fa-sliders-h"></i> Filters</button>
+      <button class="cmd-filter" data-filter="playlist"><i class="fas fa-compact-disc"></i> Playlists</button>
+      <button class="cmd-filter" data-filter="favourites"><i class="fas fa-heart"></i> Favourites</button>
+      <button class="cmd-filter" data-filter="customize"><i class="fas fa-palette"></i> Customize</button>
+      <button class="cmd-filter" data-filter="ai"><i class="fas fa-robot"></i> AI</button>
+      <button class="cmd-filter" data-filter="utility"><i class="fas fa-wrench"></i> Utility</button>
+    </div>
+
+    <!-- ── MUSIC PLAYBACK ── -->
+    <div class="cmd-category" id="cat-music">
+      <div class="cmd-category-header">
+        <div class="cmd-category-icon"><i class="fas fa-music"></i></div>
+        <h3>Music Playback</h3>
+        <span class="cmd-count">13 commands</span>
+      </div>
+      <div class="cmd-grid">
+        <div class="cmd-card" data-name="/play" data-desc="Play a song or playlist from YouTube, Spotify, SoundCloud and more." data-category="music">
+          <div class="cmd-name"><code>/play</code></div>
+          <div class="cmd-desc">Play a song or playlist from YouTube, Spotify, SoundCloud and more.</div>
+        </div>
+        <div class="cmd-card" data-name="/search" data-desc="Search for a song and pick from the results list." data-category="music">
+          <div class="cmd-name"><code>/search</code></div>
+          <div class="cmd-desc">Search for a song and pick from the results list.</div>
+        </div>
+        <div class="cmd-card" data-name="/pause" data-desc="Pause the currently playing track." data-category="music">
+          <div class="cmd-name"><code>/pause</code></div>
+          <div class="cmd-desc">Pause the currently playing track.</div>
+        </div>
+        <div class="cmd-card" data-name="/resume" data-desc="Resume a paused track." data-category="music">
+          <div class="cmd-name"><code>/resume</code></div>
+          <div class="cmd-desc">Resume a paused track.</div>
+        </div>
+        <div class="cmd-card" data-name="/skip" data-desc="Skip the current track and play the next one in the queue." data-category="music">
+          <div class="cmd-name"><code>/skip</code></div>
+          <div class="cmd-desc">Skip the current track and play the next one in the queue.</div>
+        </div>
+        <div class="cmd-card" data-name="/back" data-desc="Play the previous song." data-category="music">
+          <div class="cmd-name"><code>/back</code></div>
+          <div class="cmd-desc">Play the previous song.</div>
+        </div>
+        <div class="cmd-card" data-name="/stop" data-desc="Stop music and clear the queue." data-category="music">
+          <div class="cmd-name"><code>/stop</code></div>
+          <div class="cmd-desc">Stop music and clear the queue.</div>
+        </div>
+        <div class="cmd-card" data-name="/disconnect" data-desc="Disconnect AIMO from the voice channel." data-category="music">
+          <div class="cmd-name"><code>/disconnect</code></div>
+          <div class="cmd-desc">Disconnect AIMO from the voice channel.</div>
+        </div>
+        <div class="cmd-card" data-name="/nowplaying" data-desc="Show the currently playing song with full track details." data-category="music">
+          <div class="cmd-name"><code>/nowplaying</code></div>
+          <div class="cmd-desc">Show the currently playing song with full track details.</div>
+        </div>
+        <div class="cmd-card" data-name="/forward" data-desc="Skip forward in the current track." data-category="music">
+          <div class="cmd-name"><code>/forward</code> <span class="cmd-badge badge-new">New</span></div>
+          <div class="cmd-desc">Skip forward in the current track.</div>
+        </div>
+        <div class="cmd-card" data-name="/backward" data-desc="Rewind the current track." data-category="music">
+          <div class="cmd-name"><code>/backward</code> <span class="cmd-badge badge-new">New</span></div>
+          <div class="cmd-desc">Rewind the current track.</div>
+        </div>
+        <div class="cmd-card" data-name="/247" data-desc="Keep AIMO in your voice channel 24/7 even when idle." data-category="music">
+          <div class="cmd-name"><code>/247</code></div>
+          <div class="cmd-desc">Keep AIMO in your voice channel 24/7 even when idle.</div>
+        </div>
+        <div class="cmd-card" data-name="/vcstatus" data-desc="Display the current voice channel status." data-category="music">
+          <div class="cmd-name"><code>/vcstatus</code> <span class="cmd-badge badge-new">New</span></div>
+          <div class="cmd-desc">Display the current voice channel status.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SETTINGS & FILTERS ── -->
+    <div class="cmd-category" id="cat-filter">
+      <div class="cmd-category-header">
+        <div class="cmd-category-icon"><i class="fas fa-sliders-h"></i></div>
+        <h3>Settings &amp; Filters</h3>
+        <span class="cmd-count">11 commands</span>
+      </div>
+      <div class="cmd-grid">
+        <div class="cmd-card" data-name="/filter" data-desc="Apply one of 10+ audio filters — bassboost, vaporwave, 8D, and more." data-category="filter">
+          <div class="cmd-name"><code>/filter</code></div>
+          <div class="cmd-desc">Apply one of 10+ audio filters: bassboost, vaporwave, 8D, karaoke, and more.</div>
+        </div>
+        <div class="cmd-card" data-name="/loop" data-desc="Set repeat mode — track, queue, or off." data-category="filter">
+          <div class="cmd-name"><code>/loop</code></div>
+          <div class="cmd-desc">Set repeat mode — track, queue, or off.</div>
+        </div>
+        <div class="cmd-card" data-name="/autoplay" data-desc="Toggle autoplay — keeps music going after the queue ends." data-category="filter">
+          <div class="cmd-name"><code>/autoplay</code></div>
+          <div class="cmd-desc">Toggle autoplay — keeps music going after the queue ends.</div>
+        </div>
+        <div class="cmd-card" data-name="/volume" data-desc="Set the playback volume (0–100)." data-category="filter">
+          <div class="cmd-name"><code>/volume</code></div>
+          <div class="cmd-desc">Set the playback volume (0–100).</div>
+        </div>
+        <div class="cmd-card" data-name="/seek" data-desc="Jump to a specific timestamp in the current track." data-category="filter">
+          <div class="cmd-name"><code>/seek</code></div>
+          <div class="cmd-desc">Jump to a specific timestamp in the current track.</div>
+        </div>
+        <div class="cmd-card" data-name="/source" data-desc="Choose your preferred search source." data-category="filter">
+          <div class="cmd-name"><code>/source</code> <span class="cmd-badge badge-new">New</span></div>
+          <div class="cmd-desc">Choose your preferred search source (YouTube, SoundCloud, etc.).</div>
+        </div>
+        <div class="cmd-card" data-name="/speed" data-desc="Premium: Change playback speed from 0.5× to 3×." data-category="filter">
+          <div class="cmd-name"><code>/speed</code> <span class="cmd-badge badge-premium">⭐ Premium</span></div>
+          <div class="cmd-desc">Change playback speed from 0.5× to 3× without affecting pitch.</div>
+        </div>
+        <div class="cmd-card" data-name="/boost" data-desc="Premium: Apply an advanced deep bass boost effect." data-category="filter">
+          <div class="cmd-name"><code>/boost</code> <span class="cmd-badge badge-premium">⭐ Premium</span></div>
+          <div class="cmd-desc">Apply a deep, powerful bass boost far beyond the standard filter options.</div>
+        </div>
+        <div class="cmd-card" data-name="/reverb" data-desc="Premium: Add concert-hall reverb and echo to any track." data-category="filter">
+          <div class="cmd-name"><code>/reverb</code> <span class="cmd-badge badge-premium">⭐ Premium</span></div>
+          <div class="cmd-desc">Add a cinematic concert-hall reverb and echo effect.</div>
+        </div>
+        <div class="cmd-card" data-name="/stereo" data-desc="Premium: Widen the stereo field for a spatial soundstage." data-category="filter">
+          <div class="cmd-name"><code>/stereo</code> <span class="cmd-badge badge-premium">⭐ Premium</span></div>
+          <div class="cmd-desc">Expand the stereo field for a wider, spatial soundstage experience.</div>
+        </div>
+        <div class="cmd-card" data-name="/nightcore" data-desc="Premium: Enable the classic Nightcore effect." data-category="filter">
+          <div class="cmd-name"><code>/nightcore</code> <span class="cmd-badge badge-premium">⭐ Premium</span></div>
+          <div class="cmd-desc">Enable the classic Nightcore effect — sped-up tempo and raised pitch.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FAVOURITES ── -->
+    <div class="cmd-category" id="cat-fav">
+      <div class="cmd-category-header">
+        <div class="cmd-category-icon"><i class="fas fa-heart"></i></div>
+        <h3>Favourites</h3>
+        <span class="cmd-count">4 commands</span>
+      </div>
+      <div class="cmd-grid">
+        <div class="cmd-card" data-name="/favorite-add" data-desc="Add the currently playing song to your favourites." data-category="favourites">
+          <div class="cmd-name"><code>/favorite-add</code></div>
+          <div class="cmd-desc">Add the currently playing song to your favourites.</div>
+        </div>
+        <div class="cmd-card" data-name="/favorite-list" data-desc="Show all your favourite songs." data-category="favourites">
+          <div class="cmd-name"><code>/favorite-list</code></div>
+          <div class="cmd-desc">Show all your favourite songs.</div>
+        </div>
+        <div class="cmd-card" data-name="/favorite-play" data-desc="Play all songs from your favourites list." data-category="favourites">
+          <div class="cmd-name"><code>/favorite-play</code></div>
+          <div class="cmd-desc">Play all songs from your favourites list.</div>
+        </div>
+        <div class="cmd-card" data-name="/favorite-remove" data-desc="Remove a song from your favourites." data-category="favourites">
+          <div class="cmd-name"><code>/favorite-remove</code></div>
+          <div class="cmd-desc">Remove a song from your favourites.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PLAYLISTS ── -->
+    <div class="cmd-category" id="cat-playlist">
+      <div class="cmd-category-header">
+        <div class="cmd-category-icon"><i class="fas fa-compact-disc"></i></div>
+        <h3>Playlists</h3>
+        <span class="cmd-count">12 commands</span>
+      </div>
+      <div class="cmd-grid">
+        <div class="cmd-card" data-name="/playlist-create" data-desc="Create a new empty playlist." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-create</code></div>
+          <div class="cmd-desc">Create a new empty playlist.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-save" data-desc="Save the current queue as a playlist." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-save</code></div>
+          <div class="cmd-desc">Save the current queue as a playlist.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-load" data-desc="Clear the queue and load a playlist." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-load</code></div>
+          <div class="cmd-desc">Clear the queue and load a saved playlist.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-append" data-desc="Add songs from a playlist to the current queue." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-append</code></div>
+          <div class="cmd-desc">Add songs from a playlist to the current queue without replacing it.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-list" data-desc="Show all of your saved playlists." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-list</code></div>
+          <div class="cmd-desc">Show all of your saved playlists.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-delete" data-desc="Delete one of your playlists." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-delete</code></div>
+          <div class="cmd-desc">Delete one of your playlists permanently.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-rename" data-desc="Rename one of your playlists." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-rename</code></div>
+          <div class="cmd-desc">Rename one of your playlists.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-share" data-desc="Share a playlist with others via a share code." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-share</code></div>
+          <div class="cmd-desc">Share a playlist with others via a share code.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-import" data-desc="Import a playlist from a share code." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-import</code></div>
+          <div class="cmd-desc">Import a playlist from a share code.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-track-add" data-desc="Add a single song to one of your playlists." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-track-add</code></div>
+          <div class="cmd-desc">Add a single song to one of your playlists.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-track-list" data-desc="Show the list of tracks in a playlist." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-track-list</code></div>
+          <div class="cmd-desc">Show all the tracks inside one of your playlists.</div>
+        </div>
+        <div class="cmd-card" data-name="/playlist-track-remove" data-desc="Remove a track from one of your playlists." data-category="playlist">
+          <div class="cmd-name"><code>/playlist-track-remove</code></div>
+          <div class="cmd-desc">Remove a specific track from one of your playlists.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CUSTOMIZE ── -->
+    <div class="cmd-category" id="cat-customize">
+      <div class="cmd-category-header">
+        <div class="cmd-category-icon" style="background:rgba(99,102,241,.12);color:#6366f1"><i class="fas fa-palette"></i></div>
+        <h3>Customize</h3>
+        <span class="cmd-count">1 command</span>
+      </div>
+      <div class="cmd-grid">
+        <div class="cmd-card" data-name="/customize" data-desc="Admin: Change AIMO's avatar, banner and nickname for this server." data-category="customize">
+          <div class="cmd-name"><code>/customize</code> <span class="cmd-badge badge-new">New</span> <span class="cmd-badge badge-admin">🛡️ Admin</span></div>
+          <div class="cmd-desc">Change AIMO's avatar, banner and nickname for this server. Admin only.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AI ASSISTANT ── -->
+    <div class="cmd-category" id="cat-ai">
+      <div class="cmd-category-header">
+        <div class="cmd-category-icon"><i class="fas fa-robot"></i></div>
+        <h3>AI Assistant</h3>
+        <span class="cmd-count">1 command</span>
+      </div>
+      <div class="cmd-grid">
+        <div class="cmd-card" data-name="/ask" data-desc="Chat with AIMO AI — ask anything, conversation history is kept per user." data-category="ai">
+          <div class="cmd-name"><code>/ask</code></div>
+          <div class="cmd-desc">Chat with AIMO AI using GPT-4o. Ask anything — conversation history is remembered per user.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── UTILITY ── -->
+    <div class="cmd-category" id="cat-utility">
+      <div class="cmd-category-header">
+        <div class="cmd-category-icon"><i class="fas fa-wrench"></i></div>
+        <h3>Utility</h3>
+        <span class="cmd-count">13 commands</span>
+      </div>
+      <div class="cmd-grid">
+        <div class="cmd-card" data-name="/language" data-desc="Set your preferred language for bot responses." data-category="utility">
+          <div class="cmd-name"><code>/language</code></div>
+          <div class="cmd-desc">Set your preferred language for bot responses. Supports 15+ languages.</div>
+        </div>
+        <div class="cmd-card" data-name="/avatar" data-desc="Get the full-size avatar of a user." data-category="utility">
+          <div class="cmd-name"><code>/avatar</code></div>
+          <div class="cmd-desc">Get the full-size avatar of yourself or any server member.</div>
+        </div>
+        <div class="cmd-card" data-name="/banner" data-desc="Get the Discord banner of a user." data-category="utility">
+          <div class="cmd-name"><code>/banner</code></div>
+          <div class="cmd-desc">Fetch the Discord banner image of yourself or another user.</div>
+        </div>
+        <div class="cmd-card" data-name="/uptime" data-desc="Check bot uptime." data-category="utility">
+          <div class="cmd-name"><code>/uptime</code></div>
+          <div class="cmd-desc">Check how long AIMO has been online and running.</div>
+        </div>
+        <div class="cmd-card" data-name="/invite" data-desc="Get the invite link for AIMO." data-category="utility">
+          <div class="cmd-name"><code>/invite</code></div>
+          <div class="cmd-desc">Get the invite link to add AIMO to another server.</div>
+        </div>
+        <div class="cmd-card" data-name="/vote" data-desc="Vote for AIMO on top.gg." data-category="utility">
+          <div class="cmd-name"><code>/vote</code></div>
+          <div class="cmd-desc">Vote for AIMO on top.gg and support the project.</div>
+        </div>
+        <div class="cmd-card" data-name="/ping" data-desc="Check AIMO's current latency and API response time." data-category="utility">
+          <div class="cmd-name"><code>/ping</code></div>
+          <div class="cmd-desc">Check AIMO's current latency and Discord API response time.</div>
+        </div>
+        <div class="cmd-card" data-name="/weather" data-desc="Get weather information for any city." data-category="utility">
+          <div class="cmd-name"><code>/weather</code></div>
+          <div class="cmd-desc">Get current weather information for any city in the world.</div>
+        </div>
+        <div class="cmd-card" data-name="/quote" data-desc="Get an inspiring or funny quote." data-category="utility">
+          <div class="cmd-name"><code>/quote</code></div>
+          <div class="cmd-desc">Get a random inspirational or funny quote.</div>
+        </div>
+        <div class="cmd-card" data-name="/wikipedia" data-desc="Search Wikipedia for any topic." data-category="utility">
+          <div class="cmd-name"><code>/wikipedia</code></div>
+          <div class="cmd-desc">Search Wikipedia and get an instant summary of any topic.</div>
+        </div>
+        <div class="cmd-card" data-name="/stats" data-desc="Show bot statistics and information." data-category="utility">
+          <div class="cmd-name"><code>/stats</code></div>
+          <div class="cmd-desc">Show bot statistics and information — servers, users, uptime.</div>
+        </div>
+        <div class="cmd-card" data-name="/lyrics" data-desc="Show lyrics of the currently playing song." data-category="utility">
+          <div class="cmd-name"><code>/lyrics</code></div>
+          <div class="cmd-desc">Show lyrics for the currently playing song. Powered by Genius.</div>
+        </div>
+        <div class="cmd-card" data-name="/help" data-desc="Show the full help menu." data-category="utility">
+          <div class="cmd-name"><code>/help</code></div>
+          <div class="cmd-desc">Show the full help menu with all available commands.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box reveal" style="margin-top:60px">
+      <div class="cta-icon-wrap"><img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='<svg width=32 height=32 viewBox=\'0 0 24 24\' fill=\'white\'><path d=\'M9 18V5l12-2v13\'/></svg>'"/></div>
+      <h3>Ready to use these <span class="gradient-text">Commands?</span></h3>
+      <p>Add AIMO to your server for free. No configuration needed — just invite and play.</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add AIMO Free
+        </a>
+        <a class="btn btn-outline ripple-host" href="/premium">
+          <i class="fas fa-star"></i> View Premium
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-row"><img src="/logo.webp" alt="AIMO" loading="lazy" onerror="this.style.display='none'"/> AIMO</div>
+        <p>The ultimate Discord music bot with AI features, custom playlists, and advanced audio filters. Free forever.</p>
+        <div class="footer-social">
+          <a href="/support" title="Discord"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.112 18.1.128 18.116a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></a>
+          <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener" title="Vote"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></a>
+          <a href="mailto:aimo-bot@protone.me" title="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Navigate</h5><a href="/">Home</a><a href="/features">Features</a><a href="/commands">Commands</a><a href="/premium">Premium</a><a href="/status">Status</a><a href="/updates">Updates</a><a href="/support">Support</a><a href="/docs">Docs</a></div>
+      <div class="footer-col"><h5>Legal</h5><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+      <div class="footer-col"><h5>Links</h5>
+        <a href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">Invite Bot</a>
+        <a href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">Support Server</a>
+        <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener">Vote on Top.gg</a>
+        <a href="mailto:aimo-bot@protone.me">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 AIMO Music Bot. All rights reserved.</p><div class="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
+  </div>
+</footer>
+<script src="/config.js"></script>
+<script src="/script.js"></script>
+<script src="/cookie.js"></script>
+<script src="https://replit-cdn.com/replit-pill/replit-pill.global.js" data-repl-id="1758e52e-0298-4917-8340-8a7ee6592726"></script></body>
+</html>

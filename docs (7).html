@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Docs — AIMO Music Bot</title>
+  <meta name="description" content="AIMO Music Bot documentation — commands, features, setup, premium, and more."/>
+  <link rel="icon" type="image/webp" href="/logo.webp"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #ede9fe;
+      --purple-mid: rgba(124,58,237,.1);
+      --pink: #ec4899;
+      --grad: linear-gradient(135deg, #7c3aed, #ec4899);
+      --sidebar-w: 260px;
+      --topbar-h: 56px;
+      --text: #111827;
+      --text-2: #374151;
+      --text-3: #6b7280;
+      --text-4: #9ca3af;
+      --border: #e5e7eb;
+      --border-light: #f3f4f6;
+      --bg: #ffffff;
+      --sidebar-bg: #fafafa;
+      --code-bg: #f8f8f8;
+      --radius: 8px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    }
+    html { font-family: 'Inter', -apple-system, sans-serif; font-size: 15px; color: var(--text); background: var(--bg); }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Top bar ── */
+    .docs-topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-h);
+      background: rgba(255,255,255,.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px;
+      z-index: 200; gap: 16px;
+    }
+    .docs-logo {
+      display: flex; align-items: center; gap: 9px;
+      font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1rem;
+      color: var(--text); flex-shrink: 0; text-decoration: none;
+    }
+    .docs-logo img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .docs-logo-badge {
+      font-size: .6rem; font-weight: 700; background: var(--grad);
+      color: white; padding: 2px 7px; border-radius: 100px; margin-left: 2px;
+      font-family: 'Poppins', sans-serif; letter-spacing: .06em;
+    }
+    .docs-topbar-search {
+      flex: 1; max-width: 320px; margin-left: 8px;
+    }
+    .docs-search-input {
+      width: 100%; background: var(--border-light); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 8px 12px 8px 36px; font-size: .82rem;
+      color: var(--text-3); outline: none; font-family: 'Inter', sans-serif;
+      transition: border-color .2s, background .2s;
+      position: relative;
+    }
+    .docs-search-wrap { position: relative; }
+    .docs-search-icon {
+      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      color: var(--text-4); font-size: .75rem; pointer-events: none;
+    }
+    .docs-search-input:focus { border-color: var(--purple); background: #fff; color: var(--text); }
+    .docs-search-input::placeholder { color: var(--text-4); }
+    .docs-topbar-right {
+      margin-left: auto; display: flex; align-items: center; gap: 10px;
+    }
+    .docs-topbar-link {
+      display: flex; align-items: center; gap: 5px; font-size: .8rem;
+      color: var(--text-3); padding: 6px 10px; border-radius: 6px;
+      transition: background .15s, color .15s; font-weight: 500;
+    }
+    .docs-topbar-link:hover { background: var(--border-light); color: var(--text); }
+    .docs-topbar-link i { font-size: .75rem; }
+    @media (min-width: 901px) {
+      .docs-invite-btn { display: none; }
+    }
+    .docs-invite-btn {
+      background: var(--grad); color: white;
+      font-size: .8rem; font-weight: 700; padding: 7px 16px;
+      border-radius: 100px; font-family: 'Poppins', sans-serif;
+      transition: opacity .2s; letter-spacing: .02em; white-space: nowrap;
+    }
+    .docs-invite-btn:hover { opacity: .9; color: white; }
+    /* Mobile menu toggle */
+    .docs-menu-toggle {
+      display: none; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border: 1.5px solid var(--border); border-radius: 8px;
+      background: none; cursor: pointer; color: var(--text); flex-shrink: 0;
+    }
+
+    /* ── Layout ── */
+    .docs-layout {
+      display: flex; padding-top: var(--topbar-h);
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .docs-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      position: fixed; top: var(--topbar-h); left: 0; bottom: 0;
+      overflow-y: auto; overflow-x: hidden;
+      background: var(--sidebar-bg); border-right: 1px solid var(--border);
+      padding: 20px 12px 40px; z-index: 100;
+      scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    }
+    .docs-sidebar::-webkit-scrollbar { width: 4px; }
+    .docs-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .docs-nav-section { margin-bottom: 28px; }
+    .docs-nav-section-title {
+      font-size: .65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .12em; color: var(--text-4); margin-bottom: 6px;
+      padding: 0 8px;
+    }
+    .docs-nav-link {
+      display: flex; align-items: center; gap: 9px;
+      padding: 7px 10px; border-radius: 7px; font-size: .83rem;
+      color: var(--text-3); font-weight: 500; cursor: pointer;
+      transition: background .15s, color .15s;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .docs-nav-link:hover { background: var(--border-light); color: var(--text); }
+    .docs-nav-link.active {
+      background: var(--purple-light); color: var(--purple); font-weight: 600;
+    }
+    .docs-nav-link .nav-icon {
+      width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: .72rem;
+    }
+    .docs-nav-link.active .nav-icon { background: rgba(124,58,237,.15); color: var(--purple); }
+    .docs-nav-link:not(.active) .nav-icon { background: var(--border-light); color: var(--text-3); }
+    .docs-nav-link .nav-badge {
+      margin-left: auto; font-size: .6rem; font-weight: 700;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white;
+      padding: 1px 6px; border-radius: 100px; flex-shrink: 0;
+    }
+
+    /* ── Main content ── */
+    .docs-main {
+      margin-left: var(--sidebar-w); flex: 1; min-width: 0;
+      padding: 48px 64px 80px; max-width: 860px;
+    }
+    .docs-page { display: none; }
+    .docs-page.active { display: block; }
+
+    /* ── Content typography ── */
+    .docs-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--purple); background: var(--purple-light); padding: 5px 12px;
+      border-radius: 100px; margin-bottom: 16px; font-family: 'Poppins', sans-serif;
+    }
+    .docs-h1 {
+      font-family: 'Poppins', sans-serif; font-weight: 900;
+      font-size: 2.4rem; color: var(--text); margin-bottom: 16px; line-height: 1.15;
+      letter-spacing: -.025em;
+    }
+    .docs-h1 .grad {
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .docs-intro {
+      font-size: 1.02rem; color: var(--text-3); line-height: 1.75;
+      margin-bottom: 36px; max-width: 620px;
+    }
+    .docs-h2 {
+      font-family: 'Poppins', sans-serif; font-weight: 800;
+      font-size: 1.35rem; color: var(--text); margin: 40px 0 14px;
+      padding-bottom: 10px; border-bottom: 1.5px solid var(--border);
+      letter-spacing: -.015em;
+    }
+    .docs-h3 {
+      font-family: 'Poppins', sans-serif; font-weight: 700;
+      font-size: 1.05rem; color: var(--text); margin: 28px 0 10px;
+    }
+    .docs-p {
+      font-size: .9rem; color: var(--text-2); line-height: 1.8; margin-bottom: 16px;
+    }
+
+    /* Info/tip/warning callouts */
+    .callout {
+      display: flex; gap: 12px; padding: 16px 18px; border-radius: 10px;
+      margin: 20px 0; font-size: .87rem; line-height: 1.65;
+    }
+    .callout-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .callout-info { background: #eff6ff; border-left: 3px solid #3b82f6; }
+    .callout-info .callout-icon { color: #2563eb; }
+    .callout-info .callout-body { color: #1e40af; }
+    .callout-tip { background: #f0fdf4; border-left: 3px solid #22c55e; }
+    .callout-tip .callout-icon { color: #16a34a; }
+    .callout-tip .callout-body { color: #15803d; }
+    .callout-warn { background: #fffbeb; border-left: 3px solid #f59e0b; }
+    .callout-warn .callout-icon { color: #d97706; }
+    .callout-warn .callout-body { color: #92400e; }
+    .callout-premium { background: linear-gradient(135deg, rgba(251,191,36,.08), rgba(245,158,11,.05)); border-left: 3px solid #f59e0b; }
+    .callout-premium .callout-icon { color: #d97706; }
+    .callout-premium .callout-body { color: #78350f; }
+
+    /* Code */
+    .docs-code {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 18px; margin: 16px 0;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: .82rem;
+      color: #374151; overflow-x: auto; line-height: 1.65;
+    }
+    .docs-code .cmd { color: var(--purple); font-weight: 600; }
+    .docs-code .arg { color: #059669; }
+    .docs-code .opt { color: #d97706; }
+    .docs-code .cmt { color: #9ca3af; font-style: italic; }
+    code {
+      font-family: 'JetBrains Mono', monospace; font-size: .82em;
+      background: var(--border-light); color: var(--purple);
+      padding: 2px 6px; border-radius: 4px; font-weight: 600;
+    }
+
+    /* Command cards */
+    .cmd-cards { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .cmd-card {
+      background: #fff; border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .cmd-card:hover { border-color: rgba(124,58,237,.3); box-shadow: 0 2px 12px rgba(124,58,237,.06); }
+    .cmd-card-icon {
+      width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: .9rem;
+    }
+    .cmd-card-icon.purple { background: var(--purple-light); color: var(--purple); }
+    .cmd-card-icon.green  { background: #dcfce7; color: #16a34a; }
+    .cmd-card-icon.blue   { background: #dbeafe; color: #2563eb; }
+    .cmd-card-icon.orange { background: #fef3c7; color: #d97706; }
+    .cmd-card-icon.pink   { background: #fce7f3; color: #db2777; }
+    .cmd-card-body { flex: 1; min-width: 0; }
+    .cmd-card-name {
+      font-family: 'JetBrains Mono', monospace; font-size: .87rem; font-weight: 700;
+      color: var(--purple); margin-bottom: 3px;
+    }
+    .cmd-card-desc { font-size: .82rem; color: var(--text-3); line-height: 1.5; }
+    .cmd-card-badge {
+      font-size: .6rem; font-weight: 700; padding: 2px 8px; border-radius: 100px;
+      font-family: 'Poppins', sans-serif; margin-top: 6px; display: inline-block;
+    }
+    .badge-free    { background: #dcfce7; color: #15803d; }
+    .badge-premium { background: linear-gradient(135deg,#fbbf24,#f59e0b); color: #fff; }
+
+    /* Feature grid */
+    .feat-cards-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0;
+    }
+    .feat-doc-card {
+      background: #fff; border: 1.5px solid var(--border); border-radius: 12px;
+      padding: 18px; cursor: pointer; transition: all .2s;
+    }
+    .feat-doc-card:hover { border-color: rgba(124,58,237,.3); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(124,58,237,.08); }
+    .feat-doc-card-icon {
+      width: 40px; height: 40px; border-radius: 11px; margin-bottom: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .feat-doc-card h4 { font-size: .9rem; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .feat-doc-card p  { font-size: .78rem; color: var(--text-3); line-height: 1.55; }
+
+    /* Helpful? bar */
+    .docs-helpful {
+      margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .docs-helpful-label { font-size: .82rem; color: var(--text-3); }
+    .docs-helpful-btn {
+      display: flex; align-items: center; gap: 6px; padding: 6px 14px;
+      border-radius: 8px; border: 1.5px solid var(--border); background: none;
+      font-size: .82rem; cursor: pointer; color: var(--text-3); font-family: 'Inter', sans-serif;
+      transition: all .2s;
+    }
+    .docs-helpful-btn:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-light); }
+    .docs-helpful-btn i { font-size: .8rem; }
+
+    /* Next/prev navigation */
+    .docs-page-nav {
+      display: flex; gap: 12px; margin-top: 48px; flex-wrap: wrap;
+    }
+    .docs-page-nav-card {
+      flex: 1; min-width: 160px; background: #fff; border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 14px 18px; cursor: pointer;
+      transition: all .2s; text-align: right;
+    }
+    .docs-page-nav-card:first-child { text-align: left; }
+    .docs-page-nav-card:hover { border-color: rgba(124,58,237,.35); box-shadow: 0 2px 12px rgba(124,58,237,.07); }
+    .docs-page-nav-dir { font-size: .7rem; color: var(--text-4); margin-bottom: 4px; font-weight: 600; }
+    .docs-page-nav-title { font-size: .9rem; font-weight: 700; color: var(--text); }
+    .docs-page-nav-title i { color: var(--purple); font-size: .8rem; margin: 0 3px; }
+
+    /* Language table */
+    .lang-table { width: 100%; border-collapse: collapse; font-size: .85rem; margin: 16px 0 24px; }
+    .lang-table th { padding: 10px 14px; text-align: left; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-4); border-bottom: 2px solid var(--border); }
+    .lang-table td { padding: 11px 14px; border-bottom: 1px solid var(--border-light); color: var(--text-2); }
+    .lang-table tr:last-child td { border-bottom: none; }
+    .lang-table tr:hover td { background: var(--border-light); }
+    .lang-flag { font-size: 1.1rem; }
+
+    /* Filter table */
+    .filter-table { width: 100%; border-collapse: collapse; font-size: .85rem; margin: 16px 0; }
+    .filter-table th { padding: 9px 14px; text-align: left; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-4); border-bottom: 2px solid var(--border); }
+    .filter-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); color: var(--text-2); }
+    .filter-table tr:hover td { background: var(--border-light); }
+    .ft-free    { display: inline-block; background: #dcfce7; color: #15803d; font-size: .67rem; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+    .ft-premium { display: inline-block; background: linear-gradient(135deg,#fbbf24,#f59e0b); color: white; font-size: .67rem; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+
+    /* Sidebar overlay on mobile */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    /* Bottom powered-by */
+    .docs-powered {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--border);
+      font-size: .74rem; color: var(--text-4); flex-wrap: wrap; gap: 8px;
+    }
+    .docs-powered a { color: var(--purple); font-weight: 600; }
+    .docs-powered-links { display: flex; gap: 14px; }
+    .docs-powered-links a:hover { color: var(--purple); }
+
+    @media (max-width: 900px) {
+      .docs-sidebar { transform: translateX(-100%); transition: transform .28s cubic-bezier(.4,0,.2,1); }
+      .docs-sidebar.open { transform: translateX(0); }
+      .docs-main { margin-left: 0; padding: 32px 24px 64px; }
+      .docs-menu-toggle { display: flex; }
+      .docs-topbar-link { display: none; }
+    }
+    @media (max-width: 600px) {
+      .docs-main { padding: 24px 16px 56px; }
+      .docs-h1 { font-size: 1.8rem; }
+      .feat-cards-grid { grid-template-columns: 1fr; }
+      .docs-topbar-search { display: none; }
+      .docs-page-nav { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar overlay for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ── Top bar ── -->
+<header class="docs-topbar">
+  <button class="docs-menu-toggle" id="menuToggle" aria-label="Open sidebar">
+    <i class="fas fa-bars"></i>
+  </button>
+  <a class="docs-logo" href="/">
+    <img src="/logo.webp" alt="AIMO" onerror="this.style.display='none'"/>
+    AIMO
+    <span class="docs-logo-badge">DOCS</span>
+  </a>
+  <div class="docs-topbar-search">
+    <div class="docs-search-wrap">
+      <i class="fas fa-search docs-search-icon"></i>
+      <input class="docs-search-input" placeholder="Search docs… (Ctrl K)" id="docsSearch" autocomplete="off"/>
+    </div>
+  </div>
+  <div class="docs-topbar-right">
+    <a href="/" class="docs-topbar-link"><i class="fas fa-home"></i> Home</a>
+    <a href="/support" class="docs-topbar-link"><i class="fab fa-discord"></i> Support</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener" class="docs-invite-btn">+ Invite AIMO</a>
+  </div>
+</header>
+
+<!-- ── Layout ── -->
+<div class="docs-layout">
+
+  <!-- ── Sidebar ── -->
+  <nav class="docs-sidebar" id="docsSidebar">
+    <!-- Getting Started -->
+    <div class="docs-nav-section">
+      <div class="docs-nav-section-title">Getting Started</div>
+      <a class="docs-nav-link active" onclick="showPage('intro')">
+        <span class="nav-icon"><i class="fas fa-rocket"></i></span> Introduction
+      </a>
+      <a class="docs-nav-link" onclick="showPage('quickstart')">
+        <span class="nav-icon"><i class="fas fa-bolt"></i></span> Quick Start
+      </a>
+    </div>
+    <!-- Music -->
+    <div class="docs-nav-section">
+      <div class="docs-nav-section-title">Music</div>
+      <a class="docs-nav-link" onclick="showPage('music')">
+        <span class="nav-icon"><i class="fas fa-music"></i></span> Playing Music
+      </a>
+      <a class="docs-nav-link" onclick="showPage('queue')">
+        <span class="nav-icon"><i class="fas fa-list-ol"></i></span> Queue
+      </a>
+      <a class="docs-nav-link" onclick="showPage('controls')">
+        <span class="nav-icon"><i class="fas fa-sliders-h"></i></span> Controls
+      </a>
+      <a class="docs-nav-link" onclick="showPage('filters')">
+        <span class="nav-icon"><i class="fas fa-magic"></i></span> Audio Filters
+      </a>
+    </div>
+    <!-- Playlists -->
+    <div class="docs-nav-section">
+      <div class="docs-nav-section-title">Playlists</div>
+      <a class="docs-nav-link" onclick="showPage('playlists')">
+        <span class="nav-icon"><i class="fas fa-compact-disc"></i></span> Playlists
+      </a>
+      <a class="docs-nav-link" onclick="showPage('favourites')">
+        <span class="nav-icon"><i class="fas fa-heart"></i></span> Favourites
+      </a>
+    </div>
+    <!-- AI & Extras -->
+    <div class="docs-nav-section">
+      <div class="docs-nav-section-title">AI & Extras</div>
+      <a class="docs-nav-link" onclick="showPage('ai')">
+        <span class="nav-icon"><i class="fas fa-robot"></i></span> AI Chat
+      </a>
+      <a class="docs-nav-link" onclick="showPage('lyrics')">
+        <span class="nav-icon"><i class="fas fa-microphone-alt"></i></span> Lyrics
+      </a>
+      <a class="docs-nav-link" onclick="showPage('games')">
+        <span class="nav-icon"><i class="fas fa-gamepad"></i></span> Mini Games
+      </a>
+    </div>
+    <!-- Languages -->
+    <div class="docs-nav-section">
+      <div class="docs-nav-section-title">Languages</div>
+      <a class="docs-nav-link" onclick="showPage('languages')">
+        <span class="nav-icon"><i class="fas fa-globe"></i></span> Supported Languages
+      </a>
+    </div>
+    <!-- Premium -->
+    <div class="docs-nav-section">
+      <div class="docs-nav-section-title">Premium</div>
+      <a class="docs-nav-link" onclick="showPage('premium')">
+        <span class="nav-icon"><i class="fas fa-crown"></i></span> Overview
+        <span class="nav-badge">✦ PRO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── Main Content ── -->
+  <main class="docs-main">
+
+    <!-- INTRODUCTION -->
+    <section class="docs-page active" id="page-intro" data-section="Introduction">
+      <div class="docs-tag"><i class="fas fa-rocket"></i> Getting Started</div>
+      <h1 class="docs-h1">Welcome to <span class="grad">AIMO</span></h1>
+      <p class="docs-intro">AIMO is a powerful Discord music bot with AI chat, custom playlists, audio filters, mini games, and 15 language support — all free. This documentation covers everything you need to get the most out of it.</p>
+
+      <div class="feat-cards-grid">
+        <div class="feat-doc-card" onclick="showPage('music')">
+          <div class="feat-doc-card-icon" style="background:#ede9fe;color:#7c3aed"><i class="fas fa-music"></i></div>
+          <h4>Music Playback</h4>
+          <p>Stream from YouTube, Spotify, SoundCloud and more with a simple slash command.</p>
+        </div>
+        <div class="feat-doc-card" onclick="showPage('filters')">
+          <div class="feat-doc-card-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-sliders-h"></i></div>
+          <h4>Audio Filters</h4>
+          <p>10+ built-in effects — bassboost, nightcore, 8D audio, and premium filters.</p>
+        </div>
+        <div class="feat-doc-card" onclick="showPage('ai')">
+          <div class="feat-doc-card-icon" style="background:#dbeafe;color:#2563eb"><i class="fas fa-robot"></i></div>
+          <h4>AI Chat</h4>
+          <p>Ask anything with <code>/ask</code> — powered by GPT-4o, completely free.</p>
+        </div>
+        <div class="feat-doc-card" onclick="showPage('playlists')">
+          <div class="feat-doc-card-icon" style="background:#fce7f3;color:#db2777"><i class="fas fa-compact-disc"></i></div>
+          <h4>Playlists</h4>
+          <p>Create, save, share and import playlists from Spotify or YouTube.</p>
+        </div>
+      </div>
+
+      <h2 class="docs-h2">What AIMO Supports</h2>
+      <p class="docs-p">AIMO connects to multiple audio sources so your community can play whatever they love:</p>
+      <div class="cmd-cards">
+        <div class="cmd-card">
+          <div class="cmd-card-icon purple"><i class="fab fa-youtube"></i></div>
+          <div class="cmd-card-body">
+            <div class="cmd-card-name">YouTube Music</div>
+            <div class="cmd-card-desc">Stream any track, album, or playlist from YouTube Music directly.</div>
+          </div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-icon green"><i class="fab fa-spotify"></i></div>
+          <div class="cmd-card-body">
+            <div class="cmd-card-name">Spotify</div>
+            <div class="cmd-card-desc">Play Spotify tracks and playlists via YouTube source matching.</div>
+          </div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-icon orange"><i class="fab fa-soundcloud"></i></div>
+          <div class="cmd-card-body">
+            <div class="cmd-card-name">SoundCloud & Deezer</div>
+            <div class="cmd-card-desc">Stream independent artists and curated stations.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <span class="callout-icon"><i class="fas fa-info-circle"></i></span>
+        <div class="callout-body">AIMO requires the <strong>Connect</strong> and <strong>Speak</strong> permissions in your voice channel to stream music.</div>
+      </div>
+
+      <div class="docs-page-nav">
+        <div class="docs-page-nav-card" onclick="showPage('quickstart')">
+          <div class="docs-page-nav-dir">Next <i class="fas fa-arrow-right"></i></div>
+          <div class="docs-page-nav-title">Quick Start</div>
+        </div>
+      </div>
+      <div class="docs-helpful">
+        <span class="docs-helpful-label">Was this page helpful?</span>
+        <button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button>
+        <button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button>
+      </div>
+      <div class="docs-powered">
+        <span>© 2026 AIMO Music Bot</span>
+        <div class="docs-powered-links">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/support">Support</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK START -->
+    <section class="docs-page" id="page-quickstart" data-section="Quick Start">
+      <div class="docs-tag"><i class="fas fa-bolt"></i> Getting Started</div>
+      <h1 class="docs-h1"><span class="grad">Quick Start</span></h1>
+      <p class="docs-intro">Get AIMO playing music in your server in under 60 seconds — no configuration needed.</p>
+
+      <h2 class="docs-h2">Step 1 — Invite AIMO</h2>
+      <p class="docs-p">Click the invite link and select your server. Grant the requested permissions — AIMO needs <strong>Connect</strong>, <strong>Speak</strong>, and <strong>Send Messages</strong> at minimum.</p>
+      <div class="callout callout-tip">
+        <span class="callout-icon"><i class="fas fa-link"></i></span>
+        <div class="callout-body"><a href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" style="color:#15803d;font-weight:700;text-decoration:underline">discord.com/oauth2/authorize?client_id=1466757680311042060…</a></div>
+      </div>
+
+      <h2 class="docs-h2">Step 2 — Join a Voice Channel</h2>
+      <p class="docs-p">Join any voice channel in your server. AIMO will automatically join the same channel when you run a music command.</p>
+
+      <h2 class="docs-h2">Step 3 — Play a Song</h2>
+      <p class="docs-p">Use the <code>/play</code> command followed by a song name or URL:</p>
+      <div class="docs-code"><span class="cmd">/play</span> <span class="arg">Starboy by The Weeknd</span>
+<span class="cmt"># or use a direct URL</span>
+<span class="cmd">/play</span> <span class="arg">https://open.spotify.com/track/…</span></div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon"><i class="fas fa-lightbulb"></i></span>
+        <div class="callout-body">AIMO shows a search results list so you can pick the exact version you want — no wrong remixes!</div>
+      </div>
+
+      <h2 class="docs-h2">You're done!</h2>
+      <p class="docs-p">AIMO is now streaming. Use the control commands to pause, skip, adjust volume and more. See <a href="#" onclick="showPage('controls')" style="color:var(--purple);font-weight:600">Controls</a> for the full list.</p>
+
+      <div class="docs-page-nav">
+        <div class="docs-page-nav-card" onclick="showPage('intro')" style="text-align:left">
+          <div class="docs-page-nav-dir"><i class="fas fa-arrow-left"></i> Previous</div>
+          <div class="docs-page-nav-title">Introduction</div>
+        </div>
+        <div class="docs-page-nav-card" onclick="showPage('music')">
+          <div class="docs-page-nav-dir">Next <i class="fas fa-arrow-right"></i></div>
+          <div class="docs-page-nav-title">Playing Music</div>
+        </div>
+      </div>
+      <div class="docs-helpful">
+        <span class="docs-helpful-label">Was this page helpful?</span>
+        <button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button>
+        <button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button>
+      </div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <!-- MUSIC -->
+    <section class="docs-page" id="page-music" data-section="Playing Music">
+      <div class="docs-tag"><i class="fas fa-music"></i> Music</div>
+      <h1 class="docs-h1">Playing <span class="grad">Music</span></h1>
+      <p class="docs-intro">AIMO streams high-quality audio from multiple sources. Use slash commands to search, play, and control music in any voice channel.</p>
+
+      <h2 class="docs-h2">Basic Playback Commands</h2>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-play"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/play [query]</div><div class="cmd-card-desc">Search for a song by name or paste a URL. Shows top 5 results to pick from.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-pause"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/pause</div><div class="cmd-card-desc">Pause the current track.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-play-circle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/resume</div><div class="cmd-card-desc">Resume a paused track.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-forward-step"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/skip</div><div class="cmd-card-desc">Skip to the next track in the queue.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-stop"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/stop</div><div class="cmd-card-desc">Stop playback and disconnect AIMO from the voice channel.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-volume-up"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/volume [1-100]</div><div class="cmd-card-desc">Set the playback volume. Default is 50%.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-forward"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/seek [time]</div><div class="cmd-card-desc">Jump to a specific time in the current track. e.g. <code>/seek 1:30</code></div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-music"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/nowplaying</div><div class="cmd-card-desc">Show the currently playing song with progress bar and info.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+      </div>
+
+      <h2 class="docs-h2">Loop Modes</h2>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-redo"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/loop [mode]</div><div class="cmd-card-desc">Set loop mode: <code>track</code> (repeat current), <code>queue</code> (repeat all), <code>off</code>.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-shuffle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/shuffle</div><div class="cmd-card-desc">Shuffle the current queue randomly.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-infinity"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/autoplay</div><div class="cmd-card-desc">Toggle autoplay — keeps music going after the queue ends.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+      </div>
+
+      <div class="docs-page-nav">
+        <div class="docs-page-nav-card" onclick="showPage('quickstart')" style="text-align:left"><div class="docs-page-nav-dir"><i class="fas fa-arrow-left"></i> Previous</div><div class="docs-page-nav-title">Quick Start</div></div>
+        <div class="docs-page-nav-card" onclick="showPage('queue')"><div class="docs-page-nav-dir">Next <i class="fas fa-arrow-right"></i></div><div class="docs-page-nav-title">Queue</div></div>
+      </div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="docs-page" id="page-filters" data-section="Audio Filters">
+      <div class="docs-tag"><i class="fas fa-magic"></i> Music</div>
+      <h1 class="docs-h1">Audio <span class="grad">Filters</span></h1>
+      <p class="docs-intro">AIMO offers 10+ built-in audio filters to shape how music sounds in your server. Toggle any filter instantly with one slash command.</p>
+
+      <h2 class="docs-h2">Available Filters</h2>
+      <table class="filter-table">
+        <thead><tr><th>Filter</th><th>Command</th><th>Description</th><th>Tier</th></tr></thead>
+        <tbody>
+          <tr><td>🔊 Bassboost</td><td><code>/filter bassboost</code></td><td>Deep, boosted bass frequencies</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>🌙 Nightcore</td><td><code>/filter nightcore</code></td><td>Sped-up pitch-shifted anime style</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>🎧 8D Audio</td><td><code>/filter 8d</code></td><td>Rotating stereo spatial effect</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>🌊 Vaporwave</td><td><code>/filter vaporwave</code></td><td>Slowed & pitch-lowered aesthetic</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>🎤 Karaoke</td><td><code>/filter karaoke</code></td><td>Attempts to remove vocals from the mix</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>💫 Tremolo</td><td><code>/filter tremolo</code></td><td>Rapid volume oscillation</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>🎸 Vibrato</td><td><code>/filter vibrato</code></td><td>Rapid pitch oscillation</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>🎵 Soft</td><td><code>/filter soft</code></td><td>Gentle equalization preset</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>🎺 Pop</td><td><code>/filter pop</code></td><td>Bright mid-forward equalization</td><td><span class="ft-free">Free</span></td></tr>
+          <tr><td>⚡ Speed</td><td><code>/filter speed [rate]</code></td><td>Change playback speed without pitch shift</td><td><span class="ft-premium">★ Premium</span></td></tr>
+          <tr><td>🔄 Reverb</td><td><code>/filter reverb</code></td><td>Room reverb / echo effect</td><td><span class="ft-premium">★ Premium</span></td></tr>
+          <tr><td>🔊 Stereo Wide</td><td><code>/filter stereo</code></td><td>Stereo widening effect</td><td><span class="ft-premium">★ Premium</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-premium">
+        <span class="callout-icon"><i class="fas fa-crown"></i></span>
+        <div class="callout-body"><strong>Premium filters</strong> (Speed, Reverb, Stereo Widening) require an active AIMO Premium subscription. <a href="/premium" style="color:#92400e;font-weight:700;text-decoration:underline">Learn more →</a></div>
+      </div>
+
+      <h2 class="docs-h2">Resetting Filters</h2>
+      <div class="docs-code"><span class="cmd">/filter</span> <span class="arg">reset</span>  <span class="cmt"># removes all active filters</span></div>
+
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <!-- LANGUAGES -->
+    <section class="docs-page" id="page-languages" data-section="Supported Languages">
+      <div class="docs-tag"><i class="fas fa-globe"></i> Languages</div>
+      <h1 class="docs-h1">Supported <span class="grad">Languages</span></h1>
+      <p class="docs-intro">AIMO supports 15 languages. Use <code>/language</code> to switch — every response, embed, and notification adapts instantly for your server.</p>
+
+      <h2 class="docs-h2">How to Change Language</h2>
+      <div class="docs-code"><span class="cmd">/language</span>  <span class="cmt"># Opens a select menu with all supported languages</span></div>
+      <div class="callout callout-info">
+        <span class="callout-icon"><i class="fas fa-info-circle"></i></span>
+        <div class="callout-body">The language setting is <strong>per server</strong>. Set it once and all of AIMO's responses in that server use the selected language.</div>
+      </div>
+
+      <h2 class="docs-h2">All Supported Languages</h2>
+      <table class="lang-table">
+        <thead><tr><th>Flag</th><th>Language</th><th>Code</th></tr></thead>
+        <tbody>
+          <tr><td class="lang-flag">🇬🇧</td><td>English</td><td><code>en</code></td></tr>
+          <tr><td class="lang-flag">🇮🇹</td><td>Italian</td><td><code>it</code></td></tr>
+          <tr><td class="lang-flag">🇵🇱</td><td>Polish</td><td><code>pl</code></td></tr>
+          <tr><td class="lang-flag">🇳🇱</td><td>Dutch</td><td><code>nl</code></td></tr>
+          <tr><td class="lang-flag">🇮🇩</td><td>Indonesian</td><td><code>id</code></td></tr>
+          <tr><td class="lang-flag">🇸🇪</td><td>Swedish</td><td><code>sv</code></td></tr>
+          <tr><td class="lang-flag">🇹🇷</td><td>Turkish</td><td><code>tr</code></td></tr>
+          <tr><td class="lang-flag">🇵🇹</td><td>Portuguese</td><td><code>pt</code></td></tr>
+          <tr><td class="lang-flag">🇩🇪</td><td>German</td><td><code>de</code></td></tr>
+          <tr><td class="lang-flag">🇷🇴</td><td>Romanian</td><td><code>ro</code></td></tr>
+          <tr><td class="lang-flag">🇪🇸</td><td>Spanish</td><td><code>es</code></td></tr>
+          <tr><td class="lang-flag">🇻🇳</td><td>Vietnamese</td><td><code>vi</code></td></tr>
+          <tr><td class="lang-flag">🌐</td><td>+ 3 more</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <!-- PREMIUM -->
+    <section class="docs-page" id="page-premium" data-section="Premium Overview">
+      <div class="docs-tag"><i class="fas fa-crown"></i> Premium</div>
+      <h1 class="docs-h1"><span class="grad">Premium</span> Overview</h1>
+      <p class="docs-intro">AIMO Premium unlocks powerful exclusive features for your server — advanced audio filters, enhanced AI, and priority support.</p>
+
+      <div class="callout callout-premium">
+        <span class="callout-icon"><i class="fas fa-star"></i></span>
+        <div class="callout-body"><strong>Get AIMO Premium</strong> — visit the <a href="/premium" style="color:#92400e;font-weight:700;text-decoration:underline">Premium page</a> to see plans and pricing.</div>
+      </div>
+
+      <h2 class="docs-h2">Premium Features</h2>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon orange"><i class="fas fa-tachometer-alt"></i></div><div class="cmd-card-body"><div class="cmd-card-name">Speed Control</div><div class="cmd-card-desc">Change playback speed without affecting pitch. Range: 0.5x — 3.0x.</div><span class="cmd-card-badge badge-premium">★ Premium</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon orange"><i class="fas fa-water"></i></div><div class="cmd-card-body"><div class="cmd-card-name">Reverb Effect</div><div class="cmd-card-desc">Add room reverb and echo to your music for a live-concert feel.</div><span class="cmd-card-badge badge-premium">★ Premium</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon orange"><i class="fas fa-expand-arrows-alt"></i></div><div class="cmd-card-body"><div class="cmd-card-name">Stereo Widening</div><div class="cmd-card-desc">Widen the stereo field for a more immersive audio experience.</div><span class="cmd-card-badge badge-premium">★ Premium</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon orange"><i class="fas fa-infinity"></i></div><div class="cmd-card-body"><div class="cmd-card-name">Unlimited Playlists</div><div class="cmd-card-desc">Create as many playlists as you want with no track limit.</div><span class="cmd-card-badge badge-premium">★ Premium</span></div></div>
+      </div>
+
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <!-- STUB PAGES -->
+    <section class="docs-page" id="page-queue" data-section="Queue Management">
+      <div class="docs-tag"><i class="fas fa-list-ol"></i> Music</div>
+      <h1 class="docs-h1"><span class="grad">Queue</span> Management</h1>
+      <p class="docs-intro">View, reorder, remove, and manage the playback queue with simple slash commands.</p>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-list"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/stop</div><div class="cmd-card-desc">Stop music and clear the entire queue.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-shuffle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/filter shuffle</div><div class="cmd-card-desc">Shuffle the current queue randomly.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-redo"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/loop [mode]</div><div class="cmd-card-desc">Set loop mode: <code>track</code>, <code>queue</code>, or <code>off</code>.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon purple"><i class="fas fa-infinity"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/autoplay</div><div class="cmd-card-desc">Keep music going after the queue ends with autoplay.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+      </div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <section class="docs-page" id="page-controls" data-section="Playback Controls">
+      <div class="docs-tag"><i class="fas fa-sliders-h"></i> Music</div>
+      <h1 class="docs-h1">Playback <span class="grad">Controls</span></h1>
+      <p class="docs-intro">Full list of playback control commands for AIMO — seek, skip, rewind, and more.</p>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-clock"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/seek [timestamp]</div><div class="cmd-card-desc">Seek to a specific position in the track. Format: <code>mm:ss</code></div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-forward"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/forward</div><div class="cmd-card-desc">Skip forward in the current track by a set number of seconds.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-backward"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/backward</div><div class="cmd-card-desc">Rewind the current track by a set number of seconds.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-backward-step"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/back</div><div class="cmd-card-desc">Play the previous song in the queue.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-volume-mute"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/volume [0-100]</div><div class="cmd-card-desc">Adjust playback volume. 0 = mute, 100 = full.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-info-circle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/nowplaying</div><div class="cmd-card-desc">Display current track info with an interactive embed.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-right-from-bracket"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/disconnect</div><div class="cmd-card-desc">Disconnect AIMO from the voice channel.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+      </div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <section class="docs-page" id="page-playlists" data-section="Playlists">
+      <div class="docs-tag"><i class="fas fa-compact-disc"></i> Playlists</div>
+      <h1 class="docs-h1"><span class="grad">Playlists</span></h1>
+      <p class="docs-intro">Create, manage and share custom playlists. Save the current queue, load, append, share via code, and manage individual tracks.</p>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-plus"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-create [name]</div><div class="cmd-card-desc">Create a new empty playlist with the given name.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-save"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-save [name]</div><div class="cmd-card-desc">Save the current queue as a new playlist.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-play"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-load [name]</div><div class="cmd-card-desc">Clear the queue and load a saved playlist.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-layer-group"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-append [name]</div><div class="cmd-card-desc">Add songs from a playlist to the current queue without replacing it.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-list"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-list</div><div class="cmd-card-desc">View all your saved playlists and their track counts.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-trash"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-delete [name]</div><div class="cmd-card-desc">Delete one of your playlists permanently.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-pen"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-rename [name]</div><div class="cmd-card-desc">Rename one of your playlists.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-share-nodes"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-share [name]</div><div class="cmd-card-desc">Share a playlist with others via a share code.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-cloud-download-alt"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-import [code]</div><div class="cmd-card-desc">Import a playlist from a share code.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-plus-circle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-track-add</div><div class="cmd-card-desc">Add a single song to one of your playlists.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-music"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-track-list</div><div class="cmd-card-desc">Show all tracks inside one of your playlists.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-minus-circle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/playlist-track-remove</div><div class="cmd-card-desc">Remove a specific track from one of your playlists.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+      </div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <section class="docs-page" id="page-favourites" data-section="Favourites">
+      <div class="docs-tag"><i class="fas fa-heart"></i> Playlists</div>
+      <h1 class="docs-h1"><span class="grad">Favourites</span></h1>
+      <p class="docs-intro">Like any track and it's saved to your personal Favourites list — accessible from any server.</p>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-heart"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/favorite-add</div><div class="cmd-card-desc">Add the currently playing track to your Favourites.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-play-circle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/favorite-play</div><div class="cmd-card-desc">Queue all your favourited tracks instantly.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-list-ul"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/favorite-list</div><div class="cmd-card-desc">Show all your saved favourite tracks.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+        <div class="cmd-card"><div class="cmd-card-icon pink"><i class="fas fa-times-circle"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/favorite-remove</div><div class="cmd-card-desc">Remove a song from your favourites list.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+      </div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <section class="docs-page" id="page-ai" data-section="AI Chat">
+      <div class="docs-tag"><i class="fas fa-robot"></i> AI & Extras</div>
+      <h1 class="docs-h1">AI <span class="grad">Chat</span></h1>
+      <p class="docs-intro">AIMO includes a GPT-4o powered AI assistant — ask any question without leaving Discord.</p>
+      <div class="docs-code"><span class="cmd">/ask</span> <span class="arg">What's the best song to play at a party?</span></div>
+      <div class="callout callout-tip">
+        <span class="callout-icon"><i class="fas fa-lightbulb"></i></span>
+        <div class="callout-body">AIMO remembers your conversation history so you can have multi-turn conversations naturally.</div>
+      </div>
+      <h2 class="docs-h2">Commands</h2>
+      <div class="cmd-cards">
+        <div class="cmd-card"><div class="cmd-card-icon blue"><i class="fas fa-comment-dots"></i></div><div class="cmd-card-body"><div class="cmd-card-name">/ask [question]</div><div class="cmd-card-desc">Ask AIMO anything. Responds with a GPT-4o generated answer. Conversation history is remembered per user.</div><span class="cmd-card-badge badge-free">Free</span></div></div>
+      </div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <section class="docs-page" id="page-lyrics" data-section="Lyrics">
+      <div class="docs-tag"><i class="fas fa-microphone-alt"></i> AI & Extras</div>
+      <h1 class="docs-h1"><span class="grad">Lyrics</span></h1>
+      <p class="docs-intro">Get lyrics for the currently playing track — powered by the Genius API.</p>
+      <div class="docs-code"><span class="cmd">/lyrics</span>              <span class="cmt"># lyrics for current track</span>
+<span class="cmd">/lyrics</span> <span class="arg">Starboy</span>      <span class="cmt"># search for a specific song</span></div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+    <section class="docs-page" id="page-games" data-section="Mini Games">
+      <div class="docs-tag"><i class="fas fa-gamepad"></i> AI & Extras</div>
+      <h1 class="docs-h1">Mini <span class="grad">Games</span></h1>
+      <p class="docs-intro">6 built-in games you can launch with a single slash command while music keeps playing. No setup — just type and go.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon"><i class="fas fa-lightbulb"></i></span>
+        <div class="callout-body">All games run <strong>inside Discord</strong> — no external links or apps required. Music continues playing in the background.</div>
+      </div>
+
+      <h2 class="docs-h2">Available Games</h2>
+
+      <!-- Game cards grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0">
+
+        <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 20px 16px;transition:all .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.3)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:2rem;margin-bottom:12px">🐍</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--purple);margin-bottom:6px">/snake</div>
+          <p style="font-size:.82rem;color:var(--text-3);line-height:1.55;margin:0 0 12px">Classic Snake arcade game rendered inside Discord. Eat the dots, grow longer, don't hit the walls.</p>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:.67rem;font-weight:700;background:#dcfce7;color:#15803d;padding:3px 10px;border-radius:100px">Free</span>
+            <span style="font-size:.67rem;font-weight:700;background:var(--border-light);color:var(--text-3);padding:3px 10px;border-radius:100px">Solo</span>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 20px 16px;transition:all .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.3)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:2rem;margin-bottom:12px">💣</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--purple);margin-bottom:6px">/minesweeper</div>
+          <p style="font-size:.82rem;color:var(--text-3);line-height:1.55;margin:0 0 12px">Generates a full Minesweeper board in Discord using spoiler tags. Reveal cells one by one — avoid the mines!</p>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:.67rem;font-weight:700;background:#dcfce7;color:#15803d;padding:3px 10px;border-radius:100px">Free</span>
+            <span style="font-size:.67rem;font-weight:700;background:var(--border-light);color:var(--text-3);padding:3px 10px;border-radius:100px">Solo</span>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 20px 16px;transition:all .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.3)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:2rem;margin-bottom:12px">❓</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--purple);margin-bottom:6px">/trivia</div>
+          <p style="font-size:.82rem;color:var(--text-3);line-height:1.55;margin:0 0 12px">Multiple-choice trivia across dozens of categories. The whole server can answer — first correct reply wins.</p>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:.67rem;font-weight:700;background:#dcfce7;color:#15803d;padding:3px 10px;border-radius:100px">Free</span>
+            <span style="font-size:.67rem;font-weight:700;background:var(--border-light);color:var(--text-3);padding:3px 10px;border-radius:100px">Multiplayer</span>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 20px 16px;transition:all .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.3)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:2rem;margin-bottom:12px">✂️</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--purple);margin-bottom:6px">/rps</div>
+          <p style="font-size:.82rem;color:var(--text-3);line-height:1.55;margin:0 0 12px">Rock-Paper-Scissors against AIMO or another server member. Pick your move with a button click.</p>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:.67rem;font-weight:700;background:#dcfce7;color:#15803d;padding:3px 10px;border-radius:100px">Free</span>
+            <span style="font-size:.67rem;font-weight:700;background:var(--border-light);color:var(--text-3);padding:3px 10px;border-radius:100px">1v1 / vs AIMO</span>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 20px 16px;transition:all .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.3)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:2rem;margin-bottom:12px">⭕</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--purple);margin-bottom:6px">/tictactoe</div>
+          <p style="font-size:.82rem;color:var(--text-3);line-height:1.55;margin:0 0 12px">Tic-Tac-Toe against another member. Uses Discord buttons — no typing coordinates, just tap your square.</p>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:.67rem;font-weight:700;background:#dcfce7;color:#15803d;padding:3px 10px;border-radius:100px">Free</span>
+            <span style="font-size:.67rem;font-weight:700;background:var(--border-light);color:var(--text-3);padding:3px 10px;border-radius:100px">1v1</span>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px 20px 16px;transition:all .2s" onmouseover="this.style.borderColor='rgba(34,197,94,.3)'" onmouseout="this.style.borderColor='var(--border)'">
+          <div style="font-size:2rem;margin-bottom:12px">🔤</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--purple);margin-bottom:6px">/hangman</div>
+          <p style="font-size:.82rem;color:var(--text-3);line-height:1.55;margin:0 0 12px">Classic Hangman — guess the hidden word one letter at a time before you run out of chances.</p>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="font-size:.67rem;font-weight:700;background:#dcfce7;color:#15803d;padding:3px 10px;border-radius:100px">Free</span>
+            <span style="font-size:.67rem;font-weight:700;background:var(--border-light);color:var(--text-3);padding:3px 10px;border-radius:100px">Solo / Server</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info" style="margin-top:28px">
+        <span class="callout-icon"><i class="fas fa-info-circle"></i></span>
+        <div class="callout-body">Games run <strong>simultaneously</strong> with music — starting a game never pauses or skips your track.</div>
+      </div>
+
+      <div class="docs-page-nav">
+        <div class="docs-page-nav-card" onclick="showPage('lyrics')" style="text-align:left"><div class="docs-page-nav-dir"><i class="fas fa-arrow-left"></i> Previous</div><div class="docs-page-nav-title">Lyrics</div></div>
+        <div class="docs-page-nav-card" onclick="showPage('languages')"><div class="docs-page-nav-dir">Next <i class="fas fa-arrow-right"></i></div><div class="docs-page-nav-title">Supported Languages</div></div>
+      </div>
+      <div class="docs-helpful"><span class="docs-helpful-label">Was this page helpful?</span><button class="docs-helpful-btn" data-helpful="true"><i class="far fa-thumbs-up"></i> Yes</button><button class="docs-helpful-btn" data-helpful="false"><i class="far fa-thumbs-down"></i> No</button></div>
+      <div class="docs-powered"><span>© 2026 AIMO Music Bot</span><div class="docs-powered-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// ── Page navigation ──
+function showPage(id) {
+  document.querySelectorAll('.docs-page').forEach(function(p) { p.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+
+  document.querySelectorAll('.docs-nav-link').forEach(function(l) { l.classList.remove('active'); });
+  var active = document.querySelector('.docs-nav-link[onclick*="' + id + '"]');
+  if (active) {
+    active.classList.add('active');
+    active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeSidebar();
+}
+
+// ── Mobile sidebar ──
+var sidebar = document.getElementById('docsSidebar');
+var overlay = document.getElementById('sidebarOverlay');
+var toggle  = document.getElementById('menuToggle');
+
+function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('active'); }
+function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); }
+
+toggle.addEventListener('click', function() {
+  sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+});
+overlay.addEventListener('click', closeSidebar);
+
+// ── Keyboard shortcut for search ──
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    var s = document.getElementById('docsSearch');
+    if (s) s.focus();
+  }
+});
+
+// ── Helpful buttons ──
+document.querySelectorAll('.docs-helpful-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var isYes = btn.textContent.trim().indexOf('Yes') !== -1;
+    btn.style.background = isYes ? '#dcfce7' : '#fee2e2';
+    btn.style.color      = isYes ? '#15803d' : '#dc2626';
+    btn.style.borderColor = isYes ? '#22c55e' : '#ef4444';
+  });
+});
+</script>
+<script src="https://replit-cdn.com/replit-pill/replit-pill.global.js" data-repl-id="1758e52e-0298-4917-8340-8a7ee6592726"></script></body>
+</html>

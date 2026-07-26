@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Updates — AIMO Music Bot</title>
+  <meta name="description" content="Latest updates, changelogs and new features for AIMO Music Bot."/>
+  <link rel="icon" type="image/webp" href="/logo.webp"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+  /* ═══════════════════════════════
+     UPDATES PAGE — FULL REDESIGN
+  ═══════════════════════════════ */
+
+  /* ── Dark hero ── */
+  .upd-hero {
+    background: linear-gradient(160deg, #0a0a16 0%, #130d2e 45%, #1a0a20 100%);
+    padding: 118px 24px 64px; text-align: center; position: relative; overflow: hidden;
+  }
+  .upd-hero::before {
+    content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(124,58,237,.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .upd-hero::after {
+    content: ''; position: absolute; bottom: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(236,72,153,.10) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .upd-hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(124,58,237,.18); color: #c4b5fd;
+    border: 1px solid rgba(124,58,237,.35); border-radius: 100px;
+    padding: 6px 18px; font-size: .72rem; font-weight: 700;
+    font-family: 'Poppins', sans-serif; letter-spacing: .08em;
+    margin-bottom: 24px; position: relative; z-index: 1;
+  }
+  .upd-hero h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 900; line-height: 1.1;
+    color: #fff; margin-bottom: 16px; position: relative; z-index: 1; letter-spacing: -.02em;
+  }
+  .upd-hero p {
+    color: rgba(255,255,255,.6); font-size: 1rem; max-width: 480px;
+    margin: 0 auto 32px; line-height: 1.7; position: relative; z-index: 1;
+  }
+  .upd-hero-chips {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .upd-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 16px; border-radius: 100px;
+    font-family: 'Poppins', sans-serif; font-size: .73rem; font-weight: 600;
+    backdrop-filter: blur(10px);
+  }
+  .upd-chip-green { background: rgba(34,197,94,.15); color: #4ade80; border: 1px solid rgba(34,197,94,.25); }
+  .upd-chip-blue  { background: rgba(59,130,246,.15); color: #93c5fd; border: 1px solid rgba(59,130,246,.25); }
+  .upd-chip-orange{ background: rgba(245,158,11,.15); color: #fcd34d; border: 1px solid rgba(245,158,11,.25); }
+
+  /* ── Filter bar ── */
+  .upd-filter-bar {
+    position: sticky; top: var(--nav-h); z-index: 90;
+    background: rgba(255,255,255,.97); backdrop-filter: blur(16px);
+    border-bottom: 1.5px solid var(--border);
+    box-shadow: 0 2px 12px rgba(124,58,237,.06);
+  }
+  .upd-filter-inner {
+    max-width: 860px; margin: 0 auto;
+    display: flex; align-items: center; gap: 6px; padding: 10px 20px;
+    overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .upd-filter-inner::-webkit-scrollbar { display: none; }
+  .upd-filter-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 16px; border-radius: 100px; border: 1.5px solid var(--border);
+    background: #fff; font-family: 'Poppins', sans-serif; font-size: .76rem;
+    font-weight: 600; color: var(--text-muted); cursor: pointer;
+    white-space: nowrap; transition: all .2s; flex-shrink: 0;
+  }
+  .upd-filter-btn:hover { border-color: var(--purple); color: var(--purple); background: rgba(124,58,237,.05); }
+  .upd-filter-btn.active { background: var(--gradient); color: #fff; border-color: transparent; box-shadow: 0 3px 12px rgba(124,58,237,.28); }
+  .upd-filter-btn .upd-fcount {
+    background: rgba(255,255,255,.25); color: inherit;
+    border-radius: 100px; padding: 1px 7px; font-size: .66rem;
+  }
+  .upd-filter-btn:not(.active) .upd-fcount { background: rgba(124,58,237,.08); color: var(--purple); }
+
+  /* ── Layout ── */
+  .upd-body { max-width: 860px; margin: 0 auto; padding: 48px 20px 96px; }
+
+  /* ── Subscribe banner ── */
+  .upd-subscribe {
+    background: linear-gradient(135deg, rgba(124,58,237,.07), rgba(236,72,153,.04));
+    border: 1.5px solid rgba(124,58,237,.18);
+    border-radius: 20px; padding: 20px 24px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 24px rgba(124,58,237,.08);
+  }
+  .upd-subscribe-icon {
+    width: 48px; height: 48px; min-width: 48px; border-radius: 14px;
+    background: var(--gradient); display: flex; align-items: center;
+    justify-content: center; color: #fff; font-size: 1.1rem;
+    box-shadow: 0 4px 14px rgba(124,58,237,.28); flex-shrink: 0;
+  }
+  .upd-subscribe-text { flex: 1; min-width: 0; }
+  .upd-subscribe-text h4 { font-size: .92rem; font-weight: 700; margin-bottom: 3px; font-family: 'Poppins',sans-serif; }
+  .upd-subscribe-text p  { font-size: .78rem; color: var(--text-muted); line-height: 1.5; }
+  .upd-subscribe-text code { background: rgba(124,58,237,.09); color: var(--purple); padding: 1px 6px; border-radius: 5px; font-size: .82em; }
+
+  /* ── Timeline ── */
+  .upd-timeline { position: relative; }
+  .upd-timeline::before {
+    content: ''; position: absolute; left: 19px; top: 10px; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, #7c3aed 0%, rgba(124,58,237,.08) 100%);
+  }
+
+  /* ── Timeline entry ── */
+  .upd-entry { position: relative; padding-left: 56px; margin-bottom: 28px; }
+  .upd-entry[data-hidden="true"] { display: none; }
+
+  /* ── Timeline dot ── */
+  .upd-dot {
+    position: absolute; left: 0; top: 28px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--gradient); display: flex; align-items: center;
+    justify-content: center; color: #fff; font-size: .82rem;
+    box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(124,58,237,.22);
+    z-index: 2; flex-shrink: 0;
+  }
+  .upd-dot.dot-latest {
+    box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(124,58,237,.45), 0 0 22px rgba(124,58,237,.25);
+    animation: dot-pulse 2.4s ease-in-out infinite;
+  }
+  .upd-dot.dot-old {
+    background: linear-gradient(135deg, #94a3b8, #64748b);
+    box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(100,116,139,.18);
+  }
+  .upd-dot.dot-launch {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(34,197,94,.25);
+  }
+  @keyframes dot-pulse {
+    0%,100% { box-shadow: 0 0 0 4px #fff, 0 0 0 6px rgba(124,58,237,.45), 0 0 22px rgba(124,58,237,.25); }
+    50%      { box-shadow: 0 0 0 4px #fff, 0 0 0 8px rgba(124,58,237,.28), 0 0 32px rgba(124,58,237,.15); }
+  }
+
+  /* ── Update card ── */
+  .upd-card {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s, border-color .22s;
+  }
+  .upd-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: rgba(124,58,237,.2); }
+  .upd-card.card-latest {
+    border-color: rgba(124,58,237,.22);
+    box-shadow: 0 8px 36px rgba(124,58,237,.13), 0 2px 8px rgba(0,0,0,.05);
+  }
+
+  /* Coloured top bar */
+  .upd-card-topbar { height: 4px; background: var(--gradient); }
+  .upd-card-topbar.tb-stable { background: linear-gradient(135deg, #22c55e, #16a34a); }
+  .upd-card-topbar.tb-old    { background: linear-gradient(135deg, #94a3b8, #64748b); }
+
+  /* Card inner */
+  .upd-card-inner { padding: 24px 28px; }
+
+  /* ── Meta row ── */
+  .upd-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .upd-version {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--gradient); color: #fff;
+    font-family: 'Poppins', sans-serif; font-size: .74rem; font-weight: 700;
+    padding: 4px 13px; border-radius: 100px;
+  }
+  .upd-version.ver-old { background: linear-gradient(135deg,#94a3b8,#64748b); }
+  .upd-latest-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(34,197,94,.1); color: #16a34a;
+    border: 1px solid rgba(34,197,94,.25);
+    font-family: 'Poppins', sans-serif; font-size: .71rem; font-weight: 700;
+    padding: 4px 11px; border-radius: 100px;
+  }
+  .upd-date {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: .72rem; color: var(--text-muted);
+    font-family: 'Poppins', sans-serif; font-weight: 500; margin-left: auto;
+  }
+
+  /* ── Title ── */
+  .upd-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.05rem; font-weight: 800;
+    color: var(--text); margin-bottom: 16px;
+    display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;
+  }
+  .upd-title-icon {
+    width: 32px; height: 32px; min-width: 32px; border-radius: 10px;
+    background: var(--gradient); display: flex; align-items: center;
+    justify-content: center; color: #fff; font-size: .8rem; flex-shrink: 0; margin-top: 1px;
+  }
+  .upd-title-icon.ti-old { background: linear-gradient(135deg,#94a3b8,#64748b); }
+  .upd-title-icon.ti-green { background: linear-gradient(135deg,#22c55e,#16a34a); }
+
+  /* ── Stat pills ── */
+  .upd-pills { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 20px; }
+  .upd-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 12px; border-radius: 100px;
+    font-family: 'Poppins', sans-serif; font-size: .71rem; font-weight: 600;
+  }
+  .pill-new      { background: rgba(124,58,237,.09); color: var(--purple); }
+  .pill-fixed    { background: rgba(59,130,246,.09); color: #2563eb; }
+  .pill-improved { background: rgba(245,158,11,.09); color: #d97706; }
+  .pill-removed  { background: rgba(239,68,68,.09);  color: #dc2626; }
+
+  /* ── Groups ── */
+  .upd-group { margin-bottom: 18px; }
+  .upd-group:last-of-type { margin-bottom: 0; }
+  .upd-group-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Poppins', sans-serif; font-size: .69rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .09em;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 12px;
+  }
+  .gl-new      { background: rgba(124,58,237,.09); color: var(--purple); border: 1px solid rgba(124,58,237,.18); }
+  .gl-fixed    { background: rgba(59,130,246,.09);  color: #2563eb;      border: 1px solid rgba(59,130,246,.18); }
+  .gl-improved { background: rgba(245,158,11,.09);  color: #d97706;      border: 1px solid rgba(245,158,11,.18); }
+  .gl-removed  { background: rgba(239,68,68,.09);   color: #dc2626;      border: 1px solid rgba(239,68,68,.18); }
+  .gl-launched { background: rgba(34,197,94,.09);   color: #16a34a;      border: 1px solid rgba(34,197,94,.18); }
+
+  /* ── Items list ── */
+  .upd-items { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .upd-item  {
+    display: flex; align-items: flex-start; gap: 11px;
+    font-size: .85rem; color: var(--text-muted); line-height: 1.65;
+    padding: 10px 12px; border-radius: 10px; background: var(--bg-alt);
+    border: 1px solid var(--border-light);
+    transition: background .18s, border-color .18s;
+  }
+  .upd-item:hover { background: rgba(124,58,237,.04); border-color: rgba(124,58,237,.14); }
+  .upd-item-icon {
+    width: 28px; height: 28px; min-width: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .67rem; margin-top: 1px; flex-shrink: 0;
+  }
+  .ii-new      { background: rgba(124,58,237,.12); color: var(--purple); }
+  .ii-fixed    { background: rgba(59,130,246,.12);  color: #2563eb; }
+  .ii-improved { background: rgba(245,158,11,.12);  color: #d97706; }
+  .ii-removed  { background: rgba(239,68,68,.12);   color: #dc2626; }
+  .ii-music    { background: rgba(236,72,153,.12);  color: var(--pink); }
+  .ii-launch   { background: rgba(34,197,94,.12);   color: #16a34a; }
+
+  .upd-item strong { color: var(--text); font-weight: 650; }
+  .upd-item code {
+    background: rgba(124,58,237,.09); color: var(--purple);
+    padding: 1px 6px; border-radius: 5px; font-family: monospace; font-size: .82em;
+  }
+
+  /* ── Card footer ── */
+  .upd-card-footer {
+    padding: 12px 28px 18px;
+    border-top: 1.5px solid var(--border-light);
+    display: flex; align-items: center; gap: 8px;
+    font-size: .77rem; color: var(--text-muted); flex-wrap: wrap;
+    background: var(--bg-alt);
+  }
+  .upd-card-footer a { color: var(--purple); font-weight: 600; text-decoration: none; }
+  .upd-card-footer a:hover { text-decoration: underline; }
+
+  /* ── What's next ── */
+  .upd-whats-next {
+    background: linear-gradient(135deg, #0a0a16, #130d2e);
+    border-radius: 20px; padding: 36px 32px; margin-top: 48px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .upd-whats-next::before {
+    content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 300px;
+    background: radial-gradient(circle, rgba(124,58,237,.2) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .upd-whats-next > * { position: relative; z-index: 1; }
+  .upd-whats-next h3 { color: #fff; font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; font-family: 'Poppins',sans-serif; }
+  .upd-whats-next p  { color: rgba(255,255,255,.55); font-size: .88rem; margin-bottom: 20px; }
+  .upd-next-items {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;
+  }
+  .upd-next-item {
+    background: rgba(124,58,237,.18); border: 1px solid rgba(124,58,237,.3);
+    color: #c4b5fd; border-radius: 100px; padding: 6px 16px;
+    font-size: .76rem; font-weight: 600; font-family: 'Poppins', sans-serif;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+
+  /* ═══════════════ MOBILE ═══════════════ */
+  @media (max-width: 640px) {
+    .upd-hero { padding: 108px 20px 52px; }
+    .upd-hero h1 { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+    .upd-hero p { font-size: .9rem; }
+    .upd-hero-chips { gap: 7px; }
+    .upd-chip { font-size: .68rem; padding: 5px 12px; }
+
+    .upd-filter-inner { padding: 8px 14px; gap: 5px; }
+    .upd-filter-btn { font-size: .72rem; padding: 6px 12px; }
+
+    .upd-body { padding: 28px 14px 72px; }
+
+    .upd-subscribe { flex-direction: column; gap: 12px; padding: 18px 16px; }
+    .upd-subscribe-icon { margin: 0 auto; }
+    .upd-subscribe-text { text-align: center; }
+    .upd-subscribe .btn { width: 100%; justify-content: center; }
+
+    .upd-timeline::before { left: 15px; }
+    .upd-entry { padding-left: 44px; }
+    .upd-dot { width: 32px; height: 32px; font-size: .7rem; top: 24px; }
+
+    .upd-card-inner { padding: 18px 16px 14px; }
+    .upd-card-footer { padding: 10px 16px 14px; font-size: .73rem; }
+    .upd-meta { gap: 6px; margin-bottom: 10px; }
+    .upd-date { margin-left: 0; width: 100%; }
+    .upd-title { font-size: .96rem; gap: 8px; margin-bottom: 12px; }
+    .upd-title-icon { width: 28px; height: 28px; font-size: .72rem; }
+    .upd-pills { gap: 5px; margin-bottom: 14px; }
+    .upd-pill { font-size: .68rem; padding: 3px 10px; }
+    .upd-group-label { font-size: .64rem; }
+    .upd-item { font-size: .81rem; padding: 8px 10px; gap: 9px; }
+    .upd-item-icon { width: 24px; height: 24px; min-width: 24px; font-size: .6rem; }
+
+    .upd-whats-next { padding: 28px 18px; border-radius: 16px; }
+    .upd-whats-next h3 { font-size: 1.1rem; }
+    .upd-next-items { gap: 7px; }
+    .upd-next-item { font-size: .7rem; padding: 5px 12px; }
+  }
+  @media (max-width: 400px) {
+    .upd-dot { width: 28px; height: 28px; font-size: .64rem; }
+    .upd-entry { padding-left: 38px; }
+    .upd-timeline::before { left: 13px; }
+  }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/"><img src="/logo.webp" alt="AIMO" loading="eager" onerror="this.style.display='none'"/><span>AIMO</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/features">Features</a>
+      <a href="/commands">Commands</a>
+      <a href="/premium">Premium</a>
+      <a href="/updates" class="active"><i class="fas fa-rocket"></i> Updates</a>
+      <a href="/status"><i class="fas fa-signal"></i> Status</a>
+      <a class="nav-cta-mobile" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">+ Invite AIMO</a>
+    </div>
+    <a class="nav-cta" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Invite AIMO
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="upd-hero">
+  <div class="upd-hero-badge"><i class="fas fa-rocket"></i> Changelog</div>
+  <h1>AIMO <span class="gradient-text">Updates</span></h1>
+  <p>New features, fixes, and improvements — shipped with every release. Stay up to date.</p>
+  <div class="upd-hero-chips">
+    <span class="upd-chip upd-chip-green"><i class="fas fa-circle-dot"></i> v2.4 Latest</span>
+    <span class="upd-chip upd-chip-blue"><i class="fas fa-calendar-days"></i> July 2026</span>
+    <span class="upd-chip upd-chip-orange"><i class="fas fa-history"></i> 7 Versions</span>
+  </div>
+</section>
+
+<!-- ══════ FILTER BAR ══════ -->
+<div class="upd-filter-bar">
+  <div class="upd-filter-inner" id="filterBar">
+    <button class="upd-filter-btn active" data-filter="all">
+      <i class="fas fa-layer-group"></i> All <span class="upd-fcount">7</span>
+    </button>
+    <button class="upd-filter-btn" data-filter="new">
+      <i class="fas fa-plus"></i> New Features <span class="upd-fcount">6</span>
+    </button>
+    <button class="upd-filter-btn" data-filter="fixed">
+      <i class="fas fa-screwdriver-wrench"></i> Fixed <span class="upd-fcount">4</span>
+    </button>
+    <button class="upd-filter-btn" data-filter="improved">
+      <i class="fas fa-arrow-up"></i> Improved <span class="upd-fcount">4</span>
+    </button>
+  </div>
+</div>
+
+<!-- ══════ BODY ══════ -->
+<section class="section" style="padding-top:0;background:#fff;">
+<div class="upd-body">
+
+  <!-- Subscribe banner -->
+  <div class="upd-subscribe reveal">
+    <div class="upd-subscribe-icon"><i class="fas fa-bell"></i></div>
+    <div class="upd-subscribe-text">
+      <h4>Get notified about every update</h4>
+      <p>Use <code>/notification</code> inside Discord to receive DMs when a new version ships. Or join our support server to stay in the loop.</p>
+    </div>
+    <a class="btn btn-primary" href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener" style="flex-shrink:0;gap:8px;white-space:nowrap;">
+      <i class="fab fa-discord"></i> Join Server
+    </a>
+  </div>
+
+  <!-- Timeline -->
+  <div class="upd-timeline" id="timeline">
+
+    <!-- ── v2.4 ── -->
+    <div class="upd-entry reveal" data-tags="new improved">
+      <div class="upd-dot dot-latest"><i class="fas fa-star"></i></div>
+      <div class="upd-card card-latest">
+        <div class="upd-card-topbar"></div>
+        <div class="upd-card-inner">
+          <div class="upd-meta">
+            <span class="upd-version"><i class="fas fa-tag"></i> v2.4</span>
+            <span class="upd-latest-badge"><i class="fas fa-circle-dot"></i> Latest</span>
+            <span class="upd-date"><i class="fas fa-calendar-days"></i> 15 July 2026</span>
+          </div>
+          <div class="upd-title">
+            <div class="upd-title-icon"><i class="fas fa-sliders"></i></div>
+            AIMO Music — v2.4 Server Customisation Update
+          </div>
+          <div class="upd-pills">
+            <span class="upd-pill pill-new"><i class="fas fa-plus"></i> 5 New Commands</span>
+            <span class="upd-pill pill-improved"><i class="fas fa-arrow-up"></i> 2 Improved</span>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-new"><i class="fas fa-plus"></i> New Features</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-paint-brush"></i></div>
+                <span><strong>Customise System</strong> — 5 new free commands: <code>/customize-avatar</code>, <code>/customize-banner</code>, <code>/customize-nickname</code>, <code>/customize-reset</code>, <code>/customize-view</code>. Set AIMO's avatar, banner, and nickname per server without premium.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-server"></i></div>
+                <span><strong>Per-server scope</strong> — All <code>/customize</code> changes are isolated per server. Other servers see the default AIMO avatar and name.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-improved"><i class="fas fa-arrow-up"></i> Improved</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="improved">
+                <div class="upd-item-icon ii-improved"><i class="fas fa-circle-question"></i></div>
+                <span><strong>/help command</strong> updated — Customise category added with all 5 commands listed and described.</span>
+              </li>
+              <li class="upd-item" data-type="improved">
+                <div class="upd-item-icon ii-improved"><i class="fas fa-shield-halved"></i></div>
+                <span><strong>Admin permission check</strong> — <code>/customize</code> commands now require the Manage Server or Administrator permission to prevent unauthorised changes.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="upd-card-footer">
+          <i class="fab fa-discord" style="color:#5865F2"></i>
+          Have questions? <a href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">Join the support server</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── v2.3 ── -->
+    <div class="upd-entry reveal" data-tags="new fixed">
+      <div class="upd-dot dot-old"><i class="fas fa-check"></i></div>
+      <div class="upd-card">
+        <div class="upd-card-topbar tb-stable"></div>
+        <div class="upd-card-inner">
+          <div class="upd-meta">
+            <span class="upd-version"><i class="fas fa-tag"></i> v2.3</span>
+            <span class="upd-date"><i class="fas fa-calendar-days"></i> 26 June 2026</span>
+          </div>
+          <div class="upd-title">
+            <div class="upd-title-icon"><i class="fas fa-shield-check"></i></div>
+            AIMO Music — v2.3 Stability &amp; Intelligence Update
+          </div>
+          <div class="upd-pills">
+            <span class="upd-pill pill-new"><i class="fas fa-plus"></i> 2 New</span>
+            <span class="upd-pill pill-fixed"><i class="fas fa-screwdriver-wrench"></i> 3 Fixed</span>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-new"><i class="fas fa-plus"></i> New</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-robot"></i></div>
+                <span><strong>AI knows what's playing</strong> — <code>/ask</code> now sees the current song, artist, volume &amp; queue in real time. Try <em>"what song is this?"</em></span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-infinity"></i></div>
+                <span><strong>Unlimited autoplay</strong> — autoplay now runs forever with no session cap, always picking a fresh related track from the same source.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-fixed"><i class="fas fa-screwdriver-wrench"></i> Fixed</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-fixed"><i class="fas fa-layer-group"></i></div>
+                <span><strong>Double music card fixed</strong> — guaranteed single card per song with zero flicker, even during track switches.</span>
+              </li>
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-fixed"><i class="fas fa-align-left"></i></div>
+                <span><strong>Lyrics crash fixed</strong> — <code>/lyrics</code> and the card button now work reliably with clean error messages when lyrics aren't found.</span>
+              </li>
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-fixed"><i class="fas fa-tower-broadcast"></i></div>
+                <span><strong>VC status crash fixed</strong> — voice channel status auto-restores on bot restart with zero errors.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="upd-card-footer">
+          <i class="fas fa-circle-info"></i>
+          Found a bug or suggestion? <a href="/support">Join the support server</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── v2.2 ── -->
+    <div class="upd-entry reveal" data-tags="new fixed">
+      <div class="upd-dot dot-old"><i class="fas fa-check"></i></div>
+      <div class="upd-card">
+        <div class="upd-card-topbar tb-stable"></div>
+        <div class="upd-card-inner">
+          <div class="upd-meta">
+            <span class="upd-version"><i class="fas fa-tag"></i> v2.2</span>
+            <span class="upd-date"><i class="fas fa-calendar-days"></i> 20 June 2026</span>
+          </div>
+          <div class="upd-title">
+            <div class="upd-title-icon"><i class="fas fa-language"></i></div>
+            AIMO Music — v2.2 Intelligence &amp; Language Update
+          </div>
+          <div class="upd-pills">
+            <span class="upd-pill pill-new"><i class="fas fa-plus"></i> 2 New</span>
+            <span class="upd-pill pill-fixed"><i class="fas fa-screwdriver-wrench"></i> 2 Fixed</span>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-new"><i class="fas fa-plus"></i> New</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-language"></i></div>
+                <span><strong>15-language auto-translation system</strong> — Set your language with <code>/language</code> and all bot responses translate instantly into your preferred language.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-align-left"></i></div>
+                <span><strong>Lyrics translate button</strong> — Hit <strong>Translate</strong> in <code>/lyrics</code> to get song lyrics converted to your language automatically.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-fixed"><i class="fas fa-screwdriver-wrench"></i> Fixed</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-music"><i class="fas fa-headphones"></i></div>
+                <span><strong><code>/vcstatus</code> errors fixed</strong> — Voice channel status updates are now fully stable and auto-restore on bot restart.</span>
+              </li>
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-fixed"><i class="fas fa-robot"></i></div>
+                <span><strong>AI stability improved</strong> — Faster responses, better context memory, and model fallback when the primary AI is unavailable.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="upd-card-footer">
+          <i class="fas fa-circle-info"></i>
+          Found a bug or suggestion? <a href="/support">Join the support server</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── v2.1 ── -->
+    <div class="upd-entry reveal" data-tags="new fixed">
+      <div class="upd-dot dot-old"><i class="fas fa-check"></i></div>
+      <div class="upd-card">
+        <div class="upd-card-topbar tb-old"></div>
+        <div class="upd-card-inner">
+          <div class="upd-meta">
+            <span class="upd-version ver-old"><i class="fas fa-tag"></i> v2.1</span>
+            <span class="upd-date"><i class="fas fa-calendar-days"></i> 5 June 2026</span>
+          </div>
+          <div class="upd-title">
+            <div class="upd-title-icon ti-old"><i class="fas fa-music"></i></div>
+            AIMO Music — v2.1 Stability Update
+          </div>
+          <div class="upd-pills">
+            <span class="upd-pill pill-new"><i class="fas fa-plus"></i> 1 New</span>
+            <span class="upd-pill pill-fixed"><i class="fas fa-screwdriver-wrench"></i> 3 Fixed</span>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-new"><i class="fas fa-plus"></i> New</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-terminal"></i></div>
+                <span><strong><code>/updates</code> command added</strong> — View the latest bot changes directly inside Discord without leaving your server.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-fixed"><i class="fas fa-screwdriver-wrench"></i> Fixed</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-music"><i class="fas fa-headphones"></i></div>
+                <span><strong>VC status errors fixed</strong> — Voice channel status updates are now stable and no longer throw errors when AIMO is in a channel.</span>
+              </li>
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-fixed"><i class="fas fa-robot"></i></div>
+                <span><strong>AI response issues fixed and optimized</strong> — <code>/ask</code> now responds faster and more consistently. Context memory handling improved.</span>
+              </li>
+              <li class="upd-item" data-type="fixed">
+                <div class="upd-item-icon ii-fixed"><i class="fas fa-image"></i></div>
+                <span><strong>Image generation issues fixed</strong> — Premium <code>/imagine</code> command no longer fails to attach images in certain channel permission setups.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="upd-card-footer">
+          <i class="fas fa-circle-info"></i>
+          Found a bug? <a href="/support">Report it in the support server</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── v2.0 ── -->
+    <div class="upd-entry reveal" data-tags="new improved">
+      <div class="upd-dot dot-old"><i class="fas fa-rocket"></i></div>
+      <div class="upd-card">
+        <div class="upd-card-topbar tb-old"></div>
+        <div class="upd-card-inner">
+          <div class="upd-meta">
+            <span class="upd-version ver-old"><i class="fas fa-tag"></i> v2.0</span>
+            <span class="upd-date"><i class="fas fa-calendar-days"></i> 12 May 2026</span>
+          </div>
+          <div class="upd-title">
+            <div class="upd-title-icon ti-old"><i class="fas fa-rocket"></i></div>
+            AIMO Music — v2.0 Major Release
+          </div>
+          <div class="upd-pills">
+            <span class="upd-pill pill-new"><i class="fas fa-plus"></i> 4 New</span>
+            <span class="upd-pill pill-improved"><i class="fas fa-arrow-up"></i> 2 Improved</span>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-new"><i class="fas fa-plus"></i> New</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-compact-disc"></i></div>
+                <span><strong>Full Playlist System</strong> — Create, save, load, share, rename, import and manage playlists. 12 playlist commands added.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-heart"></i></div>
+                <span><strong>Favourites System</strong> — Save your favourite songs with <code>/fav add</code> and play them back anytime.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-gamepad"></i></div>
+                <span><strong>Mini Games</strong> — 6 games added: Snake, Minesweeper, Trivia, Rock-Paper-Scissors, Tic-Tac-Toe and Hangman.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <span><strong>Premium AI Image Generation</strong> — <code>/imagine</code> command added for Premium users, powered by Flux Realism and Flux Anime.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-improved"><i class="fas fa-arrow-up"></i> Improved</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="improved">
+                <div class="upd-item-icon ii-improved"><i class="fas fa-robot"></i></div>
+                <span><strong>AI Chat upgraded to GPT-4o</strong> — Faster, smarter responses with improved conversation context memory.</span>
+              </li>
+              <li class="upd-item" data-type="improved">
+                <div class="upd-item-icon ii-improved"><i class="fas fa-music"></i></div>
+                <span><strong>Audio filter stability</strong> — All 10 built-in filters now apply more reliably without cutting out mid-track.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="upd-card-footer">
+          <i class="fas fa-circle-info"></i>
+          Found a bug? <a href="/support">Report it in the support server</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── v1.5 ── -->
+    <div class="upd-entry reveal" data-tags="new">
+      <div class="upd-dot dot-old"><i class="fas fa-sliders"></i></div>
+      <div class="upd-card">
+        <div class="upd-card-topbar tb-old"></div>
+        <div class="upd-card-inner">
+          <div class="upd-meta">
+            <span class="upd-version ver-old"><i class="fas fa-tag"></i> v1.5</span>
+            <span class="upd-date"><i class="fas fa-calendar-days"></i> 8 March 2026</span>
+          </div>
+          <div class="upd-title">
+            <div class="upd-title-icon ti-old"><i class="fas fa-sliders"></i></div>
+            AIMO Music — v1.5 Filters Update
+          </div>
+          <div class="upd-pills">
+            <span class="upd-pill pill-new"><i class="fas fa-plus"></i> 3 New</span>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-new"><i class="fas fa-plus"></i> New</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-sliders"></i></div>
+                <span><strong>10+ Audio Filters</strong> — Bassboost, vaporwave, karaoke, 8D, tremolo and more added via <code>/filter</code>.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-clock-rotate-left"></i></div>
+                <span><strong>24/7 Mode</strong> — <code>/247</code> keeps AIMO in your voice channel permanently.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-new"><i class="fas fa-microphone-lines"></i></div>
+                <span><strong>Lyrics Command</strong> — <code>/lyrics</code> fetches song lyrics via the Genius API.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="upd-card-footer">
+          <i class="fas fa-circle-info"></i>
+          Found a bug? <a href="/support">Report it in the support server</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── v1.0 ── -->
+    <div class="upd-entry reveal" data-tags="new">
+      <div class="upd-dot dot-launch"><i class="fas fa-flag"></i></div>
+      <div class="upd-card">
+        <div class="upd-card-topbar" style="background:linear-gradient(135deg,#22c55e,#16a34a)"></div>
+        <div class="upd-card-inner">
+          <div class="upd-meta">
+            <span class="upd-version ver-old"><i class="fas fa-tag"></i> v1.0</span>
+            <span class="upd-date"><i class="fas fa-calendar-days"></i> 1 January 2026</span>
+          </div>
+          <div class="upd-title">
+            <div class="upd-title-icon ti-green"><i class="fas fa-flag"></i></div>
+            AIMO Music — Initial Launch
+          </div>
+          <div class="upd-pills">
+            <span class="upd-pill pill-new"><i class="fas fa-star"></i> First Release</span>
+          </div>
+
+          <div class="upd-group">
+            <span class="upd-group-label gl-launched"><i class="fas fa-flag"></i> Launched</span>
+            <ul class="upd-items">
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-launch"><i class="fas fa-music"></i></div>
+                <span><strong>Core Music System</strong> — Play, pause, skip, stop, queue. Supports YouTube, Spotify and SoundCloud.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-launch"><i class="fas fa-robot"></i></div>
+                <span><strong>AI Chat</strong> — <code>/ask</code> command powered by GPT-3.5 for in-server AI conversations.</span>
+              </li>
+              <li class="upd-item" data-type="new">
+                <div class="upd-item-icon ii-launch"><i class="fas fa-wrench"></i></div>
+                <span><strong>Utility Commands</strong> — Weather, Wikipedia, avatar, banner, ping, and more.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="upd-card-footer">
+          <i class="fas fa-heart" style="color:var(--pink)"></i>
+          Thank you for being here from the start!
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <!-- What's Next -->
+  <div class="upd-whats-next reveal">
+    <h3>🔮 What's Coming Next</h3>
+    <p>These features are in development and planned for upcoming releases.</p>
+    <div class="upd-next-items">
+      <span class="upd-next-item"><i class="fas fa-compact-disc"></i> Spotify Playlist Import</span>
+      <span class="upd-next-item"><i class="fas fa-users"></i> Server Leaderboards</span>
+      <span class="upd-next-item"><i class="fas fa-waveform-lines"></i> Voice Activity Roles</span>
+      <span class="upd-next-item"><i class="fas fa-globe"></i> More Languages</span>
+    </div>
+    <a class="btn btn-discord" href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener" style="gap:8px;">
+      <i class="fab fa-discord"></i> Suggest a Feature
+    </a>
+  </div>
+
+</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-row"><img src="/logo.webp" alt="AIMO" loading="lazy" onerror="this.style.display='none'"/> AIMO</div>
+        <p>The ultimate Discord music bot with AI features, custom playlists, mini games, and advanced audio filters.</p>
+        <div class="footer-social">
+          <a href="/support" title="Discord"><i class="fab fa-discord"></i></a>
+          <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener" title="Vote"><i class="fas fa-star"></i></a>
+          <a href="mailto:aimo-bot@protone.me" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="/">Home</a>
+        <a href="/features">Features</a>
+        <a href="/commands">Commands</a>
+        <a href="/premium">Premium</a>
+        <a href="/updates">Updates</a>
+        <a href="/status">Status</a>
+        <a href="/support">Support</a>
+        <a href="/docs">Docs</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+      <div class="footer-col">
+        <h5>Links</h5>
+        <a href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">Invite Bot</a>
+        <a href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">Support Server</a>
+        <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener">Vote on Top.gg</a>
+        <a href="mailto:aimo-bot@protone.me">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AIMO Music Bot. All rights reserved.</p>
+      <div class="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
+<script src="/cookie.js"></script>
+<script>
+/* ── Filter tabs ── */
+(function(){
+  const btns = document.querySelectorAll('.upd-filter-btn');
+  const entries = document.querySelectorAll('.upd-entry');
+
+  function applyFilter(filter) {
+    btns.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    entries.forEach(entry => {
+      if (filter === 'all') {
+        entry.style.display = '';
+      } else {
+        const tags = (entry.dataset.tags || '').split(' ');
+        entry.style.display = tags.includes(filter) ? '' : 'none';
+      }
+    });
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+  });
+})();
+</script>
+<script src="https://replit-cdn.com/replit-pill/replit-pill.global.js" data-repl-id="1758e52e-0298-4917-8340-8a7ee6592726"></script></body>
+</html>

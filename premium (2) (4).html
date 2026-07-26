@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Premium — AIMO Music Bot</title>
+  <meta name="description" content="Unlock the full power of AIMO with Premium. Speed control, bass boost, reverb, stereo widening, Nightcore mode and early access to new features."/>
+  <link rel="icon" type="image/webp" href="/logo.webp"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+    /* ── Premium Page Styles ── */
+    .premium-hero {
+      padding: calc(var(--nav-h) + 80px) 24px 80px;
+      text-align: center;
+      background: linear-gradient(150deg, #f8f4ff 0%, #fdf0ff 45%, #eef4ff 100%);
+      position: relative; overflow: hidden;
+      border-bottom: 1.5px solid var(--border);
+    }
+    .premium-hero::before {
+      content: '';
+      position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(124,58,237,.12) 0%, transparent 65%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .premium-hero::after {
+      content: '';
+      position: absolute; bottom: -80px; right: -80px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(236,72,153,.07) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+
+    /* Animated star ring */
+    .premium-star-ring {
+      position: relative; width: 100px; height: 100px;
+      margin: 0 auto 28px; z-index: 1;
+    }
+    .psr-outer {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 1.5px solid rgba(124,58,237,.4);
+      animation: psr-spin 8s linear infinite;
+    }
+    .psr-inner {
+      position: absolute; inset: 14px; border-radius: 50%;
+      border: 1.5px dashed rgba(236,72,153,.35);
+      animation: psr-spin 5s linear infinite reverse;
+    }
+    .psr-core {
+      position: absolute; inset: 28px;
+      background: linear-gradient(135deg, #7c3aed, #ec4899);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.6rem;
+      box-shadow: 0 0 48px rgba(124,58,237,.5), 0 0 80px rgba(124,58,237,.2);
+    }
+    @keyframes psr-spin { to { transform: rotate(360deg); } }
+    .psr-dot {
+      position: absolute; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--purple); box-shadow: 0 0 8px var(--purple);
+    }
+    .psr-dot-1 { top: 4px;   left: 50%; margin-left: -4px; }
+    .psr-dot-2 { bottom: 4px; left: 50%; margin-left: -4px; background: var(--pink); box-shadow: 0 0 8px var(--pink); }
+    .psr-dot-3 { top: 50%;   left: 4px;  margin-top: -4px; background: #fbbf24; box-shadow: 0 0 8px #fbbf24; }
+    .psr-dot-4 { top: 50%;   right: 4px; margin-top: -4px; background: #3b82f6; box-shadow: 0 0 8px #3b82f6; }
+
+    .premium-hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900;
+      color: var(--text); margin-bottom: 16px; position: relative; z-index: 1;
+      letter-spacing: -.03em; line-height: 1.1;
+    }
+    .premium-hero p {
+      color: var(--text-muted); font-size: 1.05rem;
+      max-width: 500px; margin: 0 auto 36px; position: relative; z-index: 1; line-height: 1.75;
+    }
+    .premium-hero-badges {
+      display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+      position: relative; z-index: 1; margin-bottom: 0;
+    }
+    .hero-badge-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Poppins', sans-serif; font-size: .75rem; font-weight: 700;
+      padding: 8px 18px; border-radius: 100px; border: 1.5px solid transparent;
+      letter-spacing: .04em;
+    }
+    .hbc-purple { background: rgba(124,58,237,.1); color: #7c3aed; border-color: rgba(124,58,237,.22); }
+    .hbc-green  { background: rgba(34,197,94,.1);  color: #16a34a; border-color: rgba(34,197,94,.22); }
+    .hbc-pink   { background: rgba(236,72,153,.1); color: #db2777; border-color: rgba(236,72,153,.22); }
+    .hbc-gold   { background: rgba(251,191,36,.1); color: #b45309; border-color: rgba(251,191,36,.22); }
+
+    /* ── Pricing cards ── */
+    .premium-pricing-section { background: #f8f7ff; padding: 88px 0; }
+    .pricing-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+
+    .pricing-card {
+      background: #fff; border-radius: 24px; padding: 40px 36px;
+      border: 2px solid var(--border); box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .pricing-card.featured {
+      border-color: var(--purple);
+      background: linear-gradient(160deg, #fff 0%, #fdf8ff 100%);
+      box-shadow: 0 12px 48px rgba(124,58,237,.18), 0 2px 8px rgba(124,58,237,.08);
+    }
+    .pricing-card.featured:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(124,58,237,.24);
+    }
+
+    /* Animated ribbon */
+    .pricing-ribbon {
+      position: absolute; top: 22px; right: -34px;
+      background: var(--gradient); color: white;
+      font-family: 'Poppins', sans-serif; font-size: .7rem; font-weight: 800;
+      padding: 7px 46px; transform: rotate(45deg);
+      letter-spacing: .08em; text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(124,58,237,.4);
+    }
+
+    .pricing-tier {
+      font-size: .72rem; font-weight: 700; color: var(--purple);
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .pricing-name { font-family: 'Poppins', sans-serif; font-size: 1.7rem; font-weight: 900; margin-bottom: 6px; }
+    .pricing-price {
+      font-family: 'Poppins', sans-serif; font-size: 2.4rem; font-weight: 900;
+      margin: 16px 0 5px; letter-spacing: -.02em;
+    }
+    .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
+    .pricing-sub { font-size: .82rem; color: var(--text-muted); margin-bottom: 28px; }
+    .pricing-divider { border: none; border-top: 1.5px solid var(--border-light); margin: 20px 0; }
+
+    .pricing-list { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
+    .pricing-list li { display: flex; align-items: flex-start; gap: 11px; font-size: .87rem; line-height: 1.5; }
+    .pricing-list li.off { opacity: .45; }
+    .check {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+      display: flex; align-items: center; justify-content: center; font-size: .65rem;
+    }
+    .check-yes { background: rgba(34,197,94,.12); color: #16a34a; }
+    .check-no  { background: rgba(100,116,139,.1); color: var(--text-muted); }
+    .check-star { background: linear-gradient(135deg,#fbbf24,#f59e0b); color: white; }
+
+    /* ── What Premium Unlocks (perk cards) ── */
+    .perks-section { background: #fff; padding: 88px 0; }
+    .perks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+    .perk-card {
+      background: linear-gradient(160deg, #fff 0%, #fdf8ff 100%);
+      border-radius: 22px; padding: 32px 28px;
+      border: 1.5px solid var(--border); box-shadow: var(--shadow);
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      position: relative; overflow: hidden;
+    }
+    .perk-card::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, rgba(124,58,237,.05) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .perk-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(124,58,237,.22); }
+
+    .perk-icon {
+      width: 56px; height: 56px; border-radius: 18px;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.3rem; margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(124,58,237,.3);
+      position: relative; z-index: 1;
+      transition: transform .25s;
+    }
+    .perk-card:hover .perk-icon { transform: scale(1.08) rotate(-4deg); }
+
+    .perk-card h4 { font-size: 1rem; margin-bottom: 9px; position: relative; z-index: 1; }
+    .perk-card p  { font-size: .84rem; color: var(--text-muted); line-height: 1.65; position: relative; z-index: 1; }
+    .perk-tag {
+      display: inline-flex; align-items: center; gap: 4px; margin-top: 12px;
+      font-size: .68rem; font-weight: 700; font-family: 'Poppins', sans-serif;
+      background: rgba(124,58,237,.08); color: var(--purple);
+      border: 1px solid rgba(124,58,237,.18); padding: 3px 10px; border-radius: 100px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── How to Get Premium ── */
+    .how-section { background: var(--bg-alt); padding: 88px 0; }
+
+    .steps-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px;
+    }
+    .step-card {
+      background: #fff; border-radius: 20px; padding: 28px 24px;
+      border: 1.5px solid var(--border); box-shadow: var(--shadow);
+      text-align: center; position: relative;
+      transition: transform .22s, box-shadow .22s;
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: var(--gradient); color: white;
+      font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; box-shadow: 0 4px 14px rgba(124,58,237,.3);
+    }
+    .step-card h4 { font-size: .95rem; margin-bottom: 8px; }
+    .step-card p  { font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Connector dots between steps */
+    .step-connector {
+      position: absolute; top: 50px; right: -14px; z-index: 2;
+      width: 24px; height: 4px;
+      background: linear-gradient(90deg, var(--purple), var(--pink));
+      border-radius: 2px;
+    }
+
+    /* FAQ strip */
+    .faq-strip { display: flex; flex-direction: column; gap: 14px; max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      background: #fff; border: 1.5px solid var(--border); border-radius: 16px;
+      overflow: hidden; transition: border-color .2s;
+    }
+    .faq-item:hover { border-color: rgba(124,58,237,.25); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px; cursor: pointer; gap: 12px;
+      font-family: 'Poppins', sans-serif; font-size: .9rem; font-weight: 700; color: var(--text);
+    }
+    .faq-q i { color: var(--purple); flex-shrink: 0; transition: transform .3s; font-size: .85rem; }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s cubic-bezier(.4,0,.2,1), padding .3s;
+      font-size: .86rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .faq-a-inner { padding: 0 22px 18px; }
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-item.open .faq-q i { transform: rotate(180deg); }
+
+    @media (max-width: 900px) {
+      .steps-row { grid-template-columns: 1fr; gap: 16px; }
+      .step-connector { display: none; }
+    }
+    @media (max-width: 768px) {
+      .pricing-wrap { grid-template-columns: 1fr; }
+      .perks-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 540px) {
+      .perks-grid { grid-template-columns: 1fr; }
+      .premium-hero { padding: calc(var(--nav-h) + 52px) 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/"><img src="/logo.webp" alt="AIMO" loading="eager" onerror="this.style.display='none'"/><span>AIMO</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/features">Features</a>
+      <a href="/commands">Commands</a>
+      <a href="/premium" class="active">Premium</a>
+      <a href="/status"><i class="fas fa-signal"></i> Status</a>
+      <a class="nav-cta-mobile" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">+ Invite AIMO</a>
+    </div>
+    <a class="nav-cta ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Invite AIMO
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="premium-hero">
+  <div class="premium-star-ring">
+    <div class="psr-outer"></div>
+    <div class="psr-inner"></div>
+    <div class="psr-core"><i class="fas fa-star"></i></div>
+    <div class="psr-dot psr-dot-1"></div>
+    <div class="psr-dot psr-dot-2"></div>
+    <div class="psr-dot psr-dot-3"></div>
+    <div class="psr-dot psr-dot-4"></div>
+  </div>
+  <h1>AIMO <span style="background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Premium</span></h1>
+  <p>Unlock the full power of AIMO — exclusive audio effects, priority support, and early access to every new feature.</p>
+  <div class="premium-hero-badges">
+    <span class="hero-badge-chip hbc-purple"><i class="fas fa-bolt"></i> Instant Activation</span>
+    <span class="hero-badge-chip hbc-green"><i class="fas fa-shield-halved"></i> Linked to Discord ID</span>
+    <span class="hero-badge-chip hbc-pink"><i class="fas fa-headphones"></i> Priority Support</span>
+    <span class="hero-badge-chip hbc-gold"><i class="fas fa-star"></i> Exclusive Effects</span>
+  </div>
+</section>
+
+<!-- ════ PRICING ════ -->
+<section class="premium-pricing-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Choose Your <span class="gradient-text">Plan</span></h2>
+      <p>Start free — upgrade to Premium when you want the full experience.</p>
+    </div>
+    <div class="pricing-wrap">
+
+      <!-- Free -->
+      <div class="pricing-card reveal">
+        <div class="pricing-tier"><i class="fas fa-music" style="margin-right:5px"></i> For Everyone</div>
+        <div class="pricing-name">Free</div>
+        <div class="pricing-price">$0<span> / forever</span></div>
+        <div class="pricing-sub">No credit card · No sign-up required</div>
+        <hr class="pricing-divider"/>
+        <ul class="pricing-list">
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> High-quality music (YouTube, Spotify, SoundCloud)</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> Full queue management — shuffle, loop, clear, reorder</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> Playlists &amp; favourites saved to your account</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> 10+ basic audio filters</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> AI chat powered by GPT-4o (<code>/ask</code>)</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> All 6 mini games</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> Lyrics, weather, utilities &amp; 55 slash commands</li>
+          <li class="off"><span class="check check-no"><i class="fas fa-times"></i></span> Playback speed control (<code>/speed</code>)</li>
+          <li class="off"><span class="check check-no"><i class="fas fa-times"></i></span> Advanced bass boost (<code>/boost</code>)</li>
+          <li class="off"><span class="check check-no"><i class="fas fa-times"></i></span> Reverb &amp; echo effect (<code>/reverb</code>)</li>
+          <li class="off"><span class="check check-no"><i class="fas fa-times"></i></span> Stereo widening (<code>/stereo</code>)</li>
+          <li class="off"><span class="check check-no"><i class="fas fa-times"></i></span> Nightcore mode (<code>/nightcore</code>)</li>
+        </ul>
+        <a class="btn btn-outline ripple-host" style="width:100%;justify-content:center;" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add AIMO Free
+        </a>
+      </div>
+
+      <!-- Premium -->
+      <div class="pricing-card featured reveal" style="animation-delay:.1s">
+        <div class="pricing-ribbon"><i class="fas fa-star"></i> Most Popular</div>
+        <div class="pricing-tier" style="background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"><i class="fas fa-crown" style="-webkit-text-fill-color:transparent"></i> For Power Users</div>
+        <div class="pricing-name gradient-text">Premium</div>
+        <div class="pricing-price gradient-text">Custom<span> / contact us</span></div>
+        <div class="pricing-sub">Join Discord and open a ticket to get access</div>
+        <hr class="pricing-divider"/>
+        <ul class="pricing-list">
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> <strong>Everything in Free, plus:</strong></li>
+          <li><span class="check check-star"><i class="fas fa-star"></i></span> <strong>Playback speed control — 0.5× to 3.0× (<code>/speed</code>)</strong></li>
+          <li><span class="check check-star"><i class="fas fa-star"></i></span> Advanced deep bass boost (<code>/boost</code>)</li>
+          <li><span class="check check-star"><i class="fas fa-star"></i></span> Reverb &amp; echo — concert-hall effect (<code>/reverb</code>)</li>
+          <li><span class="check check-star"><i class="fas fa-star"></i></span> Stereo widening — spatial sound (<code>/stereo</code>)</li>
+          <li><span class="check check-star"><i class="fas fa-star"></i></span> Nightcore mode — classic AMV sound (<code>/nightcore</code>)</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> Priority support response</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> Early access to all new features</li>
+          <li><span class="check check-yes"><i class="fas fa-check"></i></span> Premium badge on your Discord profile</li>
+        </ul>
+        <a class="btn btn-primary ripple-host" style="width:100%;justify-content:center;" href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.112 18.1.128 18.116a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          Get Premium — Join Discord
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHAT PREMIUM UNLOCKS ════ -->
+<section class="perks-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>What Premium <span class="gradient-text">Unlocks</span></h2>
+      <p>Six powerful audio effects built for the most dedicated AIMO users.</p>
+    </div>
+    <div class="perks-grid">
+
+      <div class="perk-card reveal">
+        <div class="perk-icon"><i class="fas fa-gauge-high"></i></div>
+        <h4>Speed Control</h4>
+        <p>Adjust playback speed from 0.5× to 3.0× without affecting pitch. Perfect for studying, podcasts, or remix listening sessions.</p>
+        <div class="perk-tag"><i class="fas fa-terminal"></i> /speed</div>
+      </div>
+
+      <div class="perk-card reveal" style="animation-delay:.08s">
+        <div class="perk-icon" style="background:linear-gradient(135deg,#3b82f6,#7c3aed)"><i class="fas fa-wave-square"></i></div>
+        <h4>Advanced Bass Boost</h4>
+        <p>Apply a deep, powerful bass enhancement that far surpasses the standard filter options. Feel every beat in the room.</p>
+        <div class="perk-tag"><i class="fas fa-terminal"></i> /boost</div>
+      </div>
+
+      <div class="perk-card reveal" style="animation-delay:.16s">
+        <div class="perk-icon" style="background:linear-gradient(135deg,#06b6d4,#3b82f6)"><i class="fas fa-water"></i></div>
+        <h4>Reverb &amp; Echo</h4>
+        <p>Transform any song into a spacious concert-hall experience. A cinematic, dreamy echo for any track or genre.</p>
+        <div class="perk-tag"><i class="fas fa-terminal"></i> /reverb</div>
+      </div>
+
+      <div class="perk-card reveal" style="animation-delay:.04s">
+        <div class="perk-icon" style="background:linear-gradient(135deg,#ec4899,#7c3aed)"><i class="fas fa-headphones"></i></div>
+        <h4>Stereo Widening</h4>
+        <p>Expand the audio field for a wider, spatial soundstage. Makes every track feel like it completely surrounds you.</p>
+        <div class="perk-tag"><i class="fas fa-terminal"></i> /stereo</div>
+      </div>
+
+      <div class="perk-card reveal" style="animation-delay:.12s">
+        <div class="perk-icon" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)"><i class="fas fa-moon"></i></div>
+        <h4>Nightcore Mode</h4>
+        <p>Enable the classic Nightcore effect — sped-up tempo and raised pitch, the signature anime AMV sound. Instant nostalgia.</p>
+        <div class="perk-tag"><i class="fas fa-terminal"></i> /nightcore</div>
+      </div>
+
+      <div class="perk-card reveal" style="animation-delay:.2s">
+        <div class="perk-icon" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)"><i class="fas fa-star"></i></div>
+        <h4>Priority &amp; Early Access</h4>
+        <p>Faster support responses and first access to new commands and features before they roll out to everyone else.</p>
+        <div class="perk-tag"><i class="fas fa-crown"></i> Exclusive</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ HOW TO GET IT ════ -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>How to Get <span class="gradient-text">Premium</span></h2>
+      <p>Three simple steps — Premium is activated manually and linked directly to your Discord User ID.</p>
+    </div>
+
+    <div class="steps-row">
+      <div class="step-card reveal" style="position:relative">
+        <div class="step-num">1</div>
+        <h4>Join the Server</h4>
+        <p>Click below to join the AIMO support server on Discord where all Premium requests are handled.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card reveal" style="animation-delay:.08s;position:relative">
+        <div class="step-num">2</div>
+        <h4>Open a Ticket</h4>
+        <p>Find the ticket channel and open a Premium request. Include your Discord User ID and describe what you need.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card reveal" style="animation-delay:.16s">
+        <div class="step-num">3</div>
+        <h4>Get Activated</h4>
+        <p>An admin will manually grant Premium access linked to your Discord ID. Start using all premium commands instantly.</p>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section-header" style="margin-bottom:32px">
+      <h2 style="font-size:1.6rem">Frequently <span class="gradient-text">Asked</span></h2>
+    </div>
+    <div class="faq-strip">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          How much does Premium cost?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Premium pricing is set on a case-by-case basis. Join our Discord support server and open a ticket — an admin will discuss the current pricing and options with you directly.</div></div>
+      </div>
+      <div class="faq-item reveal" style="animation-delay:.05s">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Is Premium linked to my account or server?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Premium is linked to your Discord User ID. This means you can use all Premium commands in any server that AIMO is in — it follows you wherever you go.</div></div>
+      </div>
+      <div class="faq-item reveal" style="animation-delay:.1s">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Can I try Premium before buying?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Reach out in the support server and ask about trial options. The team is happy to discuss your needs and may be able to offer a short trial period.</div></div>
+      </div>
+      <div class="faq-item reveal" style="animation-delay:.15s">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          How quickly is Premium activated after I pay?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Activation is manual and typically happens within a few hours of payment confirmation. During busy periods it may take up to 24 hours. You'll be notified in the support server.</div></div>
+      </div>
+    </div>
+
+    <div class="cta-box reveal" style="margin-top:56px">
+      <div style="font-size:2.5rem;margin-bottom:16px">
+        <i class="fab fa-discord" style="color:#5865F2"></i>
+      </div>
+      <h3>Ready to <span class="gradient-text">Upgrade?</span></h3>
+      <p>Join our Discord and open a ticket. The team will get you set up with Premium access linked to your Discord ID.</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary ripple-host" href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.112 18.1.128 18.116a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          Join Support Server
+        </a>
+        <a class="btn btn-outline ripple-host" href="mailto:aimo-bot@protone.me">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-row"><img src="/logo.webp" alt="AIMO" loading="lazy" onerror="this.style.display='none'"/> AIMO</div>
+        <p>The ultimate Discord music bot with AI features, custom playlists, mini games, and advanced audio filters. Free forever.</p>
+        <div class="footer-social">
+          <a href="/support" title="Discord"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.112 18.1.128 18.116a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></a>
+          <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener" title="Vote"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></a>
+          <a href="mailto:aimo-bot@protone.me" title="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Navigate</h5><a href="/">Home</a><a href="/features">Features</a><a href="/commands">Commands</a><a href="/premium">Premium</a><a href="/status">Status</a><a href="/updates">Updates</a><a href="/support">Support</a><a href="/docs">Docs</a></div>
+      <div class="footer-col"><h5>Legal</h5><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+      <div class="footer-col"><h5>Links</h5>
+        <a href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">Invite Bot</a>
+        <a href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">Support Server</a>
+        <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener">Vote on Top.gg</a>
+        <a href="mailto:aimo-bot@protone.me">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 AIMO Music Bot. All rights reserved.</p><div class="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
+  </div>
+</footer>
+
+<script src="/config.js"></script>
+<script src="/script.js"></script>
+<script src="/cookie.js"></script>
+<script src="https://replit-cdn.com/replit-pill/replit-pill.global.js" data-repl-id="1758e52e-0298-4917-8340-8a7ee6592726"></script></body>
+</html>
