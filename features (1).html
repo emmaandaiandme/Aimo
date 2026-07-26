@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Features — AIMO Music Bot</title>
+  <meta name="description" content="Explore every feature AIMO offers — high-quality music, AI chat, playlists, audio filters, mini games, and more. All free."/>
+  <link rel="icon" type="image/webp" href="/logo.webp"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+    /* ════════════════════════════════════
+       FEATURES PAGE — LIGHT DESIGN
+    ════════════════════════════════════ */
+
+    /* ── Hero (light gradient) ── */
+    .feat-page-hero {
+      background: linear-gradient(135deg, #f8f4ff 0%, #fdf0ff 45%, #eef4ff 100%);
+      padding: calc(var(--nav-h) + 72px) 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1.5px solid var(--border);
+    }
+    .feat-page-hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,58,237,.1) 0%, transparent 65%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .feat-page-hero::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(236,72,153,.08) 0%, transparent 65%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .feat-hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Poppins', sans-serif; font-size: .72rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--purple); background: rgba(124,58,237,.1);
+      border: 1.5px solid rgba(124,58,237,.22); padding: 7px 18px; border-radius: 100px;
+      margin-bottom: 28px; position: relative; z-index: 1;
+    }
+    .feat-hero-label .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--purple); box-shadow: 0 0 8px rgba(124,58,237,.6);
+      animation: blink 1.6s infinite; display: inline-block;
+    }
+    .feat-page-hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+      font-weight: 900; color: var(--text);
+      margin-bottom: 20px; line-height: 1.12;
+      letter-spacing: -.03em; position: relative; z-index: 1;
+    }
+    .feat-page-hero h1 .grad {
+      background: var(--gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .feat-page-hero p {
+      font-size: 1.05rem; color: var(--text-muted);
+      max-width: 520px; margin: 0 auto 38px; line-height: 1.75;
+      position: relative; z-index: 1;
+    }
+    .feat-hero-btns {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      position: relative; z-index: 1; margin-bottom: 72px;
+    }
+
+    /* Audio viz (light version) */
+    .feat-audio-viz {
+      position: relative; width: 160px; height: 160px;
+      margin: 0 auto; z-index: 1;
+    }
+    .fav-rings { position: absolute; inset: 0; }
+    .fav-ring {
+      position: absolute; border-radius: 50%; border: 1.5px solid transparent;
+      animation: fav-spin 5s linear infinite;
+    }
+    .fav-ring-1 { inset: 0; border-color: rgba(124,58,237,.35) rgba(124,58,237,.08) rgba(124,58,237,.08) rgba(124,58,237,.18); }
+    .fav-ring-2 { inset: 18px; border-color: rgba(236,72,153,.22) rgba(236,72,153,.06) rgba(236,72,153,.22) rgba(236,72,153,.06); animation-direction: reverse; animation-duration: 3.5s; }
+    .fav-ring-3 { inset: 36px; border-color: rgba(124,58,237,.15) rgba(124,58,237,.3) rgba(124,58,237,.15) rgba(124,58,237,.08); animation-duration: 7s; }
+    @keyframes fav-spin { to { transform: rotate(360deg); } }
+    .fav-center {
+      position: absolute; inset: 52px;
+      background: var(--gradient); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 32px rgba(124,58,237,.28);
+    }
+    .fav-dots { position: absolute; inset: 0; }
+    .fav-dot {
+      position: absolute; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--purple); box-shadow: 0 0 8px var(--purple);
+      animation: fav-orbit 4s linear infinite;
+    }
+    .fav-dot-1 { top: 8px; left: 50%; margin-left: -4px; animation-delay: 0s; }
+    .fav-dot-2 { bottom: 8px; left: 50%; margin-left: -4px; animation-delay: -2s; background: var(--pink); box-shadow: 0 0 8px var(--pink); }
+    .fav-dot-3 { top: 50%; left: 8px; margin-top: -4px; animation-delay: -1s; background: #3b82f6; box-shadow: 0 0 8px #3b82f6; }
+    @keyframes fav-orbit { 0%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.6)} 100%{opacity:1;transform:scale(1)} }
+    .fav-label {
+      position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%);
+      font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--text-muted); font-family: 'Poppins', sans-serif; white-space: nowrap;
+    }
+
+    /* ── Feature sections ── */
+    .feat-section { padding: 100px 0; background: #ffffff; }
+    .feat-section.feat-alt { background: var(--bg-alt); }
+    .feat-row {
+      display: grid; grid-template-columns: 80px 1fr 1fr;
+      gap: 0 52px; align-items: center;
+    }
+    .feat-row-reverse .feat-detail { order: 3; }
+    .feat-row-reverse .feat-visual { order: 2; }
+    .feat-row-reverse .feat-num-block { order: 1; }
+    .feat-num-block { text-align: center; }
+    .feat-num {
+      font-family: 'Poppins', sans-serif; font-weight: 900;
+      font-size: 3rem; line-height: 1;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px;
+    }
+    .feat-num-icon {
+      width: 44px; height: 44px; border-radius: 14px; margin: 0 auto;
+      background: linear-gradient(135deg, rgba(124,58,237,.12), rgba(236,72,153,.12));
+      display: flex; align-items: center; justify-content: center; color: var(--purple);
+    }
+    .feat-tag {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--purple);
+      background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.18);
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .feat-detail h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin-bottom: 16px; }
+    .feat-detail p { color: var(--text-muted); line-height: 1.8; margin-bottom: 22px; }
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--text-muted); line-height: 1.55; }
+    .feat-list li .fi { flex-shrink: 0; margin-top: 2px; color: #16a34a; font-size: .9rem; }
+    .feat-premium {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: linear-gradient(135deg,#fbbf24,#f59e0b); color: white;
+      font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 100px;
+      font-family: 'Poppins', sans-serif; margin-right: 4px;
+    }
+    .feat-visual { display: flex; align-items: center; justify-content: center; }
+
+    /* ══════════════════════════════════
+       LIGHT DEMO CARDS
+    ══════════════════════════════════ */
+
+    /* Base light card */
+    .feat-demo-card {
+      background: #ffffff; border-radius: 20px; padding: 20px;
+      width: 100%; max-width: 300px;
+      box-shadow: 0 8px 32px rgba(124,58,237,.1), 0 2px 8px rgba(0,0,0,.05);
+      border: 1.5px solid var(--border);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .feat-demo-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(124,58,237,.15); }
+
+    /* ── Music player demo ── */
+    .fcd-eq {
+      display: flex; align-items: flex-end; gap: 3px; height: 36px; margin-bottom: 16px;
+    }
+    .fcd-eq span {
+      flex: 1; border-radius: 3px 3px 0 0;
+      background: linear-gradient(to top, rgba(124,58,237,.6), rgba(236,72,153,.5));
+      animation: mc-eq-anim 1s ease-in-out infinite;
+    }
+    .fcd-eq span:nth-child(1){height:35%;animation-delay:0s}
+    .fcd-eq span:nth-child(2){height:75%;animation-delay:.1s}
+    .fcd-eq span:nth-child(3){height:55%;animation-delay:.2s}
+    .fcd-eq span:nth-child(4){height:90%;animation-delay:.05s}
+    .fcd-eq span:nth-child(5){height:45%;animation-delay:.15s}
+    .fcd-eq span:nth-child(6){height:68%;animation-delay:.25s}
+    .fcd-eq span:nth-child(7){height:38%;animation-delay:.08s}
+    .fcd-eq span:nth-child(8){height:80%;animation-delay:.18s}
+    @keyframes mc-eq-anim { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.5)} }
+    .fcd-label {
+      font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 4px; font-family:'Poppins',sans-serif;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .fcd-label::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; box-shadow:0 0 6px #22c55e; display:inline-block; animation:blink 1.6s infinite; }
+    .fcd-song { font-family:'Poppins',sans-serif; font-weight:700; font-size:.97rem; color:var(--text); margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .fcd-artist { font-size:.78rem; color:var(--text-muted); margin-bottom:14px; }
+    .fcd-prog { height:5px; background:var(--border-light); border-radius:100px; margin-bottom:6px; overflow:hidden; }
+    .fcd-prog div { height:100%; background:var(--gradient); border-radius:100px; animation:prog-anim 18s linear infinite; }
+    @keyframes prog-anim { from{width:5%} to{width:95%} }
+    .fcd-time { display:flex; justify-content:space-between; font-size:.67rem; color:var(--text-muted); font-weight:500; }
+    .fcd-controls { display:flex; justify-content:center; gap:8px; margin-top:14px; }
+    .fcd-btn {
+      width:34px; height:34px; border-radius:8px; border:none; cursor:pointer;
+      background:var(--border-light); color:var(--text-muted);
+      display:flex; align-items:center; justify-content:center; font-size:.8rem;
+      transition: background .18s, color .18s, transform .15s;
+    }
+    .fcd-btn:hover { background:var(--gradient); color:white; transform:scale(1.1); }
+    .fcd-btn.active { background:var(--gradient); color:white; }
+
+    /* ── Queue demo ── */
+    .fqd-header {
+      font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700;
+      color:var(--text); margin-bottom:14px;
+      display:flex; align-items:center; gap:7px;
+    }
+    .fqd-header i { color:var(--purple); }
+    .fqd-item {
+      display:flex; align-items:center; gap:10px; padding:9px 10px;
+      border-radius:10px; margin-bottom:3px; transition:background .2s;
+    }
+    .fqd-item:hover { background:rgba(124,58,237,.06); }
+    .fqd-active { background:rgba(124,58,237,.08) !important; }
+    .fqd-num { font-size:.72rem; font-weight:700; color:var(--text-muted); min-width:18px; font-family:'Poppins',sans-serif; }
+    .fqd-playing { color:var(--purple); }
+    .fqd-name { flex:1; font-size:.82rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .fqd-active .fqd-name { color:var(--text); font-weight:600; }
+    .fqd-dur { font-size:.72rem; color:var(--text-light); flex-shrink:0; }
+    .fqd-more { font-size:.72rem; color:var(--text-light); padding-top:10px; font-style:italic; padding-left:10px; }
+
+    /* ── Filters demo ── */
+    .ffd-title {
+      font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700;
+      color:var(--text); margin-bottom:14px;
+      display:flex; align-items:center; gap:7px;
+    }
+    .ffd-title i { color:var(--purple); }
+    .ffd-bars { display:flex; align-items:flex-end; gap:5px; height:60px; margin-bottom:14px; }
+    .ffd-bar-group { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+    .ffd-bar {
+      width:100%; background:var(--border-light); border-radius:4px 4px 0 0;
+      min-height:6px; transition:height .4s cubic-bezier(.4,0,.2,1);
+    }
+    .ffd-bar-active { background:var(--gradient); }
+    .ffd-bar-group span { font-size:.55rem; color:var(--text-muted); font-weight:600; }
+    .ffd-chips { display:flex; flex-wrap:wrap; gap:6px; }
+    .ffd-chip {
+      font-size:.67rem; font-weight:700; padding:4px 10px; border-radius:100px;
+      font-family:'Poppins',sans-serif;
+      background:var(--border-light); color:var(--text-muted); border:1.5px solid var(--border);
+      transition: all .2s; cursor:default;
+    }
+    .ffd-chip-on { background:rgba(124,58,237,.1); color:var(--purple); border-color:rgba(124,58,237,.25); }
+    .ffd-chip-premium { background:rgba(251,191,36,.1); color:#d97706; border-color:rgba(251,191,36,.3); }
+
+    /* ── AI chat demo ── */
+    .fad-header {
+      display:flex; align-items:center; gap:7px;
+      font-family:'Poppins',sans-serif; font-size:.75rem; font-weight:700;
+      color:var(--text-muted); margin-bottom:12px;
+    }
+    .fad-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; box-shadow:0 0 6px #22c55e; animation:blink 1.6s infinite; flex-shrink:0; }
+    .fad-msg { font-size:.78rem; line-height:1.55; border-radius:12px; padding:10px 12px; margin-bottom:8px; }
+    .fad-user { background:rgba(124,58,237,.08); color:var(--text); border-radius:12px 12px 3px 12px; border:1px solid rgba(124,58,237,.12); }
+    .fad-bot { display:flex; gap:8px; align-items:flex-start; }
+    .fad-bot-av {
+      width:24px; height:24px; border-radius:50%;
+      background:var(--gradient); overflow:hidden; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .fad-bot-av img { width:100%; height:100%; object-fit:cover; }
+    .fad-bot-text {
+      background:var(--bg-alt); color:var(--text); padding:10px 12px;
+      border-radius:3px 12px 12px 12px; font-size:.78rem; line-height:1.55;
+      border:1px solid var(--border);
+    }
+    .fad-typing { display:flex; align-items:center; gap:4px; padding-left:32px; }
+    .fad-typing span {
+      width:5px; height:5px; border-radius:50%; background:var(--border);
+      animation:typing-bounce .9s ease-in-out infinite; display:block;
+    }
+    .fad-typing span:nth-child(2){animation-delay:.15s}
+    .fad-typing span:nth-child(3){animation-delay:.3s}
+    @keyframes typing-bounce { 0%,100%{transform:translateY(0);opacity:.4} 50%{transform:translateY(-4px);opacity:1} }
+
+    /* ── Playlist demo ── */
+    .fpd-header {
+      display:flex; align-items:center; gap:7px;
+      font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700;
+      color:var(--text); margin-bottom:12px;
+    }
+    .fpd-header i { color:var(--purple); }
+    .fpd-list { display:flex; flex-direction:column; gap:2px; }
+    .fpd-item {
+      display:flex; align-items:center; gap:10px; padding:10px 10px;
+      border-radius:10px; cursor:pointer; transition:background .2s, transform .15s;
+    }
+    .fpd-item:hover { background:rgba(124,58,237,.06); transform:translateX(3px); }
+    .fpd-active { background:rgba(124,58,237,.09) !important; }
+    .fpd-icon { font-size:1.1rem; width:26px; text-align:center; }
+    .fpd-name { flex:1; font-size:.82rem; font-weight:600; color:var(--text-muted); }
+    .fpd-active .fpd-name { color:var(--purple); }
+    .fpd-cnt { font-size:.7rem; color:var(--text-light); }
+
+    /* ── Games demo ── */
+    .fgd-title {
+      font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700;
+      color:var(--text); margin-bottom:12px;
+      display:flex; align-items:center; gap:7px;
+    }
+    .fgd-title i { color:var(--purple); }
+    .fgd-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .fgd-game {
+      background:var(--bg-alt); border:1.5px solid var(--border);
+      border-radius:12px; padding:14px 10px; text-align:center;
+      font-size:1.4rem; display:flex; flex-direction:column; gap:7px; align-items:center;
+      transition:all .22s; cursor:default;
+    }
+    .fgd-game:hover {
+      background:rgba(124,58,237,.07); border-color:rgba(124,58,237,.22);
+      transform:translateY(-3px); box-shadow:0 6px 20px rgba(124,58,237,.12);
+    }
+    .fgd-game span { font-size:.71rem; color:var(--text-muted); font-family:'Poppins',sans-serif; font-weight:600; }
+
+    /* ── Discord command interaction demo ── */
+    .feat-discord-demo {
+      width: 100%; max-width: 340px;
+    }
+    .fdd-window {
+      background: #313338; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.22), 0 4px 16px rgba(0,0,0,.15);
+      font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', sans-serif;
+    }
+    .fdd-topbar {
+      background: #2b2d31; padding: 10px 14px;
+      display: flex; align-items: center; gap: 7px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .fdd-topbar-dots { display: flex; gap: 5px; }
+    .fdd-dot-r { width:10px;height:10px;border-radius:50%;background:#ff5f57; }
+    .fdd-dot-y { width:10px;height:10px;border-radius:50%;background:#ffbd2e; }
+    .fdd-dot-g { width:10px;height:10px;border-radius:50%;background:#28c940; }
+    .fdd-topbar-ch {
+      display: flex; align-items: center; gap: 5px;
+      font-size: .72rem; color: rgba(255,255,255,.5); font-weight: 600; margin-left: 6px;
+    }
+    .fdd-topbar-ch i { font-size: .65rem; }
+    .fdd-messages { padding: 12px 10px; display: flex; flex-direction: column; gap: 2px; }
+    .fdd-msg {
+      display: flex; align-items: flex-start; gap: 9px; padding: 3px 4px;
+      border-radius: 4px; transition: background .15s;
+    }
+    .fdd-msg:hover { background: rgba(255,255,255,.03); }
+    .fdd-av {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 800; color: white; margin-top: 1px;
+    }
+    .fdd-av-user { background: #5865f2; font-size: .75rem; }
+    .fdd-av-bot { background: var(--gradient); overflow: hidden; }
+    .fdd-av-bot img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .fdd-msg-body { flex: 1; min-width: 0; }
+    .fdd-msg-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
+    .fdd-username { font-size: .82rem; font-weight: 600; color: #ffffff; }
+    .fdd-botname  { color: #5865f2; }
+    .fdd-app-tag {
+      background: #5865f2; color: white; font-size: .55rem; font-weight: 800;
+      padding: 1px 5px; border-radius: 4px; letter-spacing: .05em;
+      font-family: 'Poppins', sans-serif;
+    }
+    .fdd-timestamp { font-size: .67rem; color: rgba(255,255,255,.28); }
+    .fdd-slash-cmd {
+      font-size: .83rem; color: rgba(255,255,255,.85);
+    }
+    .fdd-slash-cmd .fdd-cmd-name {
+      color: #5865f2; font-weight: 600;
+    }
+    /* Bot embed */
+    .fdd-embed {
+      display: flex; border-radius: 4px; overflow: hidden; margin-top: 4px;
+      background: #2b2d31; border: 1px solid rgba(255,255,255,.08);
+      max-width: 300px;
+    }
+    .fdd-embed-bar { width: 4px; flex-shrink: 0; background: #5865f2; }
+    .fdd-embed-inner { padding: 10px 12px; flex: 1; }
+    .fdd-embed-title { font-size: .82rem; font-weight: 700; color: #ffffff; margin-bottom: 4px; }
+    .fdd-embed-desc  { font-size: .75rem; color: rgba(255,255,255,.55); line-height: 1.45; }
+    /* Select component */
+    .fdd-select-wrap { margin-top: 8px; max-width: 300px; }
+    .fdd-select-box {
+      background: #1e1f22; border: 1px solid rgba(255,255,255,.12);
+      border-radius: 4px; overflow: hidden;
+    }
+    .fdd-select-trigger {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 9px 12px; cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .fdd-select-chosen {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .82rem; color: rgba(255,255,255,.9);
+      transition: opacity .2s;
+    }
+    .fdd-select-flag { font-size: 1rem; }
+    .fdd-select-arrow { color: rgba(255,255,255,.35); font-size: .7rem; transition: transform .3s; }
+    .fdd-select-open .fdd-select-arrow { transform: rotate(180deg); }
+    /* Dropdown options */
+    .fdd-options-list { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.4,0,.2,1); }
+    .fdd-options-open { max-height: 200px; }
+    .fdd-option-row {
+      display: flex; align-items: center; gap: 9px; padding: 8px 12px;
+      font-size: .8rem; color: rgba(255,255,255,.65);
+      border-bottom: 1px solid rgba(255,255,255,.04); cursor: pointer;
+      transition: background .15s;
+    }
+    .fdd-option-row:last-child { border-bottom: none; }
+    .fdd-option-row:hover { background: rgba(255,255,255,.06); }
+    .fdd-option-active {
+      background: rgba(88,101,242,.2) !important;
+      color: white !important;
+    }
+    .fdd-option-check { margin-left: auto; color: #5865f2; font-size: .75rem; opacity: 0; transition: opacity .2s; }
+    .fdd-option-active .fdd-option-check { opacity: 1; }
+    .fdd-option-name { flex: 1; font-weight: 500; }
+    /* Confirm message */
+    .fdd-confirm-msg {
+      margin-top: 6px; padding: 7px 10px; border-radius: 4px;
+      background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.2);
+      font-size: .76rem; color: #86efac; display: none; align-items: center; gap: 6px;
+    }
+    .fdd-confirm-msg.visible { display: flex; animation: fadeInUp .3s ease; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── Song picker demo (animated) ── */
+    .feat-songs-demo {
+      background: #ffffff; border-radius: 20px; padding: 20px;
+      width: 100%; max-width: 300px;
+      box-shadow: 0 8px 32px rgba(124,58,237,.1), 0 2px 8px rgba(0,0,0,.05);
+      border: 1.5px solid var(--border);
+    }
+    .fsd-header {
+      display:flex; align-items:center; gap:8px;
+      font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700;
+      color:var(--text); margin-bottom:12px;
+    }
+    .fsd-header i { color:var(--purple); }
+    .fsd-item {
+      display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px;
+      margin-bottom:3px; transition: background .2s, transform .2s;
+      cursor:default;
+    }
+    .fsd-item:hover { background: rgba(124,58,237,.06); transform: translateX(3px); }
+    .fsd-active { background: rgba(124,58,237,.08) !important; }
+    .fsd-num {
+      width:22px; height:22px; border-radius:6px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.68rem; font-weight:800; font-family:'Poppins',sans-serif;
+      background: var(--border-light); color: var(--text-muted);
+    }
+    .fsd-active .fsd-num { background: var(--gradient); color: white; }
+    .fsd-info { flex:1; min-width:0; }
+    .fsd-title { font-size:.8rem; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .fsd-active .fsd-title { color:var(--purple); }
+    .fsd-artist { font-size:.7rem; color:var(--text-muted); }
+    .fsd-dur { font-size:.7rem; color:var(--text-light); flex-shrink:0; }
+
+    /* ── Feature card hover animations — ALL demo cards float ── */
+    .feat-demo-card, .feat-lang-demo, .feat-songs-demo, .feat-discord-demo {
+      animation: float-card 4s ease-in-out infinite;
+    }
+    @keyframes float-card {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    /* Stagger each section's card so they don't all float in sync */
+    .feat-section:nth-child(2) .feat-demo-card  { animation-delay: .0s; }
+    .feat-section:nth-child(3) .feat-demo-card  { animation-delay: .5s; }
+    .feat-section:nth-child(4) .feat-demo-card  { animation-delay: 1.0s; }
+    .feat-section:nth-child(5) .feat-demo-card  { animation-delay: 1.5s; }
+    .feat-section:nth-child(6) .feat-demo-card  { animation-delay: .8s; }
+    .feat-section:nth-child(7) .feat-demo-card  { animation-delay: .3s; }
+    .feat-section:nth-child(7) .feat-discord-demo { animation-delay: .3s; }
+    .feat-section:nth-child(8) .feat-discord-demo { animation-delay: .7s; }
+    .feat-section:nth-child(9) .feat-songs-demo { animation-delay: .5s; }
+    .feat-section:nth-child(10) .feat-discord-demo { animation-delay: 1.0s; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .feat-row { grid-template-columns: 1fr; gap: 32px; }
+      .feat-num-block { display:flex; align-items:center; gap:14px; text-align:left; }
+      .feat-num { font-size:2rem; }
+      .feat-num-icon { margin:0; }
+      .feat-row-reverse .feat-detail,
+      .feat-row-reverse .feat-visual,
+      .feat-row-reverse .feat-num-block { order:unset; }
+      .feat-visual { justify-content:flex-start; }
+    }
+    @media (max-width: 600px) {
+      .feat-section { padding: 72px 0; }
+      .feat-hero-btns { flex-direction: column; align-items: center; }
+      .feat-demo-card, .feat-lang-demo, .feat-songs-demo { max-width:100%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">
+      <img src="/logo.webp" alt="AIMO logo" loading="eager" onerror="this.style.display='none'"/>
+      <span>AIMO</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/features" class="active">Features</a>
+      <a href="/commands">Commands</a>
+      <a href="/premium">Premium</a>
+      <a href="/status"><i class="fas fa-signal"></i> Status</a>
+      <a class="nav-cta-mobile" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">+ Invite AIMO</a>
+    </div>
+    <a class="nav-cta ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Invite AIMO
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="feat-page-hero">
+  <div class="container">
+    <div class="feat-hero-label"><span class="dot"></span> <i class="fas fa-headphones-alt" style="font-size:.7rem"></i> AIMO Audio Engine</div>
+    <h1>Built Around<br>The Way You <span class="grad">Listen.</span></h1>
+    <p>Seven focused systems working together — from the first request to the final track. Supporting <strong style="color:var(--purple)">15+ languages</strong>.</p>
+    <div class="feat-hero-btns">
+      <a class="btn btn-primary ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+        <i class="fas fa-plus"></i> Add AIMO Free
+      </a>
+      <a class="btn btn-discord ripple-host" href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">
+        <i class="fab fa-discord"></i> Support Server
+      </a>
+      <a class="btn btn-outline ripple-host" href="/commands">
+        <i class="fas fa-terminal"></i> Commands →
+      </a>
+    </div>
+    <!-- Animated visual -->
+    <div class="feat-audio-viz">
+      <div class="fav-rings">
+        <div class="fav-ring fav-ring-1"></div>
+        <div class="fav-ring fav-ring-2"></div>
+        <div class="fav-ring fav-ring-3"></div>
+      </div>
+      <div class="fav-center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="fav-dots">
+        <div class="fav-dot fav-dot-1"></div>
+        <div class="fav-dot fav-dot-2"></div>
+        <div class="fav-dot fav-dot-3"></div>
+      </div>
+      <div class="fav-label">LIVE SIGNAL</div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ══════ PLATFORMS MARQUEE ══════ -->
+<style>
+.pm-section { background:var(--bg-alt); border-top:1.5px solid var(--border); border-bottom:1.5px solid var(--border); padding:22px 0; overflow:hidden; position:relative; }
+.pm-section::before, .pm-section::after { content:''; position:absolute; top:0; bottom:0; width:120px; z-index:2; pointer-events:none; }
+.pm-section::before { left:0; background:linear-gradient(to right, var(--bg-alt) 0%, transparent 100%); }
+.pm-section::after  { right:0; background:linear-gradient(to left,  var(--bg-alt) 0%, transparent 100%); }
+.pm-track { display:flex; align-items:center; gap:12px; width:max-content; animation:pm-scroll 30s linear infinite; }
+.pm-track:hover { animation-play-state:paused; }
+@keyframes pm-scroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+.pm-chip { display:inline-flex; align-items:center; gap:9px; padding:9px 22px; border-radius:100px; background:#fff; border:1.5px solid var(--border); font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700; white-space:nowrap; flex-shrink:0; color:var(--text); box-shadow:0 2px 8px rgba(0,0,0,.045); transition:border-color .2s,box-shadow .2s,transform .2s; }
+.pm-chip:hover { border-color:rgba(124,58,237,.25); box-shadow:0 4px 18px rgba(0,0,0,.09); transform:translateY(-2px); }
+.pm-chip i { font-size:1.1rem; flex-shrink:0; }
+.pm-dot { width:5px; height:5px; border-radius:50%; background:var(--border); flex-shrink:0; margin:0 8px; }
+</style>
+<div class="pm-section">
+  <div class="pm-track">
+      <div class="pm-chip"><i class="fab fa-spotify" style="color:#1ed760"></i> Spotify</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><i class="fab fa-soundcloud" style="color:#ff5500"></i> SoundCloud</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><svg style="width:1.1rem;height:1.1rem;flex-shrink:0;display:inline-block;vertical-align:middle" viewBox="0 0 24 24" fill="#ff0000"><path d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.264.406 4.814c.23.857.905 1.534 1.763 1.765 1.582.43 7.83.437 7.83.437s6.265.007 7.831-.403a2.515 2.515 0 0 0 1.767-1.763c.414-1.565.417-4.812.417-4.812s.02-3.265-.407-4.831zM9.996 15.005l.005-6 5.207 3.005-5.212 2.995z"/></svg> YouTube Music</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><i class="fas fa-music" style="color:#fc3c44"></i> Apple Music</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><i class="fab fa-spotify" style="color:#1ed760"></i> Spotify</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><i class="fab fa-soundcloud" style="color:#ff5500"></i> SoundCloud</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><svg style="width:1.1rem;height:1.1rem;flex-shrink:0;display:inline-block;vertical-align:middle" viewBox="0 0 24 24" fill="#ff0000"><path d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.264.406 4.814c.23.857.905 1.534 1.763 1.765 1.582.43 7.83.437 7.83.437s6.265.007 7.831-.403a2.515 2.515 0 0 0 1.767-1.763c.414-1.565.417-4.812.417-4.812s.02-3.265-.407-4.831zM9.996 15.005l.005-6 5.207 3.005-5.212 2.995z"/></svg> YouTube Music</div>
+      <div class="pm-dot"></div>
+      <div class="pm-chip"><i class="fas fa-music" style="color:#fc3c44"></i> Apple Music</div>
+  </div>
+</div>
+
+<!-- ════ 01 — Music ════ -->
+<section class="feat-section feat-alt">
+  <div class="container feat-row">
+    <div class="feat-num-block">
+      <div class="feat-num">01</div>
+      <div class="feat-num-icon"><i class="fas fa-music" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-play-circle"></i> Music Engine</div>
+      <h2>Press play.<br><span class="gradient-text">That's it.</span></h2>
+      <p>No setup maze. Invite AIMO, join a voice channel, and your room is live in seconds. Stream from YouTube Music, Spotify, SoundCloud, Deezer and more — crystal-clear audio every time.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> Multi-source streaming — YouTube, Spotify, SoundCloud &amp; more</li>
+        <li><i class="fas fa-check-circle fi"></i> Loop, shuffle, seek, skip and 24/7 non-stop mode</li>
+        <li><i class="fas fa-check-circle fi"></i> Volume, pause, resume and live now-playing display</li>
+        <li><i class="fas fa-check-circle fi"></i> Lyrics with <code class="ic">/lyrics</code> powered by Genius API</li>
+      </ul>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-demo-card" style="animation-delay:.3s">
+        <div class="fcd-eq"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="fcd-label">Now Playing</div>
+        <div class="fcd-song">Starboy (feat. Daft Punk)</div>
+        <div class="fcd-artist"><i class="fas fa-microphone-alt" style="margin-right:4px;color:var(--purple);font-size:.72rem"></i> The Weeknd</div>
+        <div class="fcd-prog"><div style="width:18%"></div></div>
+        <div class="fcd-time"><span>0:41</span><span>3:50</span></div>
+        <div class="fcd-controls">
+          <button class="fcd-btn"><i class="fas fa-backward-step"></i></button>
+          <button class="fcd-btn active"><i class="fas fa-pause"></i></button>
+          <button class="fcd-btn"><i class="fas fa-forward-step"></i></button>
+          <button class="fcd-btn"><i class="fas fa-shuffle"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 02 — Queue ════ -->
+<section class="feat-section">
+  <div class="container feat-row feat-row-reverse">
+    <div class="feat-num-block">
+      <div class="feat-num">02</div>
+      <div class="feat-num-icon"><i class="fas fa-list-ol" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-list-ol"></i> Queue System</div>
+      <h2>Every sound,<br><span class="gradient-text">one queue.</span></h2>
+      <p>Play from the platforms your community already loves. AIMO keeps it all moving — anyone in the server can add, remove, vote, and shape the queue without leaving Discord.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> View, shuffle, clear and reorder on the fly</li>
+        <li><i class="fas fa-check-circle fi"></i> Remove specific tracks or move them up and down</li>
+        <li><i class="fas fa-check-circle fi"></i> Jump to any position in the queue instantly</li>
+        <li><i class="fas fa-check-circle fi"></i> Autoplay — keeps music going after the queue ends</li>
+      </ul>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-demo-card" style="animation-delay:.5s">
+        <div class="fqd-header"><i class="fas fa-list-ol"></i> Queue — 12 tracks</div>
+        <div class="fqd-item fqd-active">
+          <span class="fqd-num fqd-playing"><i class="fas fa-volume-high" style="font-size:.6rem"></i></span>
+          <span class="fqd-name">Starboy (feat. Daft Punk)</span>
+          <span class="fqd-dur">3:50</span>
+        </div>
+        <div class="fqd-item"><span class="fqd-num">2</span><span class="fqd-name">Blinding Lights</span><span class="fqd-dur">3:20</span></div>
+        <div class="fqd-item"><span class="fqd-num">3</span><span class="fqd-name">Save Your Tears</span><span class="fqd-dur">3:35</span></div>
+        <div class="fqd-item"><span class="fqd-num">4</span><span class="fqd-name">Die For You</span><span class="fqd-dur">4:20</span></div>
+        <div class="fqd-more">+8 more tracks…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 03 — Filters ════ -->
+<section class="feat-section feat-alt">
+  <div class="container feat-row">
+    <div class="feat-num-block">
+      <div class="feat-num">03</div>
+      <div class="feat-num-icon"><i class="fas fa-sliders-h" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-sliders-h"></i> Audio Filters</div>
+      <h2>A smarter<br><span class="gradient-text">sound.</span></h2>
+      <p>10+ built-in audio filters let you shape your sound exactly how you want it. Premium users unlock the most powerful effects — speed control, bass boost, reverb and Nightcore.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> Bassboost, Nightcore, Vaporwave, 8D Audio</li>
+        <li><i class="fas fa-check-circle fi"></i> Karaoke, Tremolo, Vibrato, Soft, Pop mode</li>
+        <li><i class="fas fa-check-circle fi"></i><span class="feat-premium">★ Premium</span> Speed Control, Reverb, Stereo Widening</li>
+        <li><i class="fas fa-check-circle fi"></i> Toggle any filter instantly with one slash command</li>
+      </ul>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-demo-card" style="animation-delay:.7s">
+        <div class="ffd-title"><i class="fas fa-sliders-h"></i> Audio Filters</div>
+        <div class="ffd-bars" id="eqBars">
+          <div class="ffd-bar-group"><div class="ffd-bar" style="height:55%"></div><span>60</span></div>
+          <div class="ffd-bar-group"><div class="ffd-bar ffd-bar-active" style="height:88%"></div><span>250</span></div>
+          <div class="ffd-bar-group"><div class="ffd-bar ffd-bar-active" style="height:72%"></div><span>500</span></div>
+          <div class="ffd-bar-group"><div class="ffd-bar ffd-bar-active" style="height:95%"></div><span>1k</span></div>
+          <div class="ffd-bar-group"><div class="ffd-bar" style="height:60%"></div><span>2k</span></div>
+          <div class="ffd-bar-group"><div class="ffd-bar" style="height:45%"></div><span>4k</span></div>
+          <div class="ffd-bar-group"><div class="ffd-bar" style="height:38%"></div><span>8k</span></div>
+          <div class="ffd-bar-group"><div class="ffd-bar" style="height:30%"></div><span>16k</span></div>
+        </div>
+        <div class="ffd-chips">
+          <span class="ffd-chip ffd-chip-on">Bassboost</span>
+          <span class="ffd-chip">8D Audio</span>
+          <span class="ffd-chip ffd-chip-on">Nightcore</span>
+          <span class="ffd-chip">Vaporwave</span>
+          <span class="ffd-chip ffd-chip-premium">Speed ★</span>
+          <span class="ffd-chip ffd-chip-premium">Reverb ★</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 04 — AI Chat ════ -->
+<section class="feat-section">
+  <div class="container feat-row feat-row-reverse">
+    <div class="feat-num-block">
+      <div class="feat-num">04</div>
+      <div class="feat-num-icon"><i class="fas fa-robot" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-robot"></i> AI Chat</div>
+      <h2>Ask anything,<br><span class="gradient-text">get answers.</span></h2>
+      <p>Powered by GPT-4o. Use <code class="ic">/ask</code> to get smart contextual answers without ever leaving Discord. AIMO remembers conversation history and responds naturally.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> GPT-4o powered — real AI, not scripted replies</li>
+        <li><i class="fas fa-check-circle fi"></i> Conversation history remembered per user</li>
+        <li><i class="fas fa-check-circle fi"></i> Works alongside music — zero interruptions</li>
+        <li><i class="fas fa-check-circle fi"></i> Completely free — no API key required</li>
+      </ul>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-demo-card" style="animation-delay:.2s;padding:18px">
+        <div class="fad-header"><div class="fad-dot"></div> AI Chat — /ask</div>
+        <div class="fad-msg fad-user">/ask Best song to hype up a Discord server?</div>
+        <div class="fad-bot">
+          <div class="fad-bot-av"><img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='🤖'"/></div>
+          <div class="fad-bot-text"><strong>Starboy by The Weeknd</strong> — high energy, instantly recognisable. Try <code style="background:rgba(124,58,237,.1);padding:1px 5px;border-radius:4px;color:var(--purple)">/play Starboy</code>!</div>
+        </div>
+        <div class="fad-typing" style="margin-top:10px"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 05 — Playlists ════ -->
+<section class="feat-section feat-alt">
+  <div class="container feat-row">
+    <div class="feat-num-block">
+      <div class="feat-num">05</div>
+      <div class="feat-num-icon"><i class="fas fa-compact-disc" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-compact-disc"></i> Playlists &amp; Favourites</div>
+      <h2>Your music,<br><span class="gradient-text">saved forever.</span></h2>
+      <p>Create custom playlists, add favourites, and play them back anytime. Import from Spotify or YouTube, share with your server, and manage everything with simple slash commands.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> Create, rename, delete and share playlists</li>
+        <li><i class="fas fa-check-circle fi"></i> Import directly from Spotify and YouTube</li>
+        <li><i class="fas fa-check-circle fi"></i> Favourites — like and play your saved tracks anytime</li>
+        <li><i class="fas fa-check-circle fi"></i> Append, load and queue whole playlists at once</li>
+      </ul>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-demo-card" style="animation-delay:.4s">
+        <div class="fpd-header"><i class="fas fa-music"></i> My Playlists</div>
+        <div class="fpd-list">
+          <div class="fpd-item" id="pl1"><span class="fpd-icon">🎵</span><span class="fpd-name">Chill Vibes</span><span class="fpd-cnt">14 tracks</span></div>
+          <div class="fpd-item fpd-active" id="pl2"><span class="fpd-icon">🔥</span><span class="fpd-name">Hype Station</span><span class="fpd-cnt">22 tracks</span></div>
+          <div class="fpd-item" id="pl3"><span class="fpd-icon">💜</span><span class="fpd-name">Weeknd Mix</span><span class="fpd-cnt">9 tracks</span></div>
+          <div class="fpd-item" id="pl4"><span class="fpd-icon">⭐</span><span class="fpd-name">Favourites</span><span class="fpd-cnt">37 tracks</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 06 — Songs Selection Demo ════ -->
+<section class="feat-section">
+  <div class="container feat-row feat-row-reverse">
+    <div class="feat-num-block">
+      <div class="feat-num">06</div>
+      <div class="feat-num-icon"><i class="fas fa-gamepad" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-gamepad"></i> Mini Games</div>
+      <h2>Play between<br><span class="gradient-text">tracks.</span></h2>
+      <p>6 built-in games you can start with a slash command while the music keeps playing. Challenge friends, settle arguments, or keep the server entertained between drops.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> 🐍 Snake — classic arcade, plays right in Discord</li>
+        <li><i class="fas fa-check-circle fi"></i> 💣 Minesweeper · ❓ Trivia · ✂️ Rock-Paper-Scissors</li>
+        <li><i class="fas fa-check-circle fi"></i> ⭕ Tic-Tac-Toe · 🔤 Hangman</li>
+        <li><i class="fas fa-check-circle fi"></i> All games run while music plays simultaneously</li>
+      </ul>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-demo-card" style="animation-delay:.6s">
+        <div class="fgd-title"><i class="fas fa-gamepad"></i> Mini Games</div>
+        <div class="fgd-grid">
+          <div class="fgd-game">🐍<span>Snake</span></div>
+          <div class="fgd-game">💣<span>Minesweeper</span></div>
+          <div class="fgd-game">❓<span>Trivia</span></div>
+          <div class="fgd-game">✂️<span>RPS</span></div>
+          <div class="fgd-game">⭕<span>Tic-Tac-Toe</span></div>
+          <div class="fgd-game">🔤<span>Hangman</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 07 — Languages (animated) ════ -->
+<section class="feat-section feat-alt">
+  <div class="container feat-row">
+    <div class="feat-num-block">
+      <div class="feat-num">07</div>
+      <div class="feat-num-icon"><i class="fas fa-globe" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-language"></i> Multi-Language</div>
+      <h2>Your language,<br><span class="gradient-text">your AIMO.</span></h2>
+      <p>AIMO speaks your community's language. Use <code class="ic">/language</code> and pick from <strong>15+ supported languages</strong> — every response, embed and notification adapts instantly.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> <strong>15 languages</strong> — English, Italian, Polish, Dutch, Indonesian, Swedish, Turkish, Portuguese, German, Romanian, Spanish, Vietnamese &amp; 3 more</li>
+        <li><i class="fas fa-check-circle fi"></i> Full translation — embeds, menus, errors, notifications</li>
+        <li><i class="fas fa-check-circle fi"></i> Per-server setting — set once with <code class="ic">/language</code></li>
+        <li><i class="fas fa-check-circle fi"></i> New languages added regularly based on community requests</li>
+      </ul>
+    </div>
+    <div class="feat-visual" style="align-items:flex-start">
+      <div class="feat-discord-demo" style="animation: float-card 4s ease-in-out infinite; animation-delay:.8s">
+        <div class="fdd-window">
+          <!-- Title bar -->
+          <div class="fdd-topbar">
+            <div class="fdd-topbar-dots">
+              <div class="fdd-dot-r"></div>
+              <div class="fdd-dot-y"></div>
+              <div class="fdd-dot-g"></div>
+            </div>
+            <div class="fdd-topbar-ch"><i class="fas fa-hashtag"></i> general</div>
+          </div>
+          <!-- Messages -->
+          <div class="fdd-messages">
+            <!-- User types /language -->
+            <div class="fdd-msg">
+              <div class="fdd-av fdd-av-user">S</div>
+              <div class="fdd-msg-body">
+                <div class="fdd-msg-meta">
+                  <span class="fdd-username">Snake</span>
+                  <span class="fdd-timestamp">Today at 3:42 PM</span>
+                </div>
+                <div class="fdd-slash-cmd">
+                  <span class="fdd-cmd-name">/language</span>
+                </div>
+              </div>
+            </div>
+            <!-- AIMO bot response -->
+            <div class="fdd-msg">
+              <div class="fdd-av fdd-av-bot">
+                <img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='🎵'"/>
+              </div>
+              <div class="fdd-msg-body">
+                <div class="fdd-msg-meta">
+                  <span class="fdd-username fdd-botname">AIMO</span>
+                  <span class="fdd-app-tag">APP</span>
+                  <span class="fdd-timestamp">Today at 3:42 PM</span>
+                </div>
+                <!-- Embed -->
+                <div class="fdd-embed">
+                  <div class="fdd-embed-bar"></div>
+                  <div class="fdd-embed-inner">
+                    <div class="fdd-embed-title">🌐 Select Language</div>
+                    <div class="fdd-embed-desc">Choose the language for AIMO's responses in this server.</div>
+                  </div>
+                </div>
+                <!-- Select component -->
+                <div class="fdd-select-wrap">
+                  <div class="fdd-select-box" id="discordSelectBox">
+                    <div class="fdd-select-trigger" id="discordSelectTrigger">
+                      <div class="fdd-select-chosen">
+                        <span class="fdd-select-flag" id="discordSelFlag">🇬🇧</span>
+                        <span id="discordSelName">English</span>
+                      </div>
+                      <i class="fas fa-chevron-down fdd-select-arrow" id="discordArrow"></i>
+                    </div>
+                    <div class="fdd-options-list" id="discordOptionsList">
+                      <div class="fdd-option-row fdd-option-active" data-flag="🇬🇧" data-name="English">
+                        <span>🇬🇧</span><span class="fdd-option-name">English</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                      <div class="fdd-option-row" data-flag="🇸🇦" data-name="Arabic">
+                        <span>🇸🇦</span><span class="fdd-option-name">Arabic</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                      <div class="fdd-option-row" data-flag="🇯🇵" data-name="Japanese">
+                        <span>🇯🇵</span><span class="fdd-option-name">Japanese</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                      <div class="fdd-option-row" data-flag="🇰🇷" data-name="Korean">
+                        <span>🇰🇷</span><span class="fdd-option-name">Korean</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                      <div class="fdd-option-row" data-flag="🇪🇸" data-name="Spanish">
+                        <span>🇪🇸</span><span class="fdd-option-name">Spanish</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                      <div class="fdd-option-row" data-flag="🇫🇷" data-name="French">
+                        <span>🇫🇷</span><span class="fdd-option-name">French</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Confirm message -->
+                  <div class="fdd-confirm-msg" id="discordConfirmMsg">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Language set to <strong id="discordConfirmLang">English</strong>!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 08 — Song Selection Animated Demo ════ -->
+<section class="feat-section">
+  <div class="container feat-row feat-row-reverse">
+    <div class="feat-num-block">
+      <div class="feat-num">08</div>
+      <div class="feat-num-icon"><i class="fas fa-search" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-search"></i> Search &amp; Select</div>
+      <h2>Find any track,<br><span class="gradient-text">instantly.</span></h2>
+      <p>AIMO's search shows you multiple results so you can pick exactly the right version. No more wrong remixes — just type what you want and choose from the results.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> Search by song name, artist, or URL</li>
+        <li><i class="fas fa-check-circle fi"></i> Shows top 5 results to pick from</li>
+        <li><i class="fas fa-check-circle fi"></i> Auto-plays your selection instantly</li>
+        <li><i class="fas fa-check-circle fi"></i> Supports Spotify, YouTube Music, SoundCloud links</li>
+      </ul>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-songs-demo" style="animation-delay:.5s">
+        <div class="fsd-header"><i class="fas fa-search"></i> Search Results</div>
+        <div id="songPicker">
+          <div class="fsd-item fsd-active" data-si="0">
+            <div class="fsd-num">1</div>
+            <div class="fsd-info">
+              <div class="fsd-title">Starboy (feat. Daft Punk)</div>
+              <div class="fsd-artist">The Weeknd · 3:50</div>
+            </div>
+          </div>
+          <div class="fsd-item" data-si="1">
+            <div class="fsd-num">2</div>
+            <div class="fsd-info">
+              <div class="fsd-title">Blinding Lights</div>
+              <div class="fsd-artist">The Weeknd · 3:20</div>
+            </div>
+          </div>
+          <div class="fsd-item" data-si="2">
+            <div class="fsd-num">3</div>
+            <div class="fsd-info">
+              <div class="fsd-title">Save Your Tears</div>
+              <div class="fsd-artist">The Weeknd · 3:35</div>
+            </div>
+          </div>
+          <div class="fsd-item" data-si="3">
+            <div class="fsd-num">4</div>
+            <div class="fsd-info">
+              <div class="fsd-title">Die For You</div>
+              <div class="fsd-artist">The Weeknd · 4:20</div>
+            </div>
+          </div>
+          <div class="fsd-item" data-si="4">
+            <div class="fsd-num">5</div>
+            <div class="fsd-info">
+              <div class="fsd-title">The Hills</div>
+              <div class="fsd-artist">The Weeknd · 4:02</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 09 — Customize ════ -->
+<section class="feat-section feat-alt">
+  <div class="container feat-row">
+    <div class="feat-num-block">
+      <div class="feat-num">09</div>
+      <div class="feat-num-icon"><i class="fas fa-palette" style="font-size:1.1rem"></i></div>
+    </div>
+    <div class="feat-detail">
+      <div class="feat-tag"><i class="fas fa-palette"></i> Customize <span style="display:inline-flex;align-items:center;gap:3px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:100px;font-family:'Poppins',sans-serif;margin-left:8px;">🛡️ Admin</span></div>
+      <h2>Make AIMO<br><span class="gradient-text">yours.</span></h2>
+      <p>Server admins can personalize AIMO for their community with the <code class="ic">/customize</code> command. Change the bot's avatar, banner and nickname — all per server, all without leaving Discord.</p>
+      <ul class="feat-list">
+        <li><i class="fas fa-check-circle fi"></i> Set a custom avatar for AIMO in your server</li>
+        <li><i class="fas fa-check-circle fi"></i> Change the bot's banner image</li>
+        <li><i class="fas fa-check-circle fi"></i> Give AIMO a custom nickname per server</li>
+        <li><i class="fas fa-check-circle fi"></i> Requires Admin permission — no setup needed</li>
+      </ul>
+    </div>
+    <div class="feat-visual" style="align-items:flex-start">
+      <!-- Animated Discord customize demo -->
+      <div class="feat-discord-demo" style="animation: float-card 4s ease-in-out infinite; animation-delay:1s">
+        <div class="fdd-window">
+          <div class="fdd-topbar">
+            <div class="fdd-topbar-dots">
+              <div class="fdd-dot-r"></div>
+              <div class="fdd-dot-y"></div>
+              <div class="fdd-dot-g"></div>
+            </div>
+            <div class="fdd-topbar-ch"><i class="fas fa-hashtag"></i> admin</div>
+          </div>
+          <div class="fdd-messages">
+            <!-- Admin types /customize -->
+            <div class="fdd-msg">
+              <div class="fdd-av fdd-av-user" style="background:#e11d48">A</div>
+              <div class="fdd-msg-body">
+                <div class="fdd-msg-meta">
+                  <span class="fdd-username">Admin</span>
+                  <span style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:.55rem;font-weight:800;padding:1px 5px;border-radius:4px;font-family:'Poppins',sans-serif;letter-spacing:.04em;">🛡️ ADMIN</span>
+                  <span class="fdd-timestamp">Today at 5:11 PM</span>
+                </div>
+                <div class="fdd-slash-cmd"><span class="fdd-cmd-name">/customize</span></div>
+              </div>
+            </div>
+            <!-- AIMO bot response -->
+            <div class="fdd-msg">
+              <div class="fdd-av fdd-av-bot">
+                <img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='🎵'"/>
+              </div>
+              <div class="fdd-msg-body">
+                <div class="fdd-msg-meta">
+                  <span class="fdd-username fdd-botname">AIMO</span>
+                  <span class="fdd-app-tag">APP</span>
+                  <span class="fdd-timestamp">Today at 5:11 PM</span>
+                </div>
+                <div class="fdd-embed">
+                  <div class="fdd-embed-bar" style="background:linear-gradient(180deg,#6366f1,#8b5cf6)"></div>
+                  <div class="fdd-embed-inner">
+                    <div class="fdd-embed-title">🎨 Customize AIMO</div>
+                    <div class="fdd-embed-desc">Pick what to change for this server.</div>
+                  </div>
+                </div>
+                <!-- Animated option picker -->
+                <div class="fdd-select-wrap" id="customizeSelectWrap">
+                  <div class="fdd-select-box">
+                    <div class="fdd-select-trigger">
+                      <div class="fdd-select-chosen">
+                        <span class="fdd-select-flag" id="custSelIcon">🖼️</span>
+                        <span id="custSelName">Avatar</span>
+                      </div>
+                      <i class="fas fa-chevron-down fdd-select-arrow" id="custArrow"></i>
+                    </div>
+                    <div class="fdd-options-list" id="custOptionsList">
+                      <div class="fdd-option-row fdd-option-active" data-icon="🖼️" data-name="Avatar">
+                        <span>🖼️</span><span class="fdd-option-name">Avatar</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                      <div class="fdd-option-row" data-icon="🖼" data-name="Banner">
+                        <span>🏞️</span><span class="fdd-option-name">Banner</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                      <div class="fdd-option-row" data-icon="✏️" data-name="Nickname">
+                        <span>✏️</span><span class="fdd-option-name">Nickname</span>
+                        <i class="fas fa-check fdd-option-check"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fdd-confirm-msg" id="custConfirmMsg" style="border-color:rgba(99,102,241,.3);background:rgba(99,102,241,.1);">
+                    <i class="fas fa-check-circle" style="color:#818cf8"></i>
+                    <span style="color:#c7d2fe">Updated <strong id="custConfirmField">Avatar</strong> successfully!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="cta-icon-wrap">
+        <img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='<svg width=32 height=32 viewBox=\'0 0 24 24\' fill=\'white\'><path d=\'M9 18V5l12-2v13\'/><circle cx=\'6\' cy=\'18\' r=\'3\'/><circle cx=\'18\' cy=\'16\' r=\'3\'/></svg>'"/>
+      </div>
+      <h3>Ready to Transform Your <span class="gradient-text">Server?</span></h3>
+      <p>Every feature listed above is live right now. Add AIMO and your server is ready in seconds — no configuration required.</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add AIMO Free
+        </a>
+        <a class="btn btn-outline ripple-host" href="/commands">View All 55 Commands →</a>
+        <a class="btn btn-discord ripple-host" href="/support">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.112 18.1.128 18.116a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          Join Support Server
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-row"><img src="/logo.webp" alt="AIMO" loading="lazy" onerror="this.style.display='none'"/> AIMO</div>
+        <p>The ultimate Discord music bot with AI features, custom playlists, mini games, and advanced audio filters. Free forever.</p>
+        <div class="footer-social">
+          <a href="/support" title="Discord"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.112 18.1.128 18.116a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></a>
+          <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener" title="Vote on Top.gg"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <a href="/">Home</a><a href="/features">Features</a><a href="/commands">Commands</a><a href="/premium">Premium</a><a href="/status">Status</a><a href="/updates">Updates</a><a href="/support">Support</a><a href="/docs">Docs</a>
+      </div>
+      <div class="footer-col"><h5>Legal</h5><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+      <div class="footer-col">
+        <h5>Links</h5>
+        <a href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">Invite Bot</a>
+        <a href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">Support Server</a>
+        <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener">Vote on Top.gg</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AIMO Music Bot. All rights reserved.</p>
+      <div class="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="/config.js"></script>
+<script src="/script.js"></script>
+<script src="/cookie.js"></script>
+<script>
+// ── Music player: cycle through songs ──
+(function() {
+  var songs = [
+    { title: 'Starboy (feat. Daft Punk)', artist: 'The Weeknd', pos: '0:41', dur: '3:50', pct: '18%' },
+    { title: 'Blinding Lights',           artist: 'The Weeknd', pos: '1:22', dur: '3:20', pct: '41%' },
+    { title: 'Save Your Tears',           artist: 'The Weeknd', pos: '0:52', dur: '3:35', pct: '24%' },
+    { title: 'Die For You',               artist: 'The Weeknd', pos: '2:10', dur: '4:20', pct: '50%' },
+  ];
+  var titleEl  = document.querySelector('.fcd-song');
+  var artistEl = document.querySelector('.fcd-artist');
+  var timeEl   = document.querySelector('.fcd-time');
+  var progEl   = document.querySelector('.fcd-prog div');
+  if (!titleEl) return;
+  var idx = 0;
+  setInterval(function() {
+    idx = (idx + 1) % songs.length;
+    var s = songs[idx];
+    // Fade out
+    titleEl.style.opacity = '0';
+    setTimeout(function() {
+      titleEl.textContent = s.title;
+      artistEl.innerHTML = '<i class="fas fa-microphone-alt" style="margin-right:4px;color:var(--purple);font-size:.72rem"></i> ' + s.artist;
+      if (timeEl) {
+        var spans = timeEl.querySelectorAll('span');
+        if (spans[0]) spans[0].textContent = s.pos;
+        if (spans[1]) spans[1].textContent = s.dur;
+      }
+      if (progEl) progEl.style.width = s.pct;
+      titleEl.style.opacity = '1';
+    }, 260);
+  }, 3500);
+})();
+
+// ── Queue: cycle active track highlight ──
+(function() {
+  var items = document.querySelectorAll('.fqd-item');
+  if (!items.length) return;
+  var cur = 0;
+  setInterval(function() {
+    items[cur].classList.remove('fqd-active');
+    var numEl = items[cur].querySelector('.fqd-num');
+    if (numEl && numEl.innerHTML.includes('fa-volume')) numEl.innerHTML = cur + 1;
+    cur = (cur + 1) % items.length;
+    items[cur].classList.add('fqd-active');
+    var numEl2 = items[cur].querySelector('.fqd-num');
+    if (numEl2) numEl2.innerHTML = '<i class="fas fa-volume-high" style="font-size:.6rem"></i>';
+  }, 2200);
+})();
+
+// ── AI Chat: cycle Q&A pairs with typewriter effect ──
+(function() {
+  var pairs = [
+    { q: 'Best song to hype up a Discord server?',  a: '<strong>Starboy by The Weeknd</strong> — high energy, instantly recognisable. Try <code style="background:rgba(124,58,237,.1);padding:1px 5px;border-radius:4px;color:var(--purple)">/play Starboy</code>!' },
+    { q: 'Recommend something chill for studying?',  a: 'Try <code style="background:rgba(124,58,237,.1);padding:1px 5px;border-radius:4px;color:var(--purple)">/play lofi hip hop</code> — AIMO streams Lo-Fi playlists directly from YouTube Music. 🎧' },
+    { q: 'What audio filters does AIMO have?',       a: 'Bassboost, 8D Audio, Nightcore, Vaporwave, Karaoke, Tremolo and more. Use <code style="background:rgba(124,58,237,.1);padding:1px 5px;border-radius:4px;color:var(--purple)">/filter</code> to pick one instantly!' },
+    { q: 'How do I save my favourite songs?',        a: 'Use <code style="background:rgba(124,58,237,.1);padding:1px 5px;border-radius:4px;color:var(--purple)">/favorite-add</code> while a song is playing. Play them all back anytime with <code style="background:rgba(124,58,237,.1);padding:1px 5px;border-radius:4px;color:var(--purple)">/favorite-play</code>.' },
+  ];
+  var userEl   = document.querySelector('.fad-msg.fad-user');
+  var botEl    = document.querySelector('.fad-bot-text');
+  var typingEl = document.querySelector('.fad-typing');
+  if (!userEl || !botEl) return;
+  var idx = 0;
+  setInterval(function() {
+    idx = (idx + 1) % pairs.length;
+    userEl.style.opacity = '0';
+    botEl.style.opacity  = '0';
+    if (typingEl) typingEl.style.display = 'flex';
+    setTimeout(function() {
+      userEl.textContent = '/ask ' + pairs[idx].q;
+      userEl.style.opacity = '1';
+    }, 400);
+    setTimeout(function() {
+      if (typingEl) typingEl.style.display = 'none';
+      botEl.innerHTML = pairs[idx].a;
+      botEl.style.opacity = '1';
+    }, 1800);
+  }, 5000);
+})();
+
+// ── Games: rotate glowing highlight across cards ──
+(function() {
+  var games = document.querySelectorAll('.fgd-game');
+  if (!games.length) return;
+  var cur = 0;
+  setInterval(function() {
+    games.forEach(function(g) {
+      g.style.background = '';
+      g.style.borderColor = '';
+      g.style.transform = '';
+      g.style.boxShadow = '';
+    });
+    games[cur].style.background  = 'rgba(124,58,237,.12)';
+    games[cur].style.borderColor = 'rgba(124,58,237,.35)';
+    games[cur].style.transform   = 'translateY(-4px)';
+    games[cur].style.boxShadow   = '0 8px 24px rgba(124,58,237,.18)';
+    cur = (cur + 1) % games.length;
+  }, 850);
+})();
+
+// ── Filters: cycle which chips are active ──
+(function() {
+  var chips  = Array.from(document.querySelectorAll('.ffd-chip:not(.ffd-chip-premium)'));
+  if (!chips.length) return;
+  var states = chips.map(function(c) { return c.classList.contains('ffd-chip-on'); });
+  setInterval(function() {
+    var i = Math.floor(Math.random() * chips.length);
+    states[i] = !states[i];
+    chips[i].classList.toggle('ffd-chip-on', states[i]);
+  }, 1100);
+})();
+
+// ── Discord language selector animation ──
+(function() {
+  var options = document.querySelectorAll('#discordOptionsList .fdd-option-row');
+  var selFlag  = document.getElementById('discordSelFlag');
+  var selName  = document.getElementById('discordSelName');
+  var listEl   = document.getElementById('discordOptionsList');
+  var arrow    = document.getElementById('discordArrow');
+  var confirmEl= document.getElementById('discordConfirmMsg');
+  var confirmLang = document.getElementById('discordConfirmLang');
+  if (!options.length || !selFlag) return;
+
+  var idx = 0;
+  var phase = 0; // 0=closed 1=opening 2=picking 3=confirming
+
+  function runCycle() {
+    // Phase 0→1: open dropdown
+    phase = 1;
+    listEl.classList.add('fdd-options-open');
+    arrow.parentElement && arrow.parentElement.classList && arrow.classList.add('fdd-select-open');
+    confirmEl.classList.remove('visible');
+
+    // Phase 2: hover through each option
+    var hoverIdx = 0;
+    function highlightNext() {
+      options.forEach(function(o) { o.classList.remove('fdd-option-active'); });
+      if (hoverIdx < options.length) {
+        options[hoverIdx].classList.add('fdd-option-active');
+        hoverIdx++;
+        setTimeout(highlightNext, 380);
+      } else {
+        // Land on chosen option
+        idx = (idx + 1) % options.length;
+        options.forEach(function(o) { o.classList.remove('fdd-option-active'); });
+        options[idx].classList.add('fdd-option-active');
+
+        setTimeout(function() {
+          // Select it
+          var flag = options[idx].dataset.flag;
+          var name = options[idx].dataset.name;
+          if (selFlag) selFlag.textContent = flag;
+          if (selName) selName.textContent = name;
+          if (confirmLang) confirmLang.textContent = name;
+
+          // Close
+          listEl.classList.remove('fdd-options-open');
+          arrow.classList.remove('fdd-select-open');
+
+          setTimeout(function() {
+            // Show confirm
+            confirmEl.classList.add('visible');
+            // Next cycle in 2.8s
+            setTimeout(function() {
+              confirmEl.classList.remove('visible');
+              setTimeout(runCycle, 600);
+            }, 2200);
+          }, 350);
+        }, 500);
+      }
+    }
+    setTimeout(highlightNext, 200);
+  }
+
+  // Start after 1.5s
+  setTimeout(runCycle, 1500);
+})();
+
+// ── Song picker animation ──
+(function() {
+  var items = document.querySelectorAll('#songPicker .fsd-item');
+  if (!items.length) return;
+  var current = 0;
+  setInterval(function() {
+    items[current].classList.remove('fsd-active');
+    current = (current + 1) % items.length;
+    items[current].classList.add('fsd-active');
+  }, 1600);
+})();
+
+// ── Playlist animation ──
+(function() {
+  var pls = ['pl1','pl2','pl3','pl4'];
+  var idx = 1;
+  setInterval(function() {
+    pls.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.remove('fpd-active');
+    });
+    idx = (idx + 1) % pls.length;
+    var el = document.getElementById(pls[idx]);
+    if (el) el.classList.add('fpd-active');
+  }, 2000);
+})();
+
+// ── EQ bar animation ──
+(function() {
+  var bars = document.querySelectorAll('#eqBars .ffd-bar');
+  if (!bars.length) return;
+  setInterval(function() {
+    bars.forEach(function(bar) {
+      var h = (Math.random() * 70 + 20).toFixed(0);
+      bar.style.height = h + '%';
+    });
+  }, 800);
+})();
+
+// ── Customize selector animation ──
+(function() {
+  var options   = document.querySelectorAll('#custOptionsList .fdd-option-row');
+  var selIcon   = document.getElementById('custSelIcon');
+  var selName   = document.getElementById('custSelName');
+  var listEl    = document.getElementById('custOptionsList');
+  var arrow     = document.getElementById('custArrow');
+  var confirmEl = document.getElementById('custConfirmMsg');
+  var confirmField = document.getElementById('custConfirmField');
+  if (!options.length || !selIcon) return;
+
+  var idx = 0;
+
+  function runCycle() {
+    // open dropdown
+    listEl.classList.add('fdd-options-open');
+    confirmEl.classList.remove('visible');
+
+    var hoverIdx = 0;
+    function highlightNext() {
+      options.forEach(function(o) { o.classList.remove('fdd-option-active'); });
+      if (hoverIdx < options.length) {
+        options[hoverIdx].classList.add('fdd-option-active');
+        hoverIdx++;
+        setTimeout(highlightNext, 420);
+      } else {
+        idx = (idx + 1) % options.length;
+        options.forEach(function(o) { o.classList.remove('fdd-option-active'); });
+        options[idx].classList.add('fdd-option-active');
+        setTimeout(function() {
+          var icon = options[idx].dataset.icon;
+          var name = options[idx].dataset.name;
+          if (selIcon) selIcon.textContent = icon;
+          if (selName) selName.textContent = name;
+          if (confirmField) confirmField.textContent = name;
+          listEl.classList.remove('fdd-options-open');
+          setTimeout(function() {
+            confirmEl.classList.add('visible');
+            setTimeout(function() {
+              confirmEl.classList.remove('visible');
+              setTimeout(runCycle, 700);
+            }, 2000);
+          }, 350);
+        }, 500);
+      }
+    }
+    setTimeout(highlightNext, 250);
+  }
+
+  setTimeout(runCycle, 2000);
+})();
+</script>
+<script src="https://replit-cdn.com/replit-pill/replit-pill.global.js" data-repl-id="6b0e8d45-f93d-4333-8f23-7c0a4237b1d5"></script></body>
+</html>
