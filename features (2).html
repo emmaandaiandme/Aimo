@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Features — AIMO Music Bot</title>
+  <meta name="description" content="Explore every feature AIMO offers — high-quality music, AI chat, playlists, audio filters, mini games, and more. All free."/>
+  <link rel="icon" type="image/webp" href="/logo.webp"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <style>
+  /* ════════════════════════════════════════
+     FEATURES PAGE — UPGRADED ANIMATIONS
+  ════════════════════════════════════════ */
+
+  /* ── Animated orbs background ── */
+  @keyframes orb-drift {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%      { transform: translate(40px,-30px) scale(1.06); }
+    66%      { transform: translate(-20px,35px) scale(.94); }
+  }
+  @keyframes fade-up   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fade-in   { from{opacity:0} to{opacity:1} }
+  @keyframes slide-left{ from{opacity:0;transform:translateX(36px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes slide-right{ from{opacity:0;transform:translateX(-36px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes scale-in  { from{opacity:0;transform:scale(.88)} to{opacity:1;transform:scale(1)} }
+  @keyframes spin-once { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  @keyframes blink     { 0%,100%{opacity:1} 50%{opacity:.3} }
+  @keyframes float-card{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  @keyframes pulse-ring{
+    0%  { box-shadow: 0 0 0 0 rgba(124,58,237,.35); }
+    70% { box-shadow: 0 0 0 14px rgba(124,58,237,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(124,58,237,0); }
+  }
+  @keyframes gradient-shift {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+  @keyframes fav-spin  { to { transform: rotate(360deg); } }
+  @keyframes fav-orbit { 0%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.6)} 100%{opacity:1;transform:scale(1)} }
+  @keyframes mc-eq-anim{ 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.6)} }
+  @keyframes prog-anim { from{width:5%} to{width:95%} }
+  @keyframes typing-bounce{ 0%,100%{transform:translateY(0);opacity:.4} 50%{transform:translateY(-5px);opacity:1} }
+  @keyframes particle-rise{
+    0%   { opacity:0; transform:translateY(0) scale(0); }
+    20%  { opacity:.8; transform:translateY(-20px) scale(1); }
+    80%  { opacity:.3; }
+    100% { opacity:0; transform:translateY(-80px) scale(.4); }
+  }
+  @keyframes icon-pop{
+    0%  { transform:scale(1) rotate(0deg); }
+    30% { transform:scale(1.25) rotate(-8deg); }
+    60% { transform:scale(1.1) rotate(5deg); }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+  }
+
+  /* ── Hero ── */
+  .feat-page-hero {
+    background: linear-gradient(135deg, #f8f4ff 0%, #fdf0ff 45%, #eef4ff 100%);
+    padding: calc(var(--nav-h) + 80px) 24px 110px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1.5px solid var(--border);
+  }
+  /* Animated orbs */
+  .fph-orb {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    filter: blur(70px); opacity: .5; animation: orb-drift 14s ease-in-out infinite;
+  }
+  .fph-orb-1 { width: 480px; height: 480px; background: radial-gradient(circle,rgba(124,58,237,.18),transparent); top:-160px; right:-120px; animation-delay:0s; }
+  .fph-orb-2 { width: 340px; height: 340px; background: radial-gradient(circle,rgba(236,72,153,.14),transparent); bottom:-80px; left:-80px; animation-delay:-6s; }
+  .fph-orb-3 { width: 220px; height: 220px; background: radial-gradient(circle,rgba(59,130,246,.12),transparent); top:40%; right:25%; animation-delay:-10s; animation-duration:9s; }
+
+  /* Floating particles */
+  .fph-particle {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    animation: particle-rise 5s ease-in-out infinite;
+  }
+  .fph-particle:nth-child(1) { width:6px;height:6px;background:rgba(124,58,237,.4);left:15%;bottom:10%;animation-delay:0s; }
+  .fph-particle:nth-child(2) { width:4px;height:4px;background:rgba(236,72,153,.35);left:30%;bottom:5%;animation-delay:-1.5s; }
+  .fph-particle:nth-child(3) { width:5px;height:5px;background:rgba(59,130,246,.35);right:25%;bottom:8%;animation-delay:-3s; }
+  .fph-particle:nth-child(4) { width:7px;height:7px;background:rgba(124,58,237,.3);right:40%;bottom:15%;animation-delay:-0.8s; }
+  .fph-particle:nth-child(5) { width:3px;height:3px;background:rgba(236,72,153,.4);left:60%;bottom:12%;animation-delay:-2.2s; }
+
+  .feat-hero-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Poppins', sans-serif; font-size: .72rem; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--purple); background: rgba(124,58,237,.1);
+    border: 1.5px solid rgba(124,58,237,.22); padding: 7px 18px; border-radius: 100px;
+    margin-bottom: 28px; position: relative; z-index: 1;
+    animation: fade-up .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .feat-hero-label .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--purple); box-shadow: 0 0 8px rgba(124,58,237,.6);
+    animation: blink 1.6s infinite; display: inline-block;
+  }
+  .feat-page-hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    font-weight: 900; color: var(--text);
+    margin-bottom: 20px; line-height: 1.1;
+    letter-spacing: -.03em; position: relative; z-index: 1;
+    animation: fade-up .7s cubic-bezier(.4,0,.2,1) .1s both;
+  }
+  .feat-page-hero h1 .grad {
+    background: linear-gradient(135deg, #7c3aed, #ec4899, #7c3aed);
+    background-size: 200% 200%;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    animation: gradient-shift 4s linear infinite;
+  }
+  .feat-page-hero p {
+    font-size: 1.08rem; color: var(--text-muted);
+    max-width: 540px; margin: 0 auto 40px; line-height: 1.75;
+    position: relative; z-index: 1;
+    animation: fade-up .7s cubic-bezier(.4,0,.2,1) .2s both;
+  }
+  .feat-hero-btns {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    position: relative; z-index: 1; margin-bottom: 80px;
+    animation: fade-up .7s cubic-bezier(.4,0,.2,1) .3s both;
+  }
+
+  /* Animated audio viz */
+  .feat-audio-viz {
+    position: relative; width: 180px; height: 180px;
+    margin: 0 auto; z-index: 1;
+    animation: scale-in .8s cubic-bezier(.34,1.56,.64,1) .4s both;
+  }
+  .fav-rings { position: absolute; inset: 0; }
+  .fav-ring {
+    position: absolute; border-radius: 50%; border: 1.5px solid transparent;
+    animation: fav-spin 5s linear infinite;
+  }
+  .fav-ring-1 { inset: 0; border-color: rgba(124,58,237,.4) rgba(124,58,237,.08) rgba(124,58,237,.08) rgba(124,58,237,.2); }
+  .fav-ring-2 { inset: 20px; border-color: rgba(236,72,153,.25) rgba(236,72,153,.06) rgba(236,72,153,.25) rgba(236,72,153,.06); animation-direction: reverse; animation-duration: 3.5s; }
+  .fav-ring-3 { inset: 40px; border-color: rgba(124,58,237,.18) rgba(124,58,237,.35) rgba(124,58,237,.18) rgba(124,58,237,.08); animation-duration: 7s; }
+  .fav-center {
+    position: absolute; inset: 58px;
+    background: var(--gradient); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 36px rgba(124,58,237,.32);
+    animation: pulse-ring 2.5s ease-in-out infinite;
+  }
+  .fav-dots { position: absolute; inset: 0; }
+  .fav-dot {
+    position: absolute; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--purple); box-shadow: 0 0 10px var(--purple);
+    animation: fav-orbit 4s linear infinite;
+  }
+  .fav-dot-1 { top: 8px; left: 50%; margin-left: -4px; animation-delay: 0s; }
+  .fav-dot-2 { bottom: 8px; left: 50%; margin-left: -4px; animation-delay: -2s; background: var(--pink); box-shadow: 0 0 10px var(--pink); }
+  .fav-dot-3 { top: 50%; left: 8px; margin-top: -4px; animation-delay: -1s; background: #3b82f6; box-shadow: 0 0 10px #3b82f6; }
+  .fav-label {
+    position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%);
+    font-size: .64rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--text-muted); font-family: 'Poppins', sans-serif; white-space: nowrap;
+  }
+
+  /* ── Stats strip ── */
+  .feat-stats-strip {
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+    padding: 40px 24px; background: #fff;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .feat-stat-item { text-align: center; }
+  .feat-stat-num {
+    font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 2.2rem;
+    background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1; margin-bottom: 5px;
+  }
+  .feat-stat-label { font-size: .76rem; color: var(--text-muted); font-weight: 600; font-family: 'Poppins', sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+
+  /* ── Feature sections ── */
+  .feat-section { padding: 100px 0; background: #ffffff; }
+  .feat-section.feat-alt { background: var(--bg-alt); }
+  .feat-row {
+    display: grid; grid-template-columns: 88px 1fr 1fr;
+    gap: 0 56px; align-items: center;
+  }
+  .feat-row-reverse .feat-detail { order: 3; }
+  .feat-row-reverse .feat-visual  { order: 2; }
+  .feat-row-reverse .feat-num-block{ order: 1; }
+  .feat-num-block { text-align: center; }
+  .feat-num {
+    font-family: 'Poppins', sans-serif; font-weight: 900;
+    font-size: 3.2rem; line-height: 1;
+    background: var(--gradient); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px;
+  }
+  .feat-num-icon {
+    width: 44px; height: 44px; border-radius: 14px; margin: 0 auto;
+    background: linear-gradient(135deg, rgba(124,58,237,.12), rgba(236,72,153,.12));
+    display: flex; align-items: center; justify-content: center; color: var(--purple);
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .feat-num-icon:hover { transform: rotate(15deg) scale(1.15); }
+  .feat-tag {
+    display: inline-block; font-size: .72rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--purple);
+    background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.18);
+    padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+  }
+  .feat-detail h2 { font-size: clamp(1.7rem, 3.5vw, 2.3rem); margin-bottom: 16px; }
+  .feat-detail p { color: var(--text-muted); line-height: 1.8; margin-bottom: 22px; }
+  .feat-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .feat-list li {
+    display: flex; align-items: flex-start; gap: 10px; font-size: .9rem;
+    color: var(--text-muted); line-height: 1.55;
+    padding: 9px 12px; border-radius: 10px; background: var(--bg-alt);
+    border: 1px solid var(--border-light);
+    transition: border-color .2s, background .2s, transform .2s;
+  }
+  .feat-list li:hover { border-color: rgba(124,58,237,.2); background: rgba(124,58,237,.04); transform: translateX(4px); }
+  .feat-list li .fi { flex-shrink: 0; margin-top: 2px; color: #16a34a; font-size: .88rem; }
+  .feat-premium {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: linear-gradient(135deg,#fbbf24,#f59e0b); color: white;
+    font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 100px;
+    font-family: 'Poppins', sans-serif; margin-right: 4px;
+  }
+  .feat-visual { display: flex; align-items: center; justify-content: center; }
+
+  /* ── Demo card base — float animation ── */
+  .feat-demo-card {
+    background: #ffffff; border-radius: 20px; padding: 22px;
+    width: 100%; max-width: 310px;
+    box-shadow: 0 12px 40px rgba(124,58,237,.12), 0 2px 8px rgba(0,0,0,.05);
+    border: 1.5px solid var(--border);
+    animation: float-card 4.5s ease-in-out infinite;
+    transition: box-shadow .25s;
+  }
+  .feat-demo-card:hover { box-shadow: 0 20px 56px rgba(124,58,237,.18); }
+
+  /* Stagger floats */
+  .feat-section:nth-child(3)  .feat-demo-card  { animation-delay: 0s; }
+  .feat-section:nth-child(4)  .feat-demo-card  { animation-delay: .7s; }
+  .feat-section:nth-child(5)  .feat-demo-card  { animation-delay: 1.4s; }
+  .feat-section:nth-child(6)  .feat-demo-card  { animation-delay: .4s; }
+  .feat-section:nth-child(7)  .feat-demo-card  { animation-delay: 1s; }
+  .feat-section:nth-child(8)  .feat-demo-card  { animation-delay: .2s; }
+  .feat-section:nth-child(9)  .feat-songs-demo { animation-delay: .6s; }
+  .feat-section:nth-child(10) .feat-discord-demo{ animation-delay: .9s; }
+
+  /* ── Shimmer effect on card hover ── */
+  .feat-demo-card::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: 20px;
+    background: linear-gradient(105deg, transparent 40%, rgba(124,58,237,.06) 50%, transparent 60%);
+    background-size: 200% 100%;
+    pointer-events: none; opacity: 0;
+    transition: opacity .3s;
+  }
+  .feat-demo-card { position: relative; }
+  .feat-demo-card:hover::after { opacity: 1; animation: shimmer 1.5s linear infinite; }
+
+  /* ── Music player demo ── */
+  .fcd-eq {
+    display: flex; align-items: flex-end; gap: 3px; height: 40px; margin-bottom: 16px;
+  }
+  .fcd-eq span {
+    flex: 1; border-radius: 3px 3px 0 0;
+    background: linear-gradient(to top, rgba(124,58,237,.7), rgba(236,72,153,.6));
+    animation: mc-eq-anim 1s ease-in-out infinite;
+  }
+  .fcd-eq span:nth-child(1){height:35%;animation-delay:0s}
+  .fcd-eq span:nth-child(2){height:75%;animation-delay:.1s}
+  .fcd-eq span:nth-child(3){height:55%;animation-delay:.2s}
+  .fcd-eq span:nth-child(4){height:90%;animation-delay:.05s}
+  .fcd-eq span:nth-child(5){height:45%;animation-delay:.15s}
+  .fcd-eq span:nth-child(6){height:68%;animation-delay:.25s}
+  .fcd-eq span:nth-child(7){height:38%;animation-delay:.08s}
+  .fcd-eq span:nth-child(8){height:80%;animation-delay:.18s}
+  .fcd-label {
+    font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 4px; font-family:'Poppins',sans-serif;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .fcd-label::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; box-shadow:0 0 6px #22c55e; display:inline-block; animation:blink 1.6s infinite; }
+  .fcd-song { font-family:'Poppins',sans-serif; font-weight:700; font-size:.97rem; color:var(--text); margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .fcd-artist { font-size:.78rem; color:var(--text-muted); margin-bottom:14px; }
+  .fcd-prog { height:5px; background:var(--border-light); border-radius:100px; margin-bottom:6px; overflow:hidden; }
+  .fcd-prog div { height:100%; background:var(--gradient); border-radius:100px; animation:prog-anim 18s linear infinite; }
+  .fcd-time { display:flex; justify-content:space-between; font-size:.67rem; color:var(--text-muted); font-weight:500; }
+  .fcd-controls { display:flex; justify-content:center; gap:8px; margin-top:14px; }
+  .fcd-btn {
+    width:34px; height:34px; border-radius:8px; border:none; cursor:pointer;
+    background:var(--border-light); color:var(--text-muted);
+    display:flex; align-items:center; justify-content:center; font-size:.8rem;
+    transition: background .18s, color .18s, transform .2s cubic-bezier(.34,1.56,.64,1);
+  }
+  .fcd-btn:hover { background:var(--gradient); color:white; transform:scale(1.18); }
+  .fcd-btn.active { background:var(--gradient); color:white; }
+
+  /* ── Queue demo ── */
+  .fqd-header { font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:14px; display:flex; align-items:center; gap:7px; }
+  .fqd-header i { color:var(--purple); }
+  .fqd-item { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px; margin-bottom:3px; transition:background .2s, transform .2s; cursor:default; }
+  .fqd-item:hover { background:rgba(124,58,237,.06); transform:translateX(3px); }
+  .fqd-active { background:rgba(124,58,237,.09) !important; }
+  .fqd-num { font-size:.72rem; font-weight:700; color:var(--text-muted); min-width:18px; font-family:'Poppins',sans-serif; }
+  .fqd-playing { color:var(--purple); }
+  .fqd-name { flex:1; font-size:.82rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .fqd-active .fqd-name { color:var(--text); font-weight:600; }
+  .fqd-dur { font-size:.72rem; color:var(--text-light); flex-shrink:0; }
+  .fqd-more { font-size:.72rem; color:var(--text-light); padding-top:10px; font-style:italic; padding-left:10px; }
+
+  /* ── Filters demo ── */
+  .ffd-title { font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:14px; display:flex; align-items:center; gap:7px; }
+  .ffd-title i { color:var(--purple); }
+  .ffd-bars { display:flex; align-items:flex-end; gap:5px; height:64px; margin-bottom:14px; }
+  .ffd-bar-group { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+  .ffd-bar {
+    width:100%; background:var(--border-light); border-radius:4px 4px 0 0;
+    min-height:6px; transition:height .5s cubic-bezier(.4,0,.2,1), background .4s;
+  }
+  .ffd-bar-active { background:var(--gradient); }
+  .ffd-bar-group span { font-size:.55rem; color:var(--text-muted); font-weight:600; }
+  .ffd-chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .ffd-chip {
+    font-size:.67rem; font-weight:700; padding:4px 10px; border-radius:100px;
+    font-family:'Poppins',sans-serif;
+    background:var(--border-light); color:var(--text-muted); border:1.5px solid var(--border);
+    transition: all .2s cubic-bezier(.34,1.56,.64,1); cursor:default;
+  }
+  .ffd-chip:hover { transform: scale(1.08); }
+  .ffd-chip-on { background:rgba(124,58,237,.1); color:var(--purple); border-color:rgba(124,58,237,.25); }
+  .ffd-chip-premium { background:rgba(251,191,36,.1); color:#d97706; border-color:rgba(251,191,36,.3); }
+
+  /* ── AI chat demo ── */
+  .fad-header { display:flex; align-items:center; gap:7px; font-family:'Poppins',sans-serif; font-size:.75rem; font-weight:700; color:var(--text-muted); margin-bottom:12px; }
+  .fad-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; box-shadow:0 0 6px #22c55e; animation:blink 1.6s infinite; flex-shrink:0; }
+  .fad-msg { font-size:.78rem; line-height:1.55; border-radius:12px; padding:10px 12px; margin-bottom:8px; }
+  .fad-user { background:rgba(124,58,237,.08); color:var(--text); border-radius:12px 12px 3px 12px; border:1px solid rgba(124,58,237,.12); }
+  .fad-bot { display:flex; gap:8px; align-items:flex-start; }
+  .fad-bot-av { width:24px; height:24px; border-radius:50%; background:var(--gradient); overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .fad-bot-av img { width:100%; height:100%; object-fit:cover; }
+  .fad-bot-text { background:var(--bg-alt); color:var(--text); padding:10px 12px; border-radius:3px 12px 12px 12px; font-size:.78rem; line-height:1.55; border:1px solid var(--border); }
+  .fad-typing { display:flex; align-items:center; gap:4px; padding-left:32px; }
+  .fad-typing span { width:5px; height:5px; border-radius:50%; background:var(--border); animation:typing-bounce .9s ease-in-out infinite; display:block; }
+  .fad-typing span:nth-child(2){animation-delay:.15s}
+  .fad-typing span:nth-child(3){animation-delay:.3s}
+
+  /* ── Playlist demo ── */
+  .fpd-header { display:flex; align-items:center; gap:7px; font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:12px; }
+  .fpd-header i { color:var(--purple); }
+  .fpd-list { display:flex; flex-direction:column; gap:2px; }
+  .fpd-item { display:flex; align-items:center; gap:10px; padding:10px 10px; border-radius:10px; cursor:pointer; transition:background .2s, transform .2s cubic-bezier(.34,1.56,.64,1); }
+  .fpd-item:hover { background:rgba(124,58,237,.06); transform:translateX(4px); }
+  .fpd-active { background:rgba(124,58,237,.09) !important; }
+  .fpd-icon { font-size:1.1rem; width:26px; text-align:center; }
+  .fpd-name { flex:1; font-size:.82rem; font-weight:600; color:var(--text-muted); }
+  .fpd-active .fpd-name { color:var(--purple); }
+  .fpd-cnt { font-size:.7rem; color:var(--text-light); }
+
+  /* ── Games demo ── */
+  .fgd-title { font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+  .fgd-title i { color:var(--purple); }
+  .fgd-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .fgd-game {
+    background:var(--bg-alt); border:1.5px solid var(--border);
+    border-radius:12px; padding:16px 10px; text-align:center;
+    font-size:1.5rem; display:flex; flex-direction:column; gap:7px; align-items:center;
+    transition:all .25s cubic-bezier(.34,1.56,.64,1); cursor:default;
+  }
+  .fgd-game:hover {
+    background:rgba(124,58,237,.07); border-color:rgba(124,58,237,.22);
+    transform:translateY(-5px) scale(1.04); box-shadow:0 8px 24px rgba(124,58,237,.14);
+  }
+  .fgd-game:hover .fgd-game-emoji { animation: icon-pop .5s cubic-bezier(.34,1.56,.64,1) both; }
+  .fgd-game-emoji { display: block; }
+  .fgd-game span { font-size:.71rem; color:var(--text-muted); font-family:'Poppins',sans-serif; font-weight:600; }
+
+  /* ── Discord command demo ── */
+  .feat-discord-demo { width: 100%; max-width: 350px; animation: float-card 4.5s ease-in-out infinite; }
+  .fdd-window {
+    background: #313338; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,.25), 0 4px 16px rgba(0,0,0,.15);
+    font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', sans-serif;
+  }
+  .fdd-topbar {
+    background: #2b2d31; padding: 10px 14px;
+    display: flex; align-items: center; gap: 7px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .fdd-topbar-dots { display: flex; gap: 5px; }
+  .fdd-dot-r { width:10px;height:10px;border-radius:50%;background:#ff5f57; }
+  .fdd-dot-y { width:10px;height:10px;border-radius:50%;background:#ffbd2e; }
+  .fdd-dot-g { width:10px;height:10px;border-radius:50%;background:#28c940; }
+  .fdd-topbar-ch { display: flex; align-items: center; gap: 5px; font-size: .72rem; color: rgba(255,255,255,.5); font-weight: 600; margin-left: 6px; }
+  .fdd-messages { padding: 12px 10px; display: flex; flex-direction: column; gap: 2px; }
+  .fdd-msg { display: flex; align-items: flex-start; gap: 9px; padding: 3px 4px; border-radius: 4px; transition: background .15s; }
+  .fdd-msg:hover { background: rgba(255,255,255,.03); }
+  .fdd-av { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 800; color: white; margin-top: 1px; }
+  .fdd-av-user { background: #5865f2; font-size: .75rem; }
+  .fdd-av-bot { background: var(--gradient); overflow: hidden; }
+  .fdd-av-bot img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .fdd-msg-body { flex: 1; min-width: 0; }
+  .fdd-msg-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 2px; }
+  .fdd-username { font-size: .82rem; font-weight: 600; color: #ffffff; }
+  .fdd-botname  { color: #5865f2; }
+  .fdd-app-tag { background: #5865f2; color: white; font-size: .55rem; font-weight: 800; padding: 1px 5px; border-radius: 4px; letter-spacing: .05em; font-family: 'Poppins', sans-serif; }
+  .fdd-timestamp { font-size: .67rem; color: rgba(255,255,255,.28); }
+  .fdd-slash-cmd { font-size: .83rem; color: rgba(255,255,255,.85); }
+  .fdd-slash-cmd .fdd-cmd-name { color: #5865f2; font-weight: 600; }
+  .fdd-embed { display: flex; border-radius: 4px; overflow: hidden; margin-top: 4px; background: #2b2d31; border: 1px solid rgba(255,255,255,.08); max-width: 300px; }
+  .fdd-embed-bar { width: 4px; flex-shrink: 0; background: #5865f2; }
+  .fdd-embed-inner { padding: 10px 12px; flex: 1; }
+  .fdd-embed-title { font-size: .82rem; font-weight: 700; color: #ffffff; margin-bottom: 4px; }
+  .fdd-embed-desc  { font-size: .75rem; color: rgba(255,255,255,.55); line-height: 1.45; }
+  .fdd-select-wrap { margin-top: 8px; max-width: 300px; }
+  .fdd-select-box { background: #1e1f22; border: 1px solid rgba(255,255,255,.12); border-radius: 4px; overflow: hidden; }
+  .fdd-select-trigger { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .fdd-select-chosen { display: flex; align-items: center; gap: 8px; font-size: .82rem; color: rgba(255,255,255,.9); }
+  .fdd-select-flag { font-size: 1rem; }
+  .fdd-select-arrow { color: rgba(255,255,255,.35); font-size: .7rem; transition: transform .3s; }
+  .fdd-select-open .fdd-select-arrow { transform: rotate(180deg); }
+  .fdd-options-list { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.4,0,.2,1); }
+  .fdd-options-open { max-height: 200px; }
+  .fdd-option-row { display: flex; align-items: center; gap: 9px; padding: 8px 12px; font-size: .8rem; color: rgba(255,255,255,.65); border-bottom: 1px solid rgba(255,255,255,.04); cursor: pointer; transition: background .15s; }
+  .fdd-option-row:last-child { border-bottom: none; }
+  .fdd-option-row:hover { background: rgba(255,255,255,.06); }
+  .fdd-option-active { background: rgba(88,101,242,.2) !important; color: white !important; }
+  .fdd-option-check { margin-left: auto; color: #5865f2; font-size: .75rem; opacity: 0; transition: opacity .2s; }
+  .fdd-option-active .fdd-option-check { opacity: 1; }
+  .fdd-option-name { flex: 1; font-weight: 500; }
+  .fdd-confirm-msg { margin-top: 6px; padding: 7px 10px; border-radius: 4px; background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.2); font-size: .76rem; color: #86efac; display: none; align-items: center; gap: 6px; }
+  .fdd-confirm-msg.visible { display: flex; animation: fade-up .3s ease; }
+
+  /* ── Song picker demo ── */
+  .feat-songs-demo {
+    background: #ffffff; border-radius: 20px; padding: 22px;
+    width: 100%; max-width: 310px;
+    box-shadow: 0 12px 40px rgba(124,58,237,.12), 0 2px 8px rgba(0,0,0,.05);
+    border: 1.5px solid var(--border);
+    animation: float-card 4.5s ease-in-out infinite;
+  }
+  .fsd-header { display:flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif; font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:12px; }
+  .fsd-header i { color:var(--purple); }
+  .fsd-item { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px; margin-bottom:3px; transition: background .2s, transform .2s cubic-bezier(.34,1.56,.64,1); cursor:default; }
+  .fsd-item:hover { background: rgba(124,58,237,.06); transform: translateX(4px); }
+  .fsd-active { background: rgba(124,58,237,.09) !important; }
+  .fsd-num { width:22px; height:22px; border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:800; font-family:'Poppins',sans-serif; background: var(--border-light); color: var(--text-muted); }
+  .fsd-active .fsd-num { background: var(--gradient); color: white; }
+  .fsd-info { flex:1; min-width:0; }
+  .fsd-title { font-size:.8rem; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .fsd-active .fsd-title { color:var(--purple); }
+  .fsd-artist { font-size:.7rem; color:var(--text-muted); }
+  .fsd-dur { font-size:.7rem; color:var(--text-light); flex-shrink:0; }
+
+  /* ── Feature lang demo ── */
+  .feat-lang-demo {
+    background: #ffffff; border-radius: 20px; padding: 22px;
+    width: 100%; max-width: 310px;
+    box-shadow: 0 12px 40px rgba(124,58,237,.12), 0 2px 8px rgba(0,0,0,.05);
+    border: 1.5px solid var(--border);
+    animation: float-card 4.5s ease-in-out infinite;
+  }
+
+  /* ── Scroll reveal enhancements ── */
+  .feat-row .feat-detail.reveal  { }
+  .feat-row .feat-visual.reveal  { }
+
+  /* ── Section number counter entrance ── */
+  .feat-num-block.reveal.in .feat-num {
+    animation: scale-in .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .feat-num-block.reveal.in .feat-num-icon {
+    animation: spin-once .6s cubic-bezier(.34,1.56,.64,1) .2s both;
+  }
+
+  /* ── CTA section ── */
+  .feat-cta-section {
+    background: linear-gradient(135deg, #f8f4ff 0%, #eef4ff 100%);
+    padding: 100px 0;
+    border-top: 1.5px solid var(--border);
+  }
+
+  /* ── Customisation section ── */
+  @keyframes cust-glow {
+    0%,100%{ box-shadow:0 0 0 0 rgba(124,58,237,.3); }
+    50%     { box-shadow:0 0 0 12px rgba(124,58,237,0); }
+  }
+  @keyframes cust-slide-in {
+    from{ opacity:0;transform:translateY(12px); }
+    to  { opacity:1;transform:translateY(0); }
+  }
+  @keyframes cust-badge-pop {
+    0%  { transform:scale(1) rotate(0deg); }
+    40% { transform:scale(1.25) rotate(-6deg); }
+    70% { transform:scale(1.1) rotate(4deg); }
+    100%{ transform:scale(1) rotate(0deg); }
+  }
+  .fcu-card {
+    background:#fff; border-radius:20px; padding:22px;
+    width:100%; max-width:310px;
+    box-shadow:0 12px 40px rgba(124,58,237,.12),0 2px 8px rgba(0,0,0,.05);
+    border:1.5px solid var(--border);
+    animation:float-card 4.5s ease-in-out infinite;
+    position:relative;overflow:hidden;
+  }
+  .fcu-server-header {
+    display:flex;align-items:center;gap:10px;margin-bottom:14px;
+  }
+  .fcu-server-avatar {
+    width:40px;height:40px;border-radius:12px;background:var(--gradient);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:1.1rem;flex-shrink:0;
+    animation:cust-glow 3s ease-in-out infinite;
+  }
+  .fcu-server-avatar img {
+    width:100%;height:100%;object-fit:cover;border-radius:12px;
+  }
+  .fcu-server-name {
+    font-family:'Poppins',sans-serif;font-weight:800;font-size:.9rem;color:var(--text);
+  }
+  .fcu-server-sub {
+    font-size:.68rem;color:var(--text-muted);margin-top:1px;
+  }
+  .fcu-divider { height:1px;background:var(--border-light);margin:12px 0; }
+  .fcu-change-row {
+    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;
+    margin-bottom:4px;transition:background .2s,transform .2s;cursor:default;
+    animation:cust-slide-in .5s ease both;
+  }
+  .fcu-change-row:nth-child(1){ animation-delay:.1s }
+  .fcu-change-row:nth-child(2){ animation-delay:.2s }
+  .fcu-change-row:nth-child(3){ animation-delay:.3s }
+  .fcu-change-row:hover { background:rgba(124,58,237,.06);transform:translateX(3px); }
+  .fcu-change-icon {
+    width:30px;height:30px;border-radius:9px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:.75rem;color:#fff;
+  }
+  .fcu-ci-avatar { background:linear-gradient(135deg,#7c3aed,#a855f7); }
+  .fcu-ci-banner { background:linear-gradient(135deg,#ec4899,#f472b6); }
+  .fcu-ci-nick   { background:linear-gradient(135deg,#06b6d4,#0891b2); }
+  .fcu-change-info { flex:1;min-width:0; }
+  .fcu-change-label { font-size:.75rem;font-weight:700;color:var(--text);font-family:'Poppins',sans-serif; }
+  .fcu-change-val   { font-size:.66rem;color:var(--text-muted);margin-top:1px; }
+  .fcu-applied-badge {
+    font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:100px;flex-shrink:0;
+    background:rgba(34,197,94,.12);color:#16a34a;border:1px solid rgba(34,197,94,.22);
+  }
+
+  /* ── Weather Discord conversation card ── */
+  @keyframes wdc-msg-in { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes wdc-reply-line { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes typing-dot { 0%,60%,100%{transform:translateY(0);opacity:.3} 30%{transform:translateY(-5px);opacity:1} }
+
+  .wdc-card {
+    background:#2b2d31;border-radius:18px;overflow:hidden;
+    box-shadow:0 24px 64px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.15);
+    animation:float-card 5s ease-in-out infinite;
+    max-width:340px;min-height:280px;
+  }
+  .wdc-bar {
+    background:#1e1f22;padding:9px 14px;display:flex;align-items:center;gap:8px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+  }
+  .wdc-dots { display:flex;gap:5px; }
+  .wdc-d { width:10px;height:10px;border-radius:50%; }
+  .wdc-dr{background:#ff5f57} .wdc-dy{background:#ffbd2e} .wdc-dg{background:#28c940}
+  .wdc-ch { flex:1;font-size:.7rem;color:rgba(255,255,255,.38);font-weight:600;text-align:center; }
+  .wdc-live { display:flex;align-items:center;gap:4px;font-size:.6rem;font-weight:700;color:#22c55e;font-family:'Poppins',sans-serif; }
+  .wdc-live-dot { width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 1.5s infinite; }
+
+  .wdc-msgs { padding:12px 10px;display:flex;flex-direction:column;gap:1px;min-height:210px; }
+  .wdc-msg { display:flex;align-items:flex-start;gap:9px;padding:3px 4px;animation:wdc-msg-in .3s ease both; }
+  .wdc-av { width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#fff;overflow:hidden;margin-top:1px; }
+  .wdc-av-user { background:#5865f2; }
+  .wdc-av-bot  { background:linear-gradient(135deg,#7c3aed,#ec4899); }
+  .wdc-av img  { width:100%;height:100%;object-fit:cover; }
+  .wdc-body { flex:1;min-width:0; }
+  .wdc-meta { display:flex;align-items:center;gap:7px;margin-bottom:3px; }
+  .wdc-name { font-size:.82rem;font-weight:600;color:#fff; }
+  .wdc-botname { color:#5865f2; }
+  .wdc-app-tag { background:#5865f2;color:#fff;font-size:.5rem;font-weight:800;padding:1px 5px;border-radius:3px;letter-spacing:.04em; }
+  .wdc-ts { font-size:.63rem;color:rgba(255,255,255,.2); }
+  .wdc-user-text { font-size:.82rem;color:rgba(255,255,255,.7); }
+  .wdc-slash { color:#5865f2;font-weight:700; }
+
+  /* Discord markdown weather reply */
+  .wdc-reply { font-size:.78rem;color:rgba(255,255,255,.85);line-height:1.55;animation:wdc-msg-in .35s ease both; }
+  .wdc-reply .wdc-h2 {
+    font-size:.88rem;font-weight:800;color:#fff;margin-bottom:6px;
+    display:flex;align-items:center;gap:5px;
+  }
+  .wdc-reply .wdc-condition { color:rgba(255,255,255,.6);font-size:.77rem;margin-bottom:8px;font-style:italic; }
+  .wdc-reply .wdc-row {
+    display:flex;align-items:baseline;gap:5px;
+    margin-bottom:3px;font-size:.76rem;color:rgba(255,255,255,.65);
+    animation:wdc-reply-line .25s ease both;
+  }
+  .wdc-reply .wdc-row b { color:#fff;font-weight:700; }
+  .wdc-reply .wdc-row em { color:rgba(255,255,255,.45);font-size:.72rem; }
+  .wdc-reply .wdc-sub {
+    font-size:.62rem;color:rgba(255,255,255,.28);margin-top:7px;
+    border-top:1px solid rgba(255,255,255,.06);padding-top:6px;
+  }
+  .wdc-reply .wdc-row:nth-child(3){animation-delay:.05s}
+  .wdc-reply .wdc-row:nth-child(4){animation-delay:.1s}
+  .wdc-reply .wdc-row:nth-child(5){animation-delay:.15s}
+  .wdc-reply .wdc-row:nth-child(6){animation-delay:.2s}
+
+  /* Typing indicator */
+  .wdc-typing {
+    display:flex;align-items:center;gap:8px;
+    padding:4px 4px 4px 6px;
+  }
+  .wdc-typing-dots { display:flex;gap:3px;align-items:center; }
+  .wdc-typing-dots span {
+    width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);
+    display:inline-block;animation:typing-dot .9s ease-in-out infinite;
+  }
+  .wdc-typing-dots span:nth-child(2){animation-delay:.15s}
+  .wdc-typing-dots span:nth-child(3){animation-delay:.3s}
+
+  /* Legacy fwx classes kept for rain/cloud animations used nowhere else - safe to leave */
+  .fwx-card {
+    background:#fff;border-radius:20px;padding:22px;
+    width:100%;max-width:310px;
+    box-shadow:0 12px 40px rgba(124,58,237,.12),0 2px 8px rgba(0,0,0,.05);
+    border:1.5px solid var(--border);
+    animation:float-card 4.5s ease-in-out infinite;
+    overflow:hidden;position:relative;
+  }
+  .fwx-header {
+    display:flex;align-items:center;gap:7px;font-family:'Poppins',sans-serif;
+    font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:14px;
+  }
+  .fwx-header i { color:var(--purple); }
+  .fwx-main {
+    background:linear-gradient(135deg,#dbeafe 0%,#e0e7ff 50%,#ede9fe 100%);
+    border-radius:16px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden;
+  }
+  .fwx-sky {
+    position:absolute;inset:0;border-radius:16px;
+    background:linear-gradient(180deg,rgba(147,197,253,.35) 0%,transparent 100%);
+    pointer-events:none;
+  }
+  .fwx-cloud {
+    position:absolute;opacity:.7;
+    animation:cloud-drift 5s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .fwx-cloud-1 { top:6px;left:10px;animation-delay:0s; font-size:1.6rem; }
+  .fwx-cloud-2 { top:10px;right:14px;animation-delay:-2.5s;font-size:1.1rem;opacity:.5; }
+  .fwx-city-row {
+    display:flex;align-items:center;justify-content:space-between;
+    position:relative;z-index:1;margin-bottom:8px;
+  }
+  .fwx-city { font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:700;color:#1e40af; }
+  .fwx-condition {
+    font-size:.64rem;font-weight:700;padding:2px 9px;border-radius:100px;
+    background:rgba(59,130,246,.15);color:#1d4ed8;border:1px solid rgba(59,130,246,.25);
+    font-family:'Poppins',sans-serif;
+  }
+  .fwx-temp-row {
+    display:flex;align-items:center;gap:12px;position:relative;z-index:1;margin-bottom:8px;
+  }
+  .fwx-sun { font-size:2.2rem;animation:sun-glow 3s ease-in-out infinite; }
+  .fwx-temp {
+    font-family:'Poppins',sans-serif;font-weight:900;font-size:2.4rem;
+    color:#1e40af;line-height:1;animation:temp-count .8s ease both;
+  }
+  .fwx-temp sup { font-size:1rem;font-weight:700;vertical-align:super; }
+  .fwx-feels { font-size:.65rem;color:#3b82f6;font-family:'Poppins',sans-serif; }
+  .fwx-details {
+    display:flex;gap:14px;position:relative;z-index:1;margin-top:8px;flex-wrap:wrap;
+  }
+  .fwx-detail-item {
+    display:flex;align-items:center;gap:4px;
+    font-size:.65rem;color:#1d4ed8;font-family:'Poppins',sans-serif;font-weight:600;
+  }
+  .fwx-detail-item i { font-size:.6rem; }
+  .fwx-rain-container {
+    position:absolute;bottom:8px;left:0;right:0;height:32px;overflow:hidden;pointer-events:none;
+    display:none;
+  }
+  .fwx-raindrop {
+    position:absolute;width:2px;height:10px;background:rgba(59,130,246,.5);border-radius:2px;
+    animation:rain-fall 1.2s linear infinite;
+  }
+  .fwx-forecast {
+    display:flex;gap:4px;margin-top:2px;
+  }
+  .fwx-day {
+    flex:1;text-align:center;padding:8px 4px;border-radius:10px;
+    background:var(--bg-alt);border:1px solid var(--border-light);
+    transition:background .2s,transform .2s;cursor:default;
+  }
+  .fwx-day:hover { background:rgba(59,130,246,.08);transform:translateY(-2px); }
+  .fwx-day-name { font-size:.59rem;font-weight:700;color:var(--text-muted);font-family:'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px; }
+  .fwx-day-icon { font-size:1rem;display:block;margin-bottom:3px; }
+  .fwx-day-temp { font-size:.7rem;font-weight:800;color:var(--text);font-family:'Poppins',sans-serif; }
+
+  /* RTL support for Arabic & Hindi */
+  [dir="rtl"] { direction:rtl;text-align:right; }
+  .fdd-embed-desc[dir="rtl"] { font-family:'Noto Sans Arabic','Segoe UI',sans-serif;font-size:.82rem; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .feat-row { grid-template-columns: 1fr; gap: 32px; }
+    .feat-num-block { display:flex; align-items:center; gap:14px; text-align:left; }
+    .feat-num { font-size:2rem; }
+    .feat-num-icon { margin:0; }
+    .feat-row-reverse .feat-detail,
+    .feat-row-reverse .feat-visual,
+    .feat-row-reverse .feat-num-block { order:unset; }
+    .feat-visual { justify-content:flex-start; }
+    .feat-stats-strip { gap: 24px; }
+  }
+  @media (max-width: 600px) {
+    .feat-section { padding: 72px 0; }
+    .feat-hero-btns { flex-direction: column; align-items: center; }
+    .feat-demo-card, .feat-lang-demo, .feat-songs-demo { max-width:100%; }
+    .feat-stats-strip { gap: 18px; }
+    .feat-stat-num { font-size: 1.7rem; }
+  }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">
+      <img src="/logo.webp" alt="AIMO logo" loading="eager" onerror="this.style.display='none'"/>
+      <span>AIMO</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/features" class="active">Features</a>
+      <a href="/commands">Commands</a>
+      <a href="/premium">Premium</a>
+      <a href="/status"><i class="fas fa-signal"></i> Status</a>
+      <a class="nav-cta-mobile" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">+ Invite AIMO</a>
+    </div>
+    <a class="nav-cta ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Invite AIMO
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="feat-page-hero">
+  <!-- Orbs -->
+  <div class="fph-orb fph-orb-1"></div>
+  <div class="fph-orb fph-orb-2"></div>
+  <div class="fph-orb fph-orb-3"></div>
+  <!-- Particles -->
+  <div class="fph-particle"></div>
+  <div class="fph-particle"></div>
+  <div class="fph-particle"></div>
+  <div class="fph-particle"></div>
+  <div class="fph-particle"></div>
+
+  <div class="container">
+    <div class="feat-hero-label"><span class="dot"></span> <i class="fas fa-headphones-alt" style="font-size:.7rem"></i> AIMO Audio Engine</div>
+    <h1>Built Around<br>The Way You <span class="grad">Listen.</span></h1>
+    <p>Seven focused systems working together — from the first request to the final track. Supporting <strong style="color:var(--purple)">15+ languages</strong>.</p>
+    <div class="feat-hero-btns">
+      <a class="btn btn-primary ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+        <i class="fas fa-plus"></i> Add AIMO Free
+      </a>
+      <a class="btn btn-discord ripple-host" href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">
+        <i class="fab fa-discord"></i> Support Server
+      </a>
+      <a class="btn btn-outline ripple-host" href="/commands">
+        <i class="fas fa-terminal"></i> Commands →
+      </a>
+    </div>
+    <div class="feat-audio-viz">
+      <div class="fav-rings">
+        <div class="fav-ring fav-ring-1"></div>
+        <div class="fav-ring fav-ring-2"></div>
+        <div class="fav-ring fav-ring-3"></div>
+      </div>
+      <div class="fav-center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="fav-dots">
+        <div class="fav-dot fav-dot-1"></div>
+        <div class="fav-dot fav-dot-2"></div>
+        <div class="fav-dot fav-dot-3"></div>
+      </div>
+      <div class="fav-label">LIVE SIGNAL</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════
+     1. MUSIC PLAYBACK
+════════════════════════════════════ -->
+<section class="feat-section feat-alt">
+  <div class="container">
+    <div class="feat-row">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">01</div>
+        <div class="feat-num-icon"><i class="fas fa-music"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-headphones" style="margin-right:6px"></i> Music</span>
+        <h2>Crystal-Clear <span class="gradient-text">Playback</span></h2>
+        <p>Stream from YouTube, YouTube Music, Spotify, SoundCloud, Apple Music and more. AIMO delivers bit-perfect audio through its Lavalink audio engine with zero-latency queue control.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> Play by song name, URL, or search results</li>
+          <li><i class="fas fa-check fi"></i> Full queue: shuffle, loop, skip, back, clear, remove</li>
+          <li><i class="fas fa-check fi"></i> Seek to any position · volume control</li>
+          <li><i class="fas fa-check fi"></i> 24/7 mode — stays in channel forever</li>
+          <li><i class="fas fa-check fi"></i> Autoplay — endless related tracks</li>
+        </ul>
+      </div>
+      <div class="feat-visual reveal">
+        <div class="feat-demo-card">
+          <div class="fcd-eq">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="fcd-label">Now Playing</div>
+          <div class="fcd-song">Starboy (feat. Daft Punk)</div>
+          <div class="fcd-artist">The Weeknd</div>
+          <div class="fcd-prog"><div></div></div>
+          <div class="fcd-time"><span>0:32</span><span>3:50</span></div>
+          <div class="fcd-controls">
+            <button class="fcd-btn"><i class="fas fa-backward-step"></i></button>
+            <button class="fcd-btn active"><i class="fas fa-pause"></i></button>
+            <button class="fcd-btn"><i class="fas fa-forward-step"></i></button>
+            <button class="fcd-btn"><i class="fas fa-shuffle"></i></button>
+            <button class="fcd-btn"><i class="fas fa-repeat"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     2. QUEUE & PLAYLIST
+════════════════════════════════════ -->
+<section class="feat-section">
+  <div class="container">
+    <div class="feat-row feat-row-reverse">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">02</div>
+        <div class="feat-num-icon"><i class="fas fa-list"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-compact-disc" style="margin-right:6px"></i> Playlists</span>
+        <h2>Playlists &amp; <span class="gradient-text">Favourites</span></h2>
+        <p>Create personal playlists, save tracks to favourites, and share with your friends. AIMO remembers everything so you never lose your music.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> Create, rename, delete, and load playlists</li>
+          <li><i class="fas fa-check fi"></i> Add / remove tracks, import from URL</li>
+          <li><i class="fas fa-check fi"></i> Share playlists with a unique code</li>
+          <li><i class="fas fa-check fi"></i> Favourites — save &amp; play back any song instantly</li>
+        </ul>
+      </div>
+      <div class="feat-visual reveal">
+        <div class="feat-demo-card">
+          <div class="fpd-header"><i class="fas fa-compact-disc"></i> My Playlists</div>
+          <div class="fpd-list">
+            <div class="fpd-item fpd-active"><span class="fpd-icon">🎵</span><span class="fpd-name">Workout Bangers</span><span class="fpd-cnt">24</span></div>
+            <div class="fpd-item"><span class="fpd-icon">🌙</span><span class="fpd-name">Late Night Vibes</span><span class="fpd-cnt">18</span></div>
+            <div class="fpd-item"><span class="fpd-icon">☀️</span><span class="fpd-name">Morning Chill</span><span class="fpd-cnt">12</span></div>
+            <div class="fpd-item"><span class="fpd-icon">🔥</span><span class="fpd-name">Hype Mix</span><span class="fpd-cnt">31</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     3. AUDIO FILTERS
+════════════════════════════════════ -->
+<section class="feat-section feat-alt">
+  <div class="container">
+    <div class="feat-row">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">03</div>
+        <div class="feat-num-icon"><i class="fas fa-sliders"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-waveform-lines" style="margin-right:6px"></i> Filters</span>
+        <h2>Audio <span class="gradient-text">Filters</span></h2>
+        <p>10+ built-in filters to transform your listening experience. Stack effects, go 8D, apply reverb or kick the bass.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> Bassboost, Vaporwave, Karaoke, 8D, Tremolo</li>
+          <li><i class="fas fa-check fi"></i> Nightcore, Soft, Pop, Electronic, Lofi</li>
+          <li><i class="fas fa-check fi"></i><span class="feat-premium"><i class="fas fa-star"></i> Premium</span> Speed control, Reverb, Stereo widening</li>
+        </ul>
+      </div>
+      <div class="feat-visual reveal">
+        <div class="feat-demo-card">
+          <div class="ffd-title"><i class="fas fa-sliders"></i> Audio Filters</div>
+          <div class="ffd-bars" id="filterBars">
+            <div class="ffd-bar-group"><div class="ffd-bar ffd-bar-active" style="height:30%"></div><span>60</span></div>
+            <div class="ffd-bar-group"><div class="ffd-bar ffd-bar-active" style="height:55%"></div><span>170</span></div>
+            <div class="ffd-bar-group"><div class="ffd-bar ffd-bar-active" style="height:70%"></div><span>310</span></div>
+            <div class="ffd-bar-group"><div class="ffd-bar ffd-bar-active" style="height:90%"></div><span>600</span></div>
+            <div class="ffd-bar-group"><div class="ffd-bar" style="height:55%"></div><span>1k</span></div>
+            <div class="ffd-bar-group"><div class="ffd-bar" style="height:45%"></div><span>3k</span></div>
+            <div class="ffd-bar-group"><div class="ffd-bar" style="height:30%"></div><span>6k</span></div>
+            <div class="ffd-bar-group"><div class="ffd-bar" style="height:20%"></div><span>12k</span></div>
+          </div>
+          <div class="ffd-chips">
+            <span class="ffd-chip ffd-chip-on">8D</span>
+            <span class="ffd-chip ffd-chip-on">Bassboost</span>
+            <span class="ffd-chip">Vaporwave</span>
+            <span class="ffd-chip">Karaoke</span>
+            <span class="ffd-chip ffd-chip-premium">⭐ Reverb</span>
+            <span class="ffd-chip ffd-chip-premium">⭐ Nightcore</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     4. AI CHAT
+════════════════════════════════════ -->
+<section class="feat-section">
+  <div class="container">
+    <div class="feat-row feat-row-reverse">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">04</div>
+        <div class="feat-num-icon"><i class="fas fa-robot"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-brain" style="margin-right:6px"></i> AI</span>
+        <h2>AI Chat — <span class="gradient-text">/ask</span></h2>
+        <p>Powered by GPT-4o. Ask anything, get smart contextual answers without leaving Discord. AIMO even knows what song is currently playing.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> GPT-4o — state-of-the-art intelligence</li>
+          <li><i class="fas fa-check fi"></i> Context memory across the conversation</li>
+          <li><i class="fas fa-check fi"></i> Knows current song, artist, volume &amp; queue</li>
+          <li><i class="fas fa-check fi"></i><span class="feat-premium"><i class="fas fa-star"></i> Premium</span> AI Image Generation via /imagine</li>
+        </ul>
+      </div>
+      <div class="feat-visual reveal">
+        <div class="feat-demo-card">
+          <div class="fad-header"><span class="fad-dot"></span> AIMO AI · GPT-4o</div>
+          <div class="fad-msg fad-user">What song is this and who made it?</div>
+          <div class="fad-bot">
+            <div class="fad-bot-av"><img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='🎵'"/></div>
+            <div class="fad-bot-text">You're listening to <strong>Starboy</strong> by The Weeknd feat. Daft Punk — from the 2016 album Starboy. It peaked at #1 in 16 countries. 🎶</div>
+          </div>
+          <div class="fad-typing" style="margin-top:8px">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     5. MINI GAMES
+════════════════════════════════════ -->
+<section class="feat-section feat-alt">
+  <div class="container">
+    <div class="feat-row">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">05</div>
+        <div class="feat-num-icon"><i class="fas fa-gamepad"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-dice" style="margin-right:6px"></i> Games</span>
+        <h2>Mini <span class="gradient-text">Games</span></h2>
+        <p>Six built-in games to keep your server entertained while the music plays. Challenge friends to a quick match without leaving Discord.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> Snake, Minesweeper, Trivia</li>
+          <li><i class="fas fa-check fi"></i> Rock-Paper-Scissors, Tic-Tac-Toe, Hangman</li>
+          <li><i class="fas fa-check fi"></i> Multiplayer challenges with friends</li>
+        </ul>
+      </div>
+      <div class="feat-visual reveal">
+        <div class="feat-demo-card">
+          <div class="fgd-title"><i class="fas fa-gamepad"></i> Mini Games</div>
+          <div class="fgd-grid">
+            <div class="fgd-game"><span class="fgd-game-emoji">🐍</span><span>Snake</span></div>
+            <div class="fgd-game"><span class="fgd-game-emoji">💣</span><span>Minesweeper</span></div>
+            <div class="fgd-game"><span class="fgd-game-emoji">❓</span><span>Trivia</span></div>
+            <div class="fgd-game"><span class="fgd-game-emoji">✂️</span><span>RPS</span></div>
+            <div class="fgd-game"><span class="fgd-game-emoji">⭕</span><span>Tic-Tac-Toe</span></div>
+            <div class="fgd-game"><span class="fgd-game-emoji">🔤</span><span>Hangman</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     6. LANGUAGES
+════════════════════════════════════ -->
+<section class="feat-section">
+  <div class="container">
+    <div class="feat-row feat-row-reverse">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">06</div>
+        <div class="feat-num-icon"><i class="fas fa-globe"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-language" style="margin-right:6px"></i> Languages</span>
+        <h2>Your Language, <span class="gradient-text">Your Way</span></h2>
+        <p>Type <code>/language</code> once — pick from 15 languages — and every AIMO response translates automatically for you. Works per-user, so your server can be multilingual at the same time.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> <strong>/language</strong> opens a full picker — 15 languages with flags</li>
+          <li><i class="fas fa-check fi"></i> Bot replies auto-translate to your language only</li>
+          <li><i class="fas fa-check fi"></i> Other users keep their own language preference</li>
+          <li><i class="fas fa-check fi"></i> RTL support for Arabic — layout flips automatically</li>
+          <li><i class="fas fa-check fi"></i> Lyrics translate with a single button press</li>
+        </ul>
+        <div class="feat-lang-tags">
+          <span class="flt-tag">🇬🇧 English</span><span class="flt-tag">🇸🇦 Arabic</span><span class="flt-tag">🇫🇷 French</span>
+          <span class="flt-tag">🇩🇪 German</span><span class="flt-tag">🇯🇵 Japanese</span><span class="flt-tag">🇰🇷 Korean</span>
+          <span class="flt-tag">🇷🇺 Russian</span><span class="flt-tag">🇪🇸 Spanish</span><span class="flt-tag">+7 more</span>
+        </div>
+      </div>
+      <div class="feat-visual reveal">
+        <!-- Language picker Discord card -->
+        <div class="flp-card">
+          <!-- macOS bar -->
+          <div class="flp-bar">
+            <div class="flp-dots"><span class="flp-d flp-dr"></span><span class="flp-d flp-dy"></span><span class="flp-d flp-dg"></span></div>
+            <div class="flp-ch"><i class="fas fa-hashtag" style="font-size:.55rem;opacity:.45"></i> music-chat</div>
+            <div class="flp-live"><span class="flp-live-dot"></span> Live</div>
+          </div>
+
+          <!-- User command -->
+          <div class="flp-msgs">
+            <div class="flp-msg">
+              <div class="flp-av flp-av-user">A</div>
+              <div class="flp-msg-body">
+                <div class="flp-meta"><span class="flp-name">Ali</span><span class="flp-ts">Today</span></div>
+                <div class="flp-slash"><span class="flp-slash-name">/language</span></div>
+              </div>
+            </div>
+
+            <!-- Bot response with picker -->
+            <div class="flp-msg" id="flpBotRow">
+              <div class="flp-av flp-av-bot"><img src="/logo.webp" alt="" onerror="this.outerHTML='🎵'"/></div>
+              <div class="flp-msg-body">
+                <div class="flp-meta"><span class="flp-name" style="color:#5865f2">AIMO</span><span class="flp-app-tag">APP</span></div>
+                <!-- Picker embed -->
+                <div class="flp-embed" id="flpEmbed">
+                  <div class="flp-embed-bar"></div>
+                  <div class="flp-embed-inner">
+                    <div class="flp-embed-title">🌐 Choose your language</div>
+                    <div class="flp-embed-sub">Your personal language preference. Only you see translated replies.</div>
+                    <!-- 15 language grid -->
+                    <div class="flp-grid" id="flpGrid">
+                      <div class="flp-lang" data-lang="en" data-name="English"       data-confirm="Language set to English 🇬🇧">🇬🇧<span>English</span></div>
+                      <div class="flp-lang" data-lang="ar" data-name="Arabic"        data-confirm="تم تعيين لغتك إلى العربية 🇸🇦" data-rtl="1">🇸🇦<span>Arabic</span></div>
+                      <div class="flp-lang" data-lang="fr" data-name="French"        data-confirm="Langue définie sur le français 🇫🇷">🇫🇷<span>French</span></div>
+                      <div class="flp-lang" data-lang="de" data-name="German"        data-confirm="Sprache auf Deutsch gesetzt 🇩🇪">🇩🇪<span>German</span></div>
+                      <div class="flp-lang" data-lang="es" data-name="Spanish"       data-confirm="Idioma cambiado a español 🇪🇸">🇪🇸<span>Spanish</span></div>
+                      <div class="flp-lang" data-lang="pt" data-name="Portuguese"    data-confirm="Idioma definido para Português 🇧🇷">🇧🇷<span>Portuguese</span></div>
+                      <div class="flp-lang" data-lang="ja" data-name="Japanese"      data-confirm="言語を日本語に設定しました 🇯🇵">🇯🇵<span>Japanese</span></div>
+                      <div class="flp-lang" data-lang="ko" data-name="Korean"        data-confirm="언어를 한국어로 설정했습니다 🇰🇷">🇰🇷<span>Korean</span></div>
+                      <div class="flp-lang" data-lang="ru" data-name="Russian"       data-confirm="Язык изменён на русский 🇷🇺">🇷🇺<span>Russian</span></div>
+                      <div class="flp-lang" data-lang="zh" data-name="Chinese"       data-confirm="语言已设置为中文 🇨🇳">🇨🇳<span>Chinese</span></div>
+                      <div class="flp-lang" data-lang="it" data-name="Italian"       data-confirm="Lingua impostata sull'italiano 🇮🇹">🇮🇹<span>Italian</span></div>
+                      <div class="flp-lang" data-lang="hi" data-name="Hindi"         data-confirm="भाषा हिंदी पर सेट की गई 🇮🇳">🇮🇳<span>Hindi</span></div>
+                      <div class="flp-lang" data-lang="nl" data-name="Dutch"         data-confirm="Taal ingesteld op Nederlands 🇳🇱">🇳🇱<span>Dutch</span></div>
+                      <div class="flp-lang" data-lang="pl" data-name="Polish"        data-confirm="Język zmieniony na polski 🇵🇱">🇵🇱<span>Polish</span></div>
+                      <div class="flp-lang" data-lang="tr" data-name="Turkish"       data-confirm="Dil Türkçe olarak ayarlandı 🇹🇷">🇹🇷<span>Turkish</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Confirmation embed (hidden until language selected) -->
+                <div class="flp-embed flp-confirm-embed" id="flpConfirm" style="display:none">
+                  <div class="flp-embed-bar" style="background:#22c55e"></div>
+                  <div class="flp-embed-inner">
+                    <div class="flp-embed-title" id="flpConfirmTitle">✅ Language set</div>
+                    <div class="flp-embed-sub" id="flpConfirmSub" style="color:rgba(255,255,255,.75);font-weight:600;font-size:.78rem"></div>
+                    <div class="flp-sample-reply" id="flpSampleReply"></div>
+                    <div class="flp-confirm-note">All my replies to you will now be in your chosen language.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+/* ── Language tags in feat-detail ── */
+.feat-lang-tags { display:flex;flex-wrap:wrap;gap:7px;margin-top:14px; }
+.flt-tag {
+  font-size:.73rem;font-weight:600;padding:5px 11px;border-radius:100px;
+  background:rgba(124,58,237,.07);color:var(--text-muted);
+  border:1px solid rgba(124,58,237,.14);font-family:'Poppins',sans-serif;
+  transition:all .18s;
+}
+.flt-tag:hover { background:rgba(124,58,237,.14);color:var(--purple); }
+
+/* ── Language picker card ── */
+.flp-card {
+  background:#2b2d31;border-radius:18px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.14);
+  animation:float-card 5s ease-in-out infinite;
+  max-width:340px;
+}
+.flp-bar {
+  background:#1e1f22;padding:9px 14px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.flp-dots { display:flex;gap:5px; }
+.flp-d { width:10px;height:10px;border-radius:50%; }
+.flp-dr { background:#ff5f57; } .flp-dy { background:#ffbd2e; } .flp-dg { background:#28c940; }
+.flp-ch { flex:1;font-size:.7rem;color:rgba(255,255,255,.38);font-weight:600;text-align:center; }
+.flp-live { display:flex;align-items:center;gap:5px;font-size:.6rem;font-weight:700;color:#22c55e;font-family:'Poppins',sans-serif; }
+.flp-live-dot { width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 1.6s infinite; }
+
+.flp-msgs { padding:12px 10px;display:flex;flex-direction:column;gap:3px; }
+.flp-msg  { display:flex;align-items:flex-start;gap:9px;padding:3px 4px; }
+.flp-av   { width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;color:#fff;overflow:hidden; }
+.flp-av-user { background:#5865f2; }
+.flp-av-bot  { background:var(--gradient); }
+.flp-av img  { width:100%;height:100%;object-fit:cover; }
+.flp-msg-body { flex:1;min-width:0; }
+.flp-meta { display:flex;align-items:center;gap:7px;margin-bottom:2px; }
+.flp-name { font-size:.8rem;font-weight:600;color:#fff; }
+.flp-app-tag { background:#5865f2;color:#fff;font-size:.5rem;font-weight:800;padding:1px 5px;border-radius:3px;letter-spacing:.04em; }
+.flp-ts   { font-size:.63rem;color:rgba(255,255,255,.22); }
+.flp-slash { font-size:.82rem;color:rgba(255,255,255,.7); }
+.flp-slash-name { color:#5865f2;font-weight:700; }
+
+/* Embed */
+.flp-embed { display:flex;border-radius:4px;overflow:hidden;margin-top:4px;background:#1e1f22;border:1px solid rgba(255,255,255,.07); }
+.flp-embed-bar { width:4px;flex-shrink:0;background:linear-gradient(180deg,#7c3aed,#a855f7); }
+.flp-embed-inner { padding:10px 12px;flex:1; }
+.flp-embed-title { font-size:.8rem;font-weight:700;color:#fff;margin-bottom:3px; }
+.flp-embed-sub { font-size:.7rem;color:rgba(255,255,255,.4);line-height:1.4;margin-bottom:8px; }
+
+/* Language grid */
+.flp-grid {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+.flp-lang {
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:7px 4px;border-radius:8px;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+  transition:all .18s;font-size:.85rem;
+}
+.flp-lang span { font-size:.58rem;font-weight:600;color:rgba(255,255,255,.55);font-family:'Poppins',sans-serif; }
+.flp-lang:hover { background:rgba(88,101,242,.18);border-color:rgba(88,101,242,.4); }
+.flp-lang.selected { background:rgba(88,101,242,.28);border-color:#5865f2;box-shadow:0 0 0 1px rgba(88,101,242,.4); }
+.flp-lang.selected span { color:#fff; }
+
+/* Confirm note */
+.flp-confirm-note { font-size:.64rem;color:rgba(255,255,255,.3);margin-top:8px;font-style:italic;border-top:1px solid rgba(255,255,255,.06);padding-top:7px; }
+.flp-sample-reply {
+  font-size:.72rem;color:rgba(255,255,255,.6);line-height:1.5;
+  margin-top:8px;padding:8px 10px;border-radius:6px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  white-space:pre-wrap;font-family:'Consolas','Courier New',monospace;
+}
+.flp-sample-reply:empty { display:none; }
+
+/* Cell select/click pulse */
+.flp-lang.selecting {
+  background:rgba(88,101,242,.25) !important;
+  border-color:rgba(88,101,242,.5) !important;
+  transform:scale(.96);
+}
+
+/* Confirm embed entrance */
+.flp-confirm-embed { animation:fade-up .3s ease both; }
+</style>
+
+<!-- ══════════════════════════════════
+     7. UTILITY & WEATHER
+════════════════════════════════════ -->
+<section class="feat-section feat-alt">
+  <div class="container">
+    <div class="feat-row">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">07</div>
+        <div class="feat-num-icon"><i class="fas fa-wrench"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-toolbox" style="margin-right:6px"></i> Utility</span>
+        <h2>Utility &amp; <span class="gradient-text">Weather</span></h2>
+        <p>AIMO is your all-in-one Discord assistant. Get live weather for any city worldwide, look up Wikipedia, fetch lyrics, check user avatars, and more — all without leaving Discord.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> Live weather for any city — temperature, humidity, wind</li>
+          <li><i class="fas fa-check fi"></i> Wikipedia quick-look summaries</li>
+          <li><i class="fas fa-check fi"></i> Avatar &amp; banner viewer for any user</li>
+          <li><i class="fas fa-check fi"></i> Lyrics with one-click translate button</li>
+          <li><i class="fas fa-check fi"></i> Calculator, random quotes &amp; server info</li>
+        </ul>
+      </div>
+      <div class="feat-visual reveal">
+        <!-- Discord-style weather conversation card -->
+        <div class="wdc-card">
+          <!-- Titlebar -->
+          <div class="wdc-bar">
+            <div class="wdc-dots"><span class="wdc-d wdc-dr"></span><span class="wdc-d wdc-dy"></span><span class="wdc-d wdc-dg"></span></div>
+            <div class="wdc-ch"><i class="fas fa-hashtag" style="font-size:.55rem;opacity:.4"></i> general</div>
+            <div class="wdc-live"><span class="wdc-live-dot"></span>Live</div>
+          </div>
+          <!-- Messages -->
+          <div class="wdc-msgs" id="wdcMsgs">
+            <!-- User message (static) -->
+            <div class="wdc-msg" id="wdcUserMsg">
+              <div class="wdc-av wdc-av-user">S</div>
+              <div class="wdc-body">
+                <div class="wdc-meta"><span class="wdc-name">Snake</span><span class="wdc-ts">Today at 3:22 PM</span></div>
+                <div class="wdc-user-text"><span class="wdc-slash">/weather</span> <span id="wdcCity">London</span></div>
+              </div>
+            </div>
+            <!-- Bot typing -->
+            <div class="wdc-typing" id="wdcTyping" style="display:none">
+              <div class="wdc-av wdc-av-bot"><img src="/logo.webp" alt="" onerror="this.outerHTML='🎵'"/></div>
+              <div class="wdc-typing-dots"><span></span><span></span><span></span></div>
+            </div>
+            <!-- Bot response -->
+            <div class="wdc-msg" id="wdcBotMsg" style="display:none">
+              <div class="wdc-av wdc-av-bot"><img src="/logo.webp" alt="" onerror="this.outerHTML='🎵'"/></div>
+              <div class="wdc-body">
+                <div class="wdc-meta"><span class="wdc-name wdc-botname">AIMO</span><span class="wdc-app-tag">APP</span><span class="wdc-ts">Today at 3:22 PM</span></div>
+                <!-- Weather response in Discord markdown style -->
+                <div class="wdc-reply" id="wdcReply"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     8. CUSTOMISATION
+════════════════════════════════════ -->
+<section class="feat-section">
+  <div class="container">
+    <div class="feat-row feat-row-reverse">
+      <div class="feat-num-block reveal">
+        <div class="feat-num">08</div>
+        <div class="feat-num-icon"><i class="fas fa-paint-brush"></i></div>
+      </div>
+      <div class="feat-detail reveal">
+        <span class="feat-tag"><i class="fas fa-sliders" style="margin-right:6px"></i> Customisation</span>
+        <h2>Per-Server <span class="gradient-text">Customisation</span></h2>
+        <p>Make AIMO feel native to your server. Change its avatar, banner, and nickname per-server — so every community gets a unique AIMO experience. All changes are isolated and free.</p>
+        <ul class="feat-list">
+          <li><i class="fas fa-check fi"></i> <code>/customize-avatar</code> — set a custom bot avatar for your server</li>
+          <li><i class="fas fa-check fi"></i> <code>/customize-banner</code> — upload a custom profile banner</li>
+          <li><i class="fas fa-check fi"></i> <code>/customize-nickname</code> — give AIMO any name in your server</li>
+          <li><i class="fas fa-check fi"></i> <code>/customize-view</code> — preview all active customisations</li>
+          <li><i class="fas fa-check fi"></i> <code>/customize-reset</code> — restore AIMO's default look instantly</li>
+          <li><i class="fas fa-check fi"></i> Requires Manage Server permission · 100% free</li>
+        </ul>
+      </div>
+      <div class="feat-visual reveal">
+        <div class="fcu-card">
+          <div class="fcu-server-header">
+            <div class="fcu-server-avatar"><img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='🎵'"/></div>
+            <div>
+              <div class="fcu-server-name">AIMO · #music-lounge</div>
+              <div class="fcu-server-sub">Customised for this server</div>
+            </div>
+          </div>
+          <div class="fcu-divider"></div>
+          <div class="fcu-change-row">
+            <div class="fcu-change-icon fcu-ci-avatar"><i class="fas fa-image"></i></div>
+            <div class="fcu-change-info">
+              <div class="fcu-change-label">Custom Avatar</div>
+              <div class="fcu-change-val">server-logo.png · applied</div>
+            </div>
+            <span class="fcu-applied-badge">✓ Live</span>
+          </div>
+          <div class="fcu-change-row">
+            <div class="fcu-change-icon fcu-ci-banner"><i class="fas fa-panorama"></i></div>
+            <div class="fcu-change-info">
+              <div class="fcu-change-label">Custom Banner</div>
+              <div class="fcu-change-val">banner-dark.jpg · applied</div>
+            </div>
+            <span class="fcu-applied-badge">✓ Live</span>
+          </div>
+          <div class="fcu-change-row">
+            <div class="fcu-change-icon fcu-ci-nick"><i class="fas fa-pen"></i></div>
+            <div class="fcu-change-info">
+              <div class="fcu-change-label">Nickname</div>
+              <div class="fcu-change-val">🎵 Music Bot · active</div>
+            </div>
+            <span class="fcu-applied-badge">✓ Live</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA ════ -->
+<section class="feat-cta-section">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="cta-icon-wrap">
+        <img src="/logo.webp" alt="AIMO" onerror="this.outerHTML='<svg width=32 height=32 viewBox=\'0 0 24 24\' fill=\'white\'><path d=\'M9 18V5l12-2v13\'/><circle cx=\'6\' cy=\'18\' r=\'3\'/><circle cx=\'18\' cy=\'16\' r=\'3\'/></svg>'"/>
+      </div>
+      <h3>Ready to <span class="gradient-text">Experience</span> Every Feature?</h3>
+      <p>Add AIMO in seconds. No configuration needed. Just invite, join a voice channel, and play.</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary ripple-host" href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">
+          <i class="fas fa-plus"></i> Add AIMO Free
+        </a>
+        <a class="btn btn-outline ripple-host" href="/commands">
+          <i class="fas fa-terminal"></i> View All Commands
+        </a>
+        <a class="btn btn-discord ripple-host" href="/premium">
+          <i class="fas fa-star"></i> Go Premium
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-row"><img src="/logo.webp" alt="AIMO" loading="lazy" onerror="this.style.display='none'"/> AIMO</div>
+        <p>The ultimate Discord music bot with AI features, custom playlists, mini games, and advanced audio filters. Free forever.</p>
+        <div class="footer-social">
+          <a href="/support" title="Discord"><i class="fab fa-discord"></i></a>
+          <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener" title="Vote"><i class="fas fa-star"></i></a>
+          <a href="mailto:aimo-bot@protone.me" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h5>Navigate</h5><a href="/">Home</a><a href="/features">Features</a><a href="/commands">Commands</a><a href="/premium">Premium</a><a href="/status">Status</a><a href="/updates">Updates</a><a href="/support">Support</a><a href="/docs">Docs</a></div>
+      <div class="footer-col"><h5>Legal</h5><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></div>
+      <div class="footer-col"><h5>Links</h5>
+        <a href="https://discord.com/oauth2/authorize?client_id=1466757680311042060&permissions=2151009280&scope=bot%20applications.commands" target="_blank" rel="noopener">Invite Bot</a>
+        <a href="https://discord.gg/2S2u3QE4Tr" target="_blank" rel="noopener">Support Server</a>
+        <a href="https://top.gg/bot/1483826024520089710" target="_blank" rel="noopener">Vote on Top.gg</a>
+        <a href="mailto:aimo-bot@protone.me">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 AIMO Music Bot. All rights reserved.</p><div class="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
+  </div>
+</footer>
+
+<script src="/config.js"></script>
+<script src="/script.js"></script>
+<script src="/cookie.js"></script>
+<script>
+/* ── Weather Discord conversation animation ── */
+(function(){
+  var CITIES = [
+    {
+      cmd:'London',
+      fullName:'London, England, United Kingdom',
+      emoji:'☀️',
+      condition:'Clear sky',
+      tempC:'28.3', tempF:'82.9', feelsC:'30.5', feelsF:'86.9',
+      humidity:'40%', wind:'3.2 km/h', vis:'19.4 km',
+      tz:'Europe/London'
+    },
+    {
+      cmd:'Tokyo',
+      fullName:'Tokyo, Japan',
+      emoji:'⛅',
+      condition:'Partly cloudy',
+      tempC:'31.7', tempF:'89.1', feelsC:'34.2', feelsF:'93.6',
+      humidity:'72%', wind:'8.4 km/h', vis:'14.2 km',
+      tz:'Asia/Tokyo'
+    },
+    {
+      cmd:'Paris',
+      fullName:'Paris, Île-de-France, France',
+      emoji:'🌦️',
+      condition:'Light drizzle',
+      tempC:'17.4', tempF:'63.3', feelsC:'15.8', feelsF:'60.4',
+      humidity:'81%', wind:'14.1 km/h', vis:'8.6 km',
+      tz:'Europe/Paris'
+    },
+    {
+      cmd:'Dubai',
+      fullName:'Dubai, Dubai, United Arab Emirates',
+      emoji:'🌤️',
+      condition:'Mainly clear',
+      tempC:'41.2', tempF:'106.2', feelsC:'45.9', feelsF:'114.6',
+      humidity:'28%', wind:'5.7 km/h', vis:'24.0 km',
+      tz:'Asia/Dubai'
+    },
+    {
+      cmd:'New York',
+      fullName:'New York, New York, United States',
+      emoji:'🌙',
+      condition:'Clear sky',
+      tempC:'22.1', tempF:'71.8', feelsC:'21.3', feelsF:'70.3',
+      humidity:'55%', wind:'11.3 km/h', vis:'16.1 km',
+      tz:'America/New_York'
+    }
+  ];
+
+  var cityEl   = document.getElementById('wdcCity');
+  var typingEl = document.getElementById('wdcTyping');
+  var botMsg   = document.getElementById('wdcBotMsg');
+  var replyEl  = document.getElementById('wdcReply');
+  if (!cityEl) return;
+
+  var idx = 0;
+
+  function buildReply(c) {
+    return '<div class="wdc-h2">' + c.emoji + ' Weather — ' + c.fullName + '</div>' +
+      '<div class="wdc-condition">' + c.condition + '</div>' +
+      '<div class="wdc-row">🌡️ <b>' + c.tempC + '°C</b> / ' + c.tempF + '°F <em>(feels like ' + c.feelsC + '°C / ' + c.feelsF + '°F)</em></div>' +
+      '<div class="wdc-row">💧 Humidity: <b>' + c.humidity + '</b></div>' +
+      '<div class="wdc-row">💨 Wind: <b>' + c.wind + '</b></div>' +
+      '<div class="wdc-row">👁 Visibility: <b>' + c.vis + '</b></div>' +
+      '<div class="wdc-sub">Live data via Open-Meteo • ' + c.tz + '</div>';
+  }
+
+  function showNext() {
+    var c = CITIES[idx];
+    /* Update user command city */
+    cityEl.textContent = c.cmd;
+    /* Hide bot, show typing */
+    botMsg.style.display   = 'none';
+    typingEl.style.display = 'flex';
+    setTimeout(function(){
+      typingEl.style.display = 'none';
+      replyEl.innerHTML      = buildReply(c);
+      botMsg.style.display   = 'flex';
+      /* Wait, then move to next city */
+      setTimeout(function(){
+        botMsg.style.display = 'none';
+        idx = (idx + 1) % CITIES.length;
+        setTimeout(showNext, 400);
+      }, 4200);
+    }, 900);
+  }
+
+  setTimeout(showNext, 800);
+})();
+
+/* ── Language picker auto-cycle animation ── */
+(function(){
+  /* Each entry: grid cell index, native confirmation text, a sample bot reply in that language, RTL flag */
+  var LANGS = [
+    {
+      idx:1, rtl:true,
+      confirm:'تم تعيين لغتك إلى العربية 🇸🇦',
+      sample:'🎵 **يتم التشغيل الآن** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:6, rtl:false,
+      confirm:'言語を日本語に設定しました 🇯🇵',
+      sample:'🎵 **再生中** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:7, rtl:false,
+      confirm:'언어를 한국어로 설정했습니다 🇰🇷',
+      sample:'🎵 **재생 중** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:4, rtl:false,
+      confirm:'Idioma cambiado a español 🇪🇸',
+      sample:'🎵 **Reproduciendo ahora** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:8, rtl:false,
+      confirm:'Язык изменён на русский 🇷🇺',
+      sample:'🎵 **Сейчас играет** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:2, rtl:false,
+      confirm:'Langue définie sur le français 🇫🇷',
+      sample:'🎵 **En cours de lecture** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:11, rtl:false,
+      confirm:'भाषा हिंदी पर सेट की गई 🇮🇳',
+      sample:'🎵 **अभी चल रहा है** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:9, rtl:false,
+      confirm:'语言已设置为中文 🇨🇳',
+      sample:'🎵 **正在播放** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:14, rtl:false,
+      confirm:'Dil Türkçe olarak ayarlandı 🇹🇷',
+      sample:'🎵 **Şu an çalıyor** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    },
+    {
+      idx:0, rtl:false,
+      confirm:'Language set to English 🇬🇧',
+      sample:'🎵 **Now Playing** — Blinding Lights · The Weeknd\n⏱ 0:00 / 3:20  🔊 50%'
+    }
+  ];
+
+  var cycleIdx  = 0;
+  var grid      = document.getElementById('flpGrid');
+  var embed     = document.getElementById('flpEmbed');
+  var confirmEl = document.getElementById('flpConfirm');
+  var confTitle = document.getElementById('flpConfirmTitle');
+  var confSub   = document.getElementById('flpConfirmSub');
+  var sampleEl  = document.getElementById('flpSampleReply');
+  if (!grid) return;
+
+  function runCycle() {
+    var entry  = LANGS[cycleIdx];
+    var cells  = grid.querySelectorAll('.flp-lang');
+    var target = cells[entry.idx];
+    if (!target) { cycleIdx = (cycleIdx+1) % LANGS.length; setTimeout(runCycle, 400); return; }
+
+    /* Step 1: highlight cell (simulates click) */
+    cells.forEach(function(c){ c.classList.remove('selected','selecting'); });
+    target.classList.add('selecting');
+
+    setTimeout(function(){
+      target.classList.remove('selecting');
+      target.classList.add('selected');
+    }, 200);
+
+    /* Step 2: show confirmation + sample reply */
+    setTimeout(function(){
+      embed.style.display        = 'none';
+      confirmEl.style.display    = 'flex';
+      if (confTitle) confTitle.textContent = '✅ Language set';
+      if (confSub)   { confSub.textContent = entry.confirm; confSub.setAttribute('dir', entry.rtl ? 'rtl' : 'ltr'); }
+      if (sampleEl)  { sampleEl.textContent = entry.sample; sampleEl.setAttribute('dir', entry.rtl ? 'rtl' : 'ltr'); }
+
+      /* Step 3: reset and move on */
+      setTimeout(function(){
+        confirmEl.style.display = 'none';
+        embed.style.display     = 'flex';
+        cells.forEach(function(c){ c.classList.remove('selected','selecting'); });
+        cycleIdx = (cycleIdx + 1) % LANGS.length;
+        setTimeout(runCycle, 380);
+      }, 2400);
+    }, 700);
+  }
+
+  setTimeout(runCycle, 1200);
+})();
+
+/* ── Animated filter bars on hover ── */
+(function(){
+  var bars = document.querySelectorAll('#filterBars .ffd-bar');
+  if(!bars.length) return;
+  function randomise(){
+    bars.forEach(function(b){
+      var h = 15 + Math.random() * 80;
+      b.style.height = h + '%';
+    });
+  }
+  setInterval(randomise, 1800);
+})();
+
+/* ── Language dropdown interaction ── */
+(function(){
+  var trigger = document.querySelector('.fdd-select-trigger');
+  var box     = document.querySelector('.fdd-select-box');
+  var list    = document.querySelector('.fdd-options-list');
+  var confirm = document.querySelector('.fdd-confirm-msg');
+  if(!trigger) return;
+  trigger.addEventListener('click', function(){
+    var open = list.classList.toggle('fdd-options-open');
+    box.classList.toggle('fdd-select-open', open);
+  });
+  document.querySelectorAll('.fdd-option-row').forEach(function(opt){
+    opt.addEventListener('click', function(){
+      document.querySelectorAll('.fdd-option-row').forEach(function(o){ o.classList.remove('fdd-option-active'); });
+      opt.classList.add('fdd-option-active');
+      var flag = opt.querySelector('.fdd-select-flag');
+      var chosen = document.querySelector('.fdd-select-chosen');
+      if(flag && chosen){
+        chosen.querySelector('.fdd-select-flag').textContent = flag.textContent;
+        chosen.querySelector('span:last-child').textContent = opt.querySelector('.fdd-option-name').textContent;
+      }
+      list.classList.remove('fdd-options-open');
+      box.classList.remove('fdd-select-open');
+      if(confirm){ confirm.classList.add('visible'); setTimeout(function(){ confirm.classList.remove('visible'); }, 2200); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

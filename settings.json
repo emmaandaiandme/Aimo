@@ -1,0 +1,53 @@
+{
+  "announcement": {
+    "enabled": false,
+    "id": "ann-001",
+    "title": "🎉 What's New in AIMO v2.4",
+    "message": "Server Customisation is here! Use /customize-avatar, /customize-banner and /customize-nickname to give AIMO a unique look in your server. Free for everyone.",
+    "buttonText": "Got it!",
+    "learnMoreUrl": "/updates",
+    "learnMoreText": "See all changes →"
+  },
+  "botVersion": "v2.4.1",
+  "maintenance": {
+    "enabled": false,
+    "title": "Scheduled Maintenance",
+    "message": "AIMO will be briefly unavailable for a node upgrade.",
+    "startsAt": "",
+    "endsAt": "",
+    "affectedServices": ["Music Playback", "AI Chat"]
+  },
+  "statusBanner": {
+    "enabled": false,
+    "type": "info",
+    "text": "We are investigating elevated latency on the audio node."
+  },
+  "socialLinks": {
+    "discord": "https://discord.gg/2S2u3QE4Tr",
+    "topgg": "https://top.gg/bot/1483826024520089710",
+    "email": "aimo-bot@protone.me",
+    "twitter": ""
+  },
+  "recentIncidents": [
+    {
+      "id": "inc-003",
+      "title": "Elevated Latency on Audio Node",
+      "description": "Users experienced response times above 300ms for approximately 12 minutes. Root cause was a temporary upstream network congestion. All systems returned to normal.",
+      "severity": "minor",
+      "status": "resolved",
+      "date": "2026-07-20",
+      "resolvedAt": "2026-07-20T14:32:00Z",
+      "affectedServices": ["Music Playback"]
+    },
+    {
+      "id": "inc-002",
+      "title": "AI Chat Intermittent Errors",
+      "description": "A subset of /ask requests returned errors due to an upstream model API timeout. The issue was resolved by rerouting to a secondary endpoint.",
+      "severity": "minor",
+      "status": "resolved",
+      "date": "2026-07-10",
+      "resolvedAt": "2026-07-10T09:18:00Z",
+      "affectedServices": ["AI Chat"]
+    }
+  ]
+}
