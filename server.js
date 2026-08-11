@@ -53,7 +53,7 @@ const BOT_AVATAR  = 'https://cdn.discordapp.com/avatars/1483826024520089710/a_au
 
 /* ─── Lavalink config ─────────────────────────────────────────────────── */
 // Override via environment variables: LAVALINK_HOST and LAVALINK_PASS
-const LAVALINK_HOST = process.env.LAVALINK_HOST || 'wally.hidencloud.com:24620';
+const LAVALINK_HOST = process.env.LAVALINK_HOST || 'zac.hidencloud.com:24719';
 const LAVALINK_PASS = process.env.LAVALINK_PASS || 'glace';
 // Endpoints fetched by the proxy:
 //   GET /api/lavalink/stats  →  http://<LAVALINK_HOST>/v4/stats
