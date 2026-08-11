@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     return res.status(204).end();
   }
 
-  const host = process.env.LAVALINK_HOST || 'wally.hidencloud.com:24620';
+  const host = process.env.LAVALINK_HOST || 'zac.hidencloud.com:24719';
   const pass = process.env.LAVALINK_PASS || 'glace';
 
   try {
