@@ -1,4 +1,27 @@
 {
+  "lavalink": {
+    "host": "zac.hidencloud.com:24719",
+    "protocol": "http",
+    "restPath": "/v4",
+    "infoPath": "/info",
+    "statsPath": "/stats"
+  },
+  "countryBlock": {
+    "enabled": true,
+    "blockVpn": true,
+    "countries": [
+      "India",
+      "France"
+    ],
+    "countryCodes": [
+      "IN",
+      "FR"
+    ],
+    "blockedIps": [],
+    "redirectDelaySeconds": 7,
+    "supportServer": "https://discord.gg/2S2u3QE4Tr",
+    "message": "This website isn't available in your country."
+  },
   "announcement": {
     "enabled": false,
     "id": "ann-001",
@@ -15,7 +38,10 @@
     "message": "AIMO will be briefly unavailable for a node upgrade.",
     "startsAt": "",
     "endsAt": "",
-    "affectedServices": ["Music Playback", "AI Chat"]
+    "affectedServices": [
+      "Music Playback",
+      "AI Chat"
+    ]
   },
   "statusBanner": {
     "enabled": false,
@@ -37,7 +63,9 @@
       "status": "resolved",
       "date": "2026-07-20",
       "resolvedAt": "2026-07-20T14:32:00Z",
-      "affectedServices": ["Music Playback"]
+      "affectedServices": [
+        "Music Playback"
+      ]
     },
     {
       "id": "inc-002",
@@ -47,7 +75,9 @@
       "status": "resolved",
       "date": "2026-07-10",
       "resolvedAt": "2026-07-10T09:18:00Z",
-      "affectedServices": ["AI Chat"]
+      "affectedServices": [
+        "AI Chat"
+      ]
     }
   ]
 }
